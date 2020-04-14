@@ -1,0 +1,123 @@
+<template>
+  <a-layout id="components-layout-demo-fixed">
+    <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
+      <div class="logo" >
+        <img src="~assets/logo.svg" alt />
+      </div>
+      <a-menu
+        theme="dark"
+        mode="horizontal"
+        :defaultSelectedKeys="['1']"
+        :style="{ lineHeight: '64px' }"
+      >
+        <a-menu-item key="1" @click='changeTabIndex(1)'>検索</a-menu-item>
+        <a-menu-item key="2" @click='changeTabIndex(2)'>新規登録</a-menu-item>
+        <a-menu-item key="3" @click='changeTabIndex(3)'>登録編集、削除</a-menu-item>
+        <a-menu-item key="4" @click='changeTabIndex(4)'>管理会社登録</a-menu-item>
+        <a-menu-item key="5" @click='changeTabIndex(5)'>延滞者</a-menu-item>
+        <a-menu-item key="6" @click='changeTabIndex(6)'>支払用紙出力</a-menu-item>
+        <a-menu-item key="7" @click='changeTabIndex(7)'>収益分析</a-menu-item>
+      </a-menu>
+    </a-layout-header>
+    <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
+      <SearchPage v-show="tabIndex ==1"/>
+    </a-layout-content>
+  </a-layout>
+</template>
+<script>
+import { mapGetters } from "vuex";
+import { T } from "../store/module-example/types";
+
+import SearchPage from "../pages/SearchPage.vue";
+export default {
+  components: {
+    SearchPage
+  },
+  data() {
+    return {
+      tabIndex:0
+    };
+  },
+  computed: {
+    ...mapGetters({
+    })
+  },
+  watch: {
+  },
+  mounted() {
+    // this.notification("aaa","bbb")
+    // this.alertMsg({type:"success",msg:"asdfwe"});
+  },
+  methods: {
+    changeTabIndex(index){
+      switch (index) {
+        case 1:
+          this.tabIndex =index;
+          break;
+        case 2:
+          this.tabIndex =index;
+          break;
+      
+        default:
+          this.alertMsg({type:"info",msg:"Comming soon"})
+          break;
+      }
+    },
+    alertMsg({type="info",msg=""}) {
+      switch (type) {
+        case "info":
+          this.$message.info(msg);
+          break;
+        case "error":
+          this.$message.error(msg);
+          break;
+        case "success":
+          this.$message.success(msg);
+          break;
+        default:
+          break;
+      }
+    },
+    notification({title="",content=""}) {
+      this.$notification.open({
+        message: title,
+        description:
+          content,
+        duration: 3,
+        style: { top: "50px" }
+      });
+    },
+  }
+};
+</script>
+
+<style lang="scss">
+*{
+  font-family: "Noto Sans CJK KR";
+}
+$main-color: #a89764;
+$hover-color: #846a1e;
+#components-layout-demo-fixed .logo {
+  width: 80px;
+  height: 31px;
+  float: left;
+  img{
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+  }
+}
+.ant-layout{
+    height: 100%;
+}
+.ant-layout-header{
+  padding:0 10px ;
+}
+.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
+    background-color: $hover-color;
+}
+.ant-layout-content{
+  padding: 10px;
+  margin: 0;
+}
+</style>
