@@ -8,9 +8,6 @@
         v-bind="formItemLayout"
         @submit="handleSubmit">
         <div class="form-cell">
-          <div class="title">
-            신규등록
-          </div>
           <a-form-item
             label="등록 선택"
             :label-col="formItemLayout.labelCol"
@@ -216,8 +213,6 @@
           </a-form-item>
         </div>
         <div class="form-cell">
-          <div class="title">
-          </div>
           <a-form-item
             label="관리회사"
             :label-col="formItemLayout.labelCol"
