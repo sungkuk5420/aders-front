@@ -494,6 +494,7 @@ export default {
         .form-row{
           width: 100%;
           .ant-row.ant-form-item{
+            margin-bottom: 10px;
               flex: 1;
             &:nth-child(2){
               flex: 1.5;
