@@ -2,7 +2,7 @@
   <a-layout id="components-layout-demo-fixed">
     <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
       <div class="logo" >
-        <img src="~assets/logo.svg" alt />
+        <img src="~assets/logo.png" alt />
       </div>
       <a-menu
         theme="dark"
@@ -10,17 +10,18 @@
         :defaultSelectedKeys="['1']"
         :style="{ lineHeight: '64px' }"
       >
-        <a-menu-item key="1" @click='changeTabIndex(1)'>検索</a-menu-item>
-        <a-menu-item key="2" @click='changeTabIndex(2)'>新規登録</a-menu-item>
-        <a-menu-item key="3" @click='changeTabIndex(3)'>登録編集、削除</a-menu-item>
-        <a-menu-item key="4" @click='changeTabIndex(4)'>管理会社登録</a-menu-item>
-        <a-menu-item key="5" @click='changeTabIndex(5)'>延滞者</a-menu-item>
-        <a-menu-item key="6" @click='changeTabIndex(6)'>支払用紙出力</a-menu-item>
-        <a-menu-item key="7" @click='changeTabIndex(7)'>収益分析</a-menu-item>
+        <a-menu-item key="1" @click='changeTabIndex(1)'>검색</a-menu-item>
+        <a-menu-item key="2" @click='changeTabIndex(2)'>신규등록</a-menu-item>
+        <a-menu-item key="3" @click='changeTabIndex(3)'>등록수정, 삭제</a-menu-item>
+        <a-menu-item key="4" @click='changeTabIndex(4)'>관리회사 등록</a-menu-item>
+        <a-menu-item key="5" @click='changeTabIndex(5)'>연체자</a-menu-item>
+        <a-menu-item key="6" @click='changeTabIndex(6)'>지불용지 출력</a-menu-item>
+        <a-menu-item key="7" @click='changeTabIndex(7)'>수익분석</a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
       <SearchPage v-show="tabIndex ==1"/>
+      <addUserPage v-show="tabIndex ==2"/>
     </a-layout-content>
   </a-layout>
 </template>
@@ -29,9 +30,11 @@ import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
 
 import SearchPage from "../pages/SearchPage.vue";
+import addUserPage from "../pages/addUserPage.vue";
 export default {
   components: {
-    SearchPage
+    SearchPage,
+    addUserPage
   },
   data() {
     return {
@@ -95,16 +98,15 @@ export default {
 *{
   font-family: "Noto Sans CJK KR";
 }
-$main-color: #a89764;
-$hover-color: #846a1e;
 #components-layout-demo-fixed .logo {
-  width: 80px;
+  width: 200px;
   height: 31px;
   float: left;
+  padding: 0;
   img{
-    margin-left: 10px;
-    width: 50px;
-    height: 50px;
+    margin-left: -20px;
+    width: 100%;
+    height: auto;
   }
 }
 .ant-layout{
@@ -112,9 +114,6 @@ $hover-color: #846a1e;
 }
 .ant-layout-header{
   padding:0 10px ;
-}
-.ant-menu.ant-menu-dark .ant-menu-item-selected, .ant-menu-submenu-popup.ant-menu-dark .ant-menu-item-selected {
-    background-color: $hover-color;
 }
 .ant-layout-content{
   padding: 10px;

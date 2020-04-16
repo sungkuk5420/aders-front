@@ -1,19 +1,19 @@
 <template>
   <div class="search-page">
     <div class="search-wrapper">
-      <a-select defaultValue="メンション名" @change="handleChange">
-        <a-select-option value="メンション名">メンション名</a-select-option>
-        <a-select-option value="入居者名">入居者名</a-select-option>
-        <a-select-option value="担当者名">担当者名</a-select-option>
+      <a-select defaultValue="멘션명" @change="handleChange">
+        <a-select-option value="멘션명">멘션명</a-select-option>
+        <a-select-option value="입주자명">입주자명</a-select-option>
+        <a-select-option value="담당자명">담당자명</a-select-option>
       </a-select>
       <a-input-search
-        placeholder="キーワード 入力"
+        placeholder="키워드 입력"
         @search="onSearch"
         size="large"
       >
-      <a-button slot="enterButton" type="primary" icon="search">検索</a-button>
+      <a-button slot="enterButton" type="primary" icon="search">검색</a-button>
       </a-input-search>
-      <a-button type="primary">詳細検索</a-button>
+      <a-button type="primary">상세검색</a-button>
     </div>
     <div class="content">
       <UserTable/>
