@@ -2,364 +2,705 @@
   <div class="add-user-page">
     <div class="content">
       <a-form
-        class="form-row"
         :layout="formLayout"
         :form="form"
         v-bind="formItemLayout"
         @submit="handleSubmit">
-        <div class="form-cell">
-          <a-form-item
-            label="등록 선택"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-radio-group default-value="개인" >
-              <a-radio-button value="개인">
-                개인
-              </a-radio-button>
-              <a-radio-button value="법인">
-                법인
-              </a-radio-button>
-              <a-radio-button value="타보증회사">
-                타보증회사
-              </a-radio-button>
-            </a-radio-group>
-          </a-form-item>
-          <a-form-item
-            label="이름"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="{ span: 16 }"
-          >
-            <div class="form-row">
-              <a-form-item
-                :label-col="{ span: 1 }"
-                :wrapper-col="{ span: 24 }"
-              >
-                <a-input/>
-              </a-form-item>
-              <a-form-item
-                label="국적"
-                :label-col="{ span: 8 }"
-                :wrapper-col="{ span: 16 }"
-              >
-                <a-input/>
-              </a-form-item>
-            </div>
-          </a-form-item>
-          <a-form-item
-            label="분류"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-radio-group default-value="학생" >
-              <a-radio-button value="학생">
-                학생
-              </a-radio-button>
-              <a-radio-button value="직장인">
-                직장인
-              </a-radio-button>
-              <a-radio-button value="기타">
-                기타
-              </a-radio-button>
-            </a-radio-group>
-          </a-form-item>
-          <a-form-item
-            label="주소"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-input/>
-          </a-form-item>
-          <a-form-item v-bind="formItemLayout" label="TEL">
-            <a-input
-              v-decorator="[
-                'phone',
-                {
-                  rules: [{ required: true, message: 'Please input your phone number!' }],
-                },
-              ]"
-              style="width: 100%"
-            >
-              <a-select
-                slot="addonBefore"
-                v-decorator="['prefix', { initialValue: '81' }]"
-                style="width: 80px"
-              >
-                <a-select-option value="81">
-                  +81
-                </a-select-option>
-                <a-select-option value="82">
-                  +82
-                </a-select-option>
-              </a-select>
-            </a-input>
-          </a-form-item>
-          <a-form-item
-            label="직장주소"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-input/>
-          </a-form-item>
-          <a-form-item v-bind="formItemLayout" label="직장 TEL">
-            <a-input
-              v-decorator="[
-                'phone',
-                {
-                  rules: [{ required: true, message: 'Please input your phone number!' }],
-                },
-              ]"
-              style="width: 100%"
-            >
-              <a-select
-                slot="addonBefore"
-                v-decorator="['prefix', { initialValue: '81' }]"
-                style="width: 80px"
-              >
-                <a-select-option value="81">
-                  +81
-                </a-select-option>
-                <a-select-option value="82">
-                  +82
-                </a-select-option>
-              </a-select>
-            </a-input>
-          </a-form-item>
-
-          <a-form-item
-            label="입주예정일"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-date-picker @change="onChangeDate" />
-          </a-form-item>
-          <a-form-item
-            label="이메일"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-auto-complete
-              :dataSource="emailDataSource"
-              style="width: 200px"
-              @change="handleChangeEmail"
-              placeholder="Email"
-            />
-          </a-form-item>
-          <a-form-item
-            label="SMS ID"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-input/>
-          </a-form-item>
-          
-          <a-form-item label="재류자격" has-feedback
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol">
-            <a-select
-              v-decorator="[
-                'select',
-                { rules: [{ required: true, message: 'Please select your visa!' }] },
-              ]"
-              placeholder="Please select a visa"
-            >
-              <a-select-option value="배우자 비자">
-                배우자 비자
-              </a-select-option>
-              <a-select-option value="기술인문비자">
-                기술인문비자
-              </a-select-option>
-            </a-select>
-          </a-form-item>
-          <a-form-item
-            label="재류자격"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-input/>
-          </a-form-item>
-          
-          <a-form-item
-            label="직장명"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-          >
-            <a-input/>
-          </a-form-item>
-          <a-form-item
-            label="근속연수"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="{ span: 16 }"
-          >
-            
-            <div class="form-row">
-              
-              <a-form-item
-                :label-col="{ span: 1 }"
-                :wrapper-col="{ span: 24 }"
-              >
-              
-                <a-input/>
-              </a-form-item>
-              <a-form-item
-                label="급여"
-                :label-col="{ span: 8 }"
-                :wrapper-col="{ span: 16 }"
-              >
-              
-                <a-input/>
-              </a-form-item>
-            </div>
-          </a-form-item>
+        <div class="form-row">
+          <h2>입주자</h2>
         </div>
-        <div class="form-cell">
-          <a-form-item
-            label="관리회사"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol"
-            class="search-row"
-          >
-            <a-radio-group default-value="회사명" v-model="searchCompanyType" class="ant-col-10" style="max-width:180px;">
-              <a-radio-button value="회사명">
-                회사명
-              </a-radio-button>
-              <a-radio-button value="코드번호">
-                코드번호
-              </a-radio-button>
-            </a-radio-group>
-            <a-auto-complete
-              :dataSource="companyTypeDataSource"
-              style="width: 200px"
-              @change="handleChangeCompanyList"
-              placeholder="Search Keyword"
-            />
-          </a-form-item>
+        <div class="form-row">
+          <div class="form-cell">
+            <a-form-item
+              label="등록 선택"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-radio-group default-value="개인" >
+                <a-radio-button value="개인">
+                  개인
+                </a-radio-button>
+                <a-radio-button value="법인">
+                  법인
+                </a-radio-button>
+                <a-radio-button value="타보증회사">
+                  타보증회사
+                </a-radio-button>
+              </a-radio-group>
+            </a-form-item>
+            <a-form-item
+              label="이름"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input/>
+                </a-form-item>
+                <a-form-item
+                  label="국적"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="분류"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-radio-group default-value="학생" >
+                <a-radio-button value="학생">
+                  학생
+                </a-radio-button>
+                <a-radio-button value="직장인">
+                  직장인
+                </a-radio-button>
+                <a-radio-button value="기타">
+                  기타
+                </a-radio-button>
+              </a-radio-group>
+            </a-form-item>
+            <a-form-item
+              label="주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-input/>
+            </a-form-item>
+            <a-form-item v-bind="formItemLayout" label="TEL">
+              <a-input
+                v-decorator="[
+                  'phone',
+                  {
+                    rules: [{ required: false, message: 'Please input your phone number!' }],
+                  },
+                ]"
+                style="width: 100%"
+              >
+                <a-select
+                  slot="addonBefore"
+                  v-decorator="['prefix', { initialValue: '81' }]"
+                  style="width: 80px"
+                >
+                  <a-select-option value="81">
+                    +81
+                  </a-select-option>
+                  <a-select-option value="82">
+                    +82
+                  </a-select-option>
+                </a-select>
+              </a-input>
+            </a-form-item>
+            <a-form-item
+              label="직장주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-input/>
+            </a-form-item>
+            <a-form-item v-bind="formItemLayout" label="직장 TEL">
+              <a-input
+                v-decorator="[
+                  'phone',
+                  {
+                    rules: [{ required: false, message: 'Please input your phone number!' }],
+                  },
+                ]"
+                style="width: 100%"
+              >
+                <a-select
+                  slot="addonBefore"
+                  v-decorator="['prefix', { initialValue: '81' }]"
+                  style="width: 80px"
+                >
+                  <a-select-option value="81">
+                    +81
+                  </a-select-option>
+                  <a-select-option value="82">
+                    +82
+                  </a-select-option>
+                </a-select>
+              </a-input>
+            </a-form-item>
 
-          <a-form-item 
-            label="보증형태"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol">
-            <a-radio-group v-model="paymentType" @change="onChangePaymentPercent" >
-              <a-radio-button value="긴급연락처">
-                긴급연락처
-              </a-radio-button>
-              <a-radio-button value="연대보증인">
-                연대보증인
-              </a-radio-button>
-              <a-radio-button value="기타">
-                기타
-              </a-radio-button>
-            </a-radio-group>
-          </a-form-item>
+            <a-form-item
+              label="입주예정일"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-date-picker @change="onChangeDate" style="width: 39%;"/>
+            </a-form-item>
+            <a-form-item
+              label="이메일"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-auto-complete
+                :dataSource="emailDataSource"
+                style="width: 100%;"
+                @change="handleChangeEmail"
+                placeholder="Email"
+              />
+            </a-form-item>
+            <a-form-item
+              label="SMS ID"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-input/>
+            </a-form-item>
+            
+            <a-form-item label="재류자격" has-feedback
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol">
+              <a-select
+                v-decorator="[
+                  'select',
+                  { rules: [{ required: false, message: 'Please select your visa!' }] },
+                ]"
+                placeholder="Please select a visa"
+              >
+                <a-select-option value="배우자 비자">
+                  배우자 비자
+                </a-select-option>
+                <a-select-option value="기술인문비자">
+                  기술인문비자
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+            <a-form-item
+              label="재류자격"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-input/>
+            </a-form-item>
+            
+            <a-form-item
+              label="직장명"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-input/>
+            </a-form-item>
+            <a-form-item
+              label="근속연수"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              
+              <div class="form-row">
+                
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                
+                  <a-input/>
+                </a-form-item>
+                <a-form-item
+                  label="급여"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                
+                  <a-input/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
+          <div class="form-cell">
+            <a-form-item
+              label="관리회사"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+              class="search-row"
+            >
+              <a-radio-group default-value="회사명" v-model="searchCompanyType" class="ant-col-10" style="max-width:180px;">
+                <a-radio-button value="회사명">
+                  회사명
+                </a-radio-button>
+                <a-radio-button value="코드번호">
+                  코드번호
+                </a-radio-button>
+              </a-radio-group>
+              <a-auto-complete
+                :dataSource="companyTypeDataSource"
+                style="width: 200px"
+                @change="handleChangeCompanyList"
+                placeholder="Search Keyword"
+              />
+            </a-form-item>
 
-          
-          <a-form-item 
-            label="대리점 수수료"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol">
-            <b>
-              <span class="ant-form-text">
-                {{paymentPercent}}%
-              </span>
-            </b>
-          </a-form-item>
-          <a-form-item 
-            label="멘션명"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol">
-            <a-input/>
-          </a-form-item>
-          <a-form-item 
-            label="멘션주소"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol">
-            <a-input/>
-          </a-form-item>
-          
-          <a-form-item
-              label="호실"
+            <a-form-item 
+              label="보증형태"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol">
+              <a-radio-group v-model="paymentType" @change="onChangePaymentPercent" >
+                <a-radio-button value="긴급연락처">
+                  긴급연락처
+                </a-radio-button>
+                <a-radio-button value="연대보증인">
+                  연대보증인
+                </a-radio-button>
+                <a-radio-button value="기타">
+                  기타
+                </a-radio-button>
+              </a-radio-group>
+            </a-form-item>
+
+            
+            <a-form-item 
+              label="대리점 수수료"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol">
+              <b>
+                <span class="ant-form-text">
+                  {{paymentPercent}}%
+                </span>
+              </b>
+            </a-form-item>
+            <a-form-item 
+              label="멘션명"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol">
+              <a-input/>
+            </a-form-item>
+            <a-form-item 
+              label="멘션주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol">
+              <a-input/>
+            </a-form-item>
+            
+            <a-form-item
+                label="호실"
+                :label-col="formItemLayout.labelCol"
+                :wrapper-col="{ span: 16 }"
+              >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input/>
+                </a-form-item>
+                <a-form-item
+                  label="타입"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-auto-complete
+                    :dataSource="roomTypeDataSource"
+                    style="width: 200px"
+                    @change="handleChangeRoomType"
+                    placeholder="Type"
+                  />
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+                label="월세"
+                :label-col="formItemLayout.labelCol"
+                :wrapper-col="{ span: 16 }"
+              >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="payment1" @change="onChangePayment"/>
+                </a-form-item>
+                <a-form-item
+                  label="관리비"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input v-model="payment2" @change="onChangePayment"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+                label="기타비용"
+                :label-col="formItemLayout.labelCol"
+                :wrapper-col="{ span: 16 }"
+              >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="payment3" @change="onChangePayment"/>
+                </a-form-item>
+                <a-form-item
+                  label="수수료"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input v-model="payment4" @change="onChangePayment"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item 
+              label="총금액"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol">
+              <b>
+                <span class="ant-form-text">
+                  {{totalPayment}}
+                </span>
+              </b>
+            </a-form-item>
+            
+
+          </div>
+        </div>
+        <div class="form-row">
+          <h2>동반 입주자</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-cell">
+            <a-form-item
+              label="동반 입주자"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
-            <div class="form-row">
-              <a-form-item
-                :label-col="{ span: 1 }"
-                :wrapper-col="{ span: 24 }"
-              >
-                <a-input/>
-              </a-form-item>
-              <a-form-item
-                label="타입"
-                :label-col="{ span: 8 }"
-                :wrapper-col="{ span: 16 }"
-              >
-                <a-auto-complete
-                  :dataSource="roomTypeDataSource"
-                  style="width: 200px"
-                  @change="handleChangeRoomType"
-                  placeholder="Type"
-                />
-              </a-form-item>
-            </div>
-          </a-form-item>
-          <a-form-item
-              label="월세"
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                
+                  <a-switch checkedChildren="유" unCheckedChildren="무" v-model="roommateBoolean" />
+                </a-form-item>
+                <a-form-item
+                  label="인원"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                  v-show="roommateBoolean"
+                >
+                  <a-input-number v-model="inputNumber" />
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="입주자 이름"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
-            <div class="form-row">
-              <a-form-item
-                :label-col="{ span: 1 }"
-                :wrapper-col="{ span: 24 }"
-              >
-                <a-input v-model="payment1" @change="onChangePayment"/>
-              </a-form-item>
-              <a-form-item
-                label="관리비"
-                :label-col="{ span: 8 }"
-                :wrapper-col="{ span: 16 }"
-              >
-                <a-input v-model="payment2" @change="onChangePayment"/>
-              </a-form-item>
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                
+                  <a-input />
+                </a-form-item>
+                <a-form-item
+                  label="생년월일"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-date-picker @change="onChangeDate" />
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <div class="ant-row ant-form-item">
+              <div class="ant-col-4 ant-form-item-label">
+                <div class="form-col">
+                  <label title="TEL" class="">TEL</label>
+                  <label title="TEL" class="">국적</label>
+                </div>
+              </div>
+              <div class="ant-col-16 ant-form-item-control-wrapper">
+                <div class="form-row">
+                  <a-form-item
+                    :label-col="{ span: 1 }"
+                    :wrapper-col="{ span: 24 }"
+                  >
+                    <div class="form-col">
+                      <a-input
+                        v-decorator="[
+                          'phone',
+                          {
+                            rules: [{ required: false, message: 'Please input your phone number!' }],
+                          },
+                        ]"
+                        style="width: 100%"
+                      >
+                        <a-select
+                          slot="addonBefore"
+                          v-decorator="['prefix', { initialValue: '81' }]"
+                          style="width: 80px"
+                        >
+                          <a-select-option value="81">
+                            +81
+                          </a-select-option>
+                          <a-select-option value="82">
+                            +82
+                          </a-select-option>
+                        </a-select>
+                      </a-input>
+                      <a-auto-complete
+                        :dataSource="countryDataSource"
+                        style="width: 100%;"
+                        @change="handleChangecountry"
+                      />
+                    </div>
+                  </a-form-item>
+                  <a-form-item
+                    label="신분증"
+                    :label-col="{ span: 8 }"
+                    :wrapper-col="{ span: 16 }"
+                  >
+                    <ImageUpload></ImageUpload>
+                  </a-form-item>
+                </div>
+              </div>
             </div>
-          </a-form-item>
-          <a-form-item
-              label="기타비용"
+          </div>
+          <div class="form-cell">
+          </div>
+        </div>
+        <div class="form-row">
+          <h2>긴급연락처 / 연대보증인</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-cell">
+            <a-form-item
+              label="보증인"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-select
+                v-model="guarantor"
+              >
+                <a-select-option value="연대보증인">
+                  연대보증인
+                </a-select-option>
+                <a-select-option value="긴급연락처">
+                  긴급연락처
+                </a-select-option>
+              </a-select>
+            </a-form-item>
+          </div>
+          <div class="form-cell"></div>
+        </div>
+        <VueSlideUpDown :active="guarantor=='긴급연락처'" :duration="500" class="form-row">
+          <div class="form-cell">
+            <a-form-item
+              label="이름"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
-            <div class="form-row">
-              <a-form-item
-                :label-col="{ span: 1 }"
-                :wrapper-col="{ span: 24 }"
-              >
-                <a-input v-model="payment3" @change="onChangePayment"/>
-              </a-form-item>
-              <a-form-item
-                label="수수료"
-                :label-col="{ span: 8 }"
-                :wrapper-col="{ span: 16 }"
-              >
-                <a-input v-model="payment4" @change="onChangePayment"/>
-              </a-form-item>
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input />
+                </a-form-item>
+                <a-form-item
+                  label="국적"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-auto-complete
+                    :dataSource="countryDataSource"
+                    style="width: 100%;"
+                    @change="handleChangecountry"
+                  />
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input />
+                </a-form-item>
+                <a-form-item
+                  label="관계"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input />
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="TEL-1"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input
+                    v-decorator="[
+                      'phone',
+                      {
+                        rules: [{ required: false, message: 'Please input your phone number!' }],
+                      },
+                    ]"
+                    style="width: 100%"
+                  >
+                    <a-select
+                      slot="addonBefore"
+                      v-decorator="['prefix', { initialValue: '81' }]"
+                      style="width: 80px"
+                    >
+                      <a-select-option value="81">
+                        +81
+                      </a-select-option>
+                      <a-select-option value="82">
+                        +82
+                      </a-select-option>
+                    </a-select>
+                  </a-input>
+                </a-form-item>
+                <a-form-item
+                  label="TEL-2"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input
+                    v-decorator="[
+                      'phone',
+                      {
+                        rules: [{ required: false, message: 'Please input your phone number!' }],
+                      },
+                    ]"
+                    style="width: 100%"
+                  >
+                    <a-select
+                      slot="addonBefore"
+                      v-decorator="['prefix', { initialValue: '81' }]"
+                      style="width: 80px"
+                    >
+                      <a-select-option value="81">
+                        +81
+                      </a-select-option>
+                      <a-select-option value="82">
+                        +82
+                      </a-select-option>
+                    </a-select>
+                  </a-input>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="직장명"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input />
+                </a-form-item>
+                <a-form-item
+                  label="직장 TEL"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input
+                    v-decorator="[
+                      'phone',
+                      {
+                        rules: [{ required: false, message: 'Please input your phone number!' }],
+                      },
+                    ]"
+                    style="width: 100%"
+                  >
+                    <a-select
+                      slot="addonBefore"
+                      v-decorator="['prefix', { initialValue: '81' }]"
+                      style="width: 80px"
+                    >
+                      <a-select-option value="81">
+                        +81
+                      </a-select-option>
+                      <a-select-option value="82">
+                        +82
+                      </a-select-option>
+                    </a-select>
+                  </a-input>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="직장주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-input />
+            </a-form-item>
+          </div>
+          <div class="form-cell">
+            <a-form-item
+              label="신분증"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <ImageUpload></ImageUpload>
+            </a-form-item>
+          </div>
+        </VueSlideUpDown>
+        <div class="form-row">
+          <div class="form-cell"></div>
+          <div class="form-cell">
+            <a-form-item
+              label="확인 담당자"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                
+                  <a-input />
+                </a-form-item>
+                <a-form-item
+                  label="상관 승인자"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input />
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
+        </div>
+        <div class="form-row--center" style="margin:30px 0;">
+          <div class="ant-row ant-form-item">
+            <div class="ant-col-4 ant-form-item-label">
+              
             </div>
-          </a-form-item>
-          <a-form-item 
-            label="총금액"
-            :label-col="formItemLayout.labelCol"
-            :wrapper-col="formItemLayout.wrapperCol">
-            <b>
-              <span class="ant-form-text">
-                {{totalPayment}}
-              </span>
-            </b>
-          </a-form-item>
-          
-          <a-form-item :wrapper-col="formItemLayout.wrapperCol" style="margin-left:16%;">
-            <a-button type="primary" html-type="submit">
-              등록
-            </a-button>
-          </a-form-item>
+            <div class="ant-col-16 ant-form-item-control-wrapper">
+              <a-button type="primary" html-type="submit">
+                등록
+              </a-button>
+            </div>
+          </div>
         </div>
       </a-form>
     </div>
@@ -367,13 +708,20 @@
 </template>
 
 <script>
+import ImageUpload from "../components/ImageUpload"
+import VueSlideUpDown from 'vue-slide-up-down'
 export default {
+  components:{
+    ImageUpload,
+    VueSlideUpDown
+  },
   data() {
     return {
       formLayout: 'horizontal',
       emailDataSource: [],
       roomTypeDataSource: [],
       companyTypeDataSource: ["A관리회사","B관리회사"],
+      countryDataSource: ["대한민국","일본"],
       searchCompanyType:"회사명",
       paymentType:"긴급연락처",
       payment1:0,
@@ -382,6 +730,9 @@ export default {
       payment4:0,
       totalPayment:0,
       paymentPercent:70,
+      inputNumber:1,
+      roommateBoolean:false,
+      guarantor:"연대보증인"
     };
   },
   computed: {
@@ -408,6 +759,9 @@ export default {
         !value || value.indexOf('@') >= 0
           ? []
           : [`${value}@gmail.com`, `${value}@yahoo.com`, `${value}@other.com`];
+    },
+    handleChangecountry(value) {
+      this.countryDataSource = ["대한민국","일본"].filter(item=>item.indexOf(value)!=-1)
     },
     handleChangeRoomType(value) {
       this.roomTypeDataSource = ["1K","1DK","1LDK","2K","2DK","2LDK","3K","3DK","3LDK","4K","4DK","4LDK"].filter(item=>item.indexOf(value)!=-1)
@@ -479,9 +833,22 @@ export default {
       font-size: 20px;
       line-height: 32px;
     }
+    .form-col{
+      display: flex;
+      flex-direction: column;
+      &>*{
+        min-height: 39px;
+        margin-bottom: 5px;
+      }
+    }
     .form-row{
       display: flex;
+      &--center{
+        @extend .form-row;
+        justify-content: center;
+      }
       .ant-row.ant-form-item{
+        margin-bottom: 10px;
         &.search-row{
           .ant-form-item-control,
           .ant-form-item-children{
@@ -494,8 +861,7 @@ export default {
         .form-row{
           width: 100%;
           .ant-row.ant-form-item{
-            margin-bottom: 10px;
-              flex: 1;
+            flex: 1;
             &:nth-child(2){
               flex: 1.5;
             }
@@ -507,6 +873,15 @@ export default {
         flex:1;
       }
     }
+  }
+  h2{
+    font-size: 24px;
+    line-height: 32px;
+    color: #0d1a26;
+    font-family: Avenir,-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-variant: tabular-nums;
+    font-weight: 500;
+    clear: both;
   }
 }
 

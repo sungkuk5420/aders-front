@@ -19,7 +19,8 @@
     "moment": "^2.24.0",
     "quasar": "^1.0.0",
     "quasar-cli": "^0.17.26",
-    "vant": "^2.2.5"
+    "vant": "^2.2.5",
+    "vue-slide-up-down": "^2.0.1"
   },
   "devDependencies": {
     "@quasar/app": "^1.7.0",
