@@ -12,11 +12,10 @@
       >
         <a-menu-item key="1" @click='changeTabIndex(1)'>검색</a-menu-item>
         <a-menu-item key="2" @click='changeTabIndex(2)'>신규등록</a-menu-item>
-        <a-menu-item key="3" @click='changeTabIndex(3)'>등록수정, 삭제</a-menu-item>
-        <a-menu-item key="4" @click='changeTabIndex(4)'>관리회사 등록</a-menu-item>
-        <a-menu-item key="5" @click='changeTabIndex(5)'>연체자</a-menu-item>
-        <a-menu-item key="6" @click='changeTabIndex(6)'>지불용지 출력</a-menu-item>
-        <a-menu-item key="7" @click='changeTabIndex(7)'>수익분석</a-menu-item>
+        <a-menu-item key="3" @click='changeTabIndex(3)'>대리점 등록</a-menu-item>
+        <a-menu-item key="4" @click='changeTabIndex(4)'>연체자 등록</a-menu-item>
+        <a-menu-item key="5" @click='changeTabIndex(5)'>지불용지 출력</a-menu-item>
+        <a-menu-item key="6" @click='changeTabIndex(6)'>수익분석</a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">

@@ -16,7 +16,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-radio-group default-value="개인" >
+              <a-radio-group v-model="contractorType" >
                 <a-radio-button value="개인">
                   개인
                 </a-radio-button>
@@ -38,14 +38,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input/>
+                  <a-input v-model="contractorName"/>
                 </a-form-item>
                 <a-form-item
                   label="국적"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input/>
+                  <a-input v-model="contractorCountry"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -54,7 +54,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-radio-group default-value="학생" >
+              <a-radio-group v-model="contractorJobType" >
                 <a-radio-button value="학생">
                   학생
                 </a-radio-button>
@@ -71,62 +71,20 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-input/>
+              <a-input v-model="contractorAdress"/>
             </a-form-item>
             <a-form-item v-bind="formItemLayout" label="TEL">
-              <a-input
-                v-decorator="[
-                  'phone',
-                  {
-                    rules: [{ required: false, message: 'Please input your phone number!' }],
-                  },
-                ]"
-                style="width: 100%"
-              >
-                <a-select
-                  slot="addonBefore"
-                  v-decorator="['prefix', { initialValue: '81' }]"
-                  style="width: 80px"
-                >
-                  <a-select-option value="81">
-                    +81
-                  </a-select-option>
-                  <a-select-option value="82">
-                    +82
-                  </a-select-option>
-                </a-select>
-              </a-input>
+              <a-input style="width: 39%" v-model="contractorTel" />
             </a-form-item>
             <a-form-item
               label="직장주소"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-input/>
+              <a-input v-model="contractorCompanyAddress"/>
             </a-form-item>
             <a-form-item v-bind="formItemLayout" label="직장 TEL">
-              <a-input
-                v-decorator="[
-                  'phone',
-                  {
-                    rules: [{ required: false, message: 'Please input your phone number!' }],
-                  },
-                ]"
-                style="width: 100%"
-              >
-                <a-select
-                  slot="addonBefore"
-                  v-decorator="['prefix', { initialValue: '81' }]"
-                  style="width: 80px"
-                >
-                  <a-select-option value="81">
-                    +81
-                  </a-select-option>
-                  <a-select-option value="82">
-                    +82
-                  </a-select-option>
-                </a-select>
-              </a-input>
+              <a-input style="width: 39%" v-model="contractorCompanyTel" />
             </a-form-item>
 
             <a-form-item
@@ -134,7 +92,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-date-picker @change="onChangeDate" style="width: 39%;"/>
+              <a-date-picker @change="onChangeMoveIntoDate" style="width: 39%;"/>
             </a-form-item>
             <a-form-item
               label="이메일"
@@ -145,7 +103,7 @@
                 :dataSource="emailDataSource"
                 style="width: 100%;"
                 @change="handleChangeEmail"
-                placeholder="Email"
+                v-model="contractorEmail"
               />
             </a-form-item>
             <a-form-item
@@ -153,19 +111,13 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-input/>
+              <a-input v-model="contractorSms"/>
             </a-form-item>
             
             <a-form-item label="재류자격" has-feedback
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
-              <a-select
-                v-decorator="[
-                  'select',
-                  { rules: [{ required: false, message: 'Please select your visa!' }] },
-                ]"
-                placeholder="Please select a visa"
-              >
+              <a-select v-model="contractorResidenceQualification">
                 <a-select-option value="배우자 비자">
                   배우자 비자
                 </a-select-option>
@@ -174,35 +126,26 @@
                 </a-select-option>
               </a-select>
             </a-form-item>
-            <a-form-item
-              label="재류자격"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-input/>
-            </a-form-item>
             
             <a-form-item
               label="직장명"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-input/>
+              <a-input v-model="contractorCompanyName"/>
             </a-form-item>
             <a-form-item
               label="근속연수"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
-              
               <div class="form-row">
-                
                 <a-form-item
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
                 
-                  <a-input/>
+                  <a-input v-model="contractorLengthOfService"/>
                 </a-form-item>
                 <a-form-item
                   label="급여"
@@ -210,7 +153,7 @@
                   :wrapper-col="{ span: 16 }"
                 >
                 
-                  <a-input/>
+                  <a-input v-model="contractorSalary"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -222,7 +165,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
               class="search-row"
             >
-              <a-radio-group default-value="회사명" v-model="searchCompanyType" class="ant-col-10" style="max-width:180px;">
+              <a-radio-group default-value="회사명" v-model="propertyManagermentCompanySearchType" class="ant-col-10" style="max-width:180px;">
                 <a-radio-button value="회사명">
                   회사명
                 </a-radio-button>
@@ -242,7 +185,7 @@
               label="보증형태"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
-              <a-radio-group v-model="paymentType" @change="onChangePaymentPercent" >
+              <a-radio-group v-model="guaranteeType" @change="onChangePaymentPercent" >
                 <a-radio-button value="긴급연락처">
                   긴급연락처
                 </a-radio-button>
@@ -262,7 +205,7 @@
               :wrapper-col="formItemLayout.wrapperCol">
               <b>
                 <span class="ant-form-text">
-                  {{paymentPercent}}%
+                  {{propertyManagermentCompanyFeePercentage}}%
                 </span>
               </b>
             </a-form-item>
@@ -270,13 +213,13 @@
               label="멘션명"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
-              <a-input/>
+              <a-input v-model="propertyName"/>
             </a-form-item>
             <a-form-item 
               label="멘션주소"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
-              <a-input/>
+              <a-input v-model="propertyAdress"/>
             </a-form-item>
             
             <a-form-item
@@ -289,7 +232,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input/>
+                  <a-input v-model="roomNumber"/>
                 </a-form-item>
                 <a-form-item
                   label="타입"
@@ -300,6 +243,7 @@
                     :dataSource="roomTypeDataSource"
                     style="width: 200px"
                     @change="handleChangeRoomType"
+                    v-model="roomType"
                     placeholder="Type"
                   />
                 </a-form-item>
@@ -315,14 +259,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="payment1" @change="onChangePayment"/>
+                  <a-input v-model="rent" @change="onChangePayment"/>
                 </a-form-item>
                 <a-form-item
                   label="관리비"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input v-model="payment2" @change="onChangePayment"/>
+                  <a-input v-model="managementCost" @change="onChangePayment"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -336,14 +280,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="payment3" @change="onChangePayment"/>
+                  <a-input v-model="otherCosts" @change="onChangePayment"/>
                 </a-form-item>
                 <a-form-item
                   label="수수료"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input v-model="payment4" @change="onChangePayment"/>
+                  <a-input v-model="propertyManagermentCompanyFee" @change="onChangePayment"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -357,8 +301,6 @@
                 </span>
               </b>
             </a-form-item>
-            
-
           </div>
         </div>
         <div class="form-row">
@@ -377,15 +319,15 @@
                   :wrapper-col="{ span: 24 }"
                 >
                 
-                  <a-switch checkedChildren="유" unCheckedChildren="무" v-model="roommateBoolean" />
+                  <a-switch checkedChildren="유" unCheckedChildren="무" v-model="roomMate" />
                 </a-form-item>
                 <a-form-item
                   label="인원"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
-                  v-show="roommateBoolean"
+                  v-show="roomMate"
                 >
-                  <a-input-number v-model="inputNumber" />
+                  <a-input-number v-model="roomMateHeadCount" />
                 </a-form-item>
               </div>
             </a-form-item>
@@ -400,14 +342,14 @@
                   :wrapper-col="{ span: 24 }"
                 >
                 
-                  <a-input />
+                  <a-input v-model="roomMateName"/>
                 </a-form-item>
                 <a-form-item
                   label="생년월일"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-date-picker @change="onChangeDate" />
+                  <a-date-picker @change="onChangeRoomMateBirthday" />
                 </a-form-item>
               </div>
             </a-form-item>
@@ -425,32 +367,12 @@
                     :wrapper-col="{ span: 24 }"
                   >
                     <div class="form-col">
-                      <a-input
-                        v-decorator="[
-                          'phone',
-                          {
-                            rules: [{ required: false, message: 'Please input your phone number!' }],
-                          },
-                        ]"
-                        style="width: 100%"
-                      >
-                        <a-select
-                          slot="addonBefore"
-                          v-decorator="['prefix', { initialValue: '81' }]"
-                          style="width: 80px"
-                        >
-                          <a-select-option value="81">
-                            +81
-                          </a-select-option>
-                          <a-select-option value="82">
-                            +82
-                          </a-select-option>
-                        </a-select>
-                      </a-input>
+                      <a-input style="width: 100%;" v-model="roomMateTel"/>
                       <a-auto-complete
                         :dataSource="countryDataSource"
                         style="width: 100%;"
-                        @change="handleChangecountry"
+                        v-model="roomMateCountry"
+                        @change="handleChangeRoomMateCountry"
                       />
                     </div>
                   </a-form-item>
@@ -478,9 +400,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-select
-                v-model="guarantor"
-              >
+              <a-select v-model="guarantorType">
                 <a-select-option value="연대보증인">
                   연대보증인
                 </a-select-option>
@@ -492,7 +412,7 @@
           </div>
           <div class="form-cell"></div>
         </div>
-        <VueSlideUpDown :active="guarantor=='긴급연락처'" :duration="500" class="form-row">
+        <VueSlideUpDown :active="guarantorType=='긴급연락처'" :duration="500" class="form-row">
           <div class="form-cell">
             <a-form-item
               label="이름"
@@ -504,7 +424,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input />
+                  <a-input v-model="guarantorName"/>
                 </a-form-item>
                 <a-form-item
                   label="국적"
@@ -514,7 +434,8 @@
                   <a-auto-complete
                     :dataSource="countryDataSource"
                     style="width: 100%;"
-                    @change="handleChangecountry"
+                    v-model="guarantorCountry"
+                    @change="handleChangeGuarantorCountry"
                   />
                 </a-form-item>
               </div>
@@ -529,14 +450,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input />
+                  <a-input v-model="guarantorAdress"/>
                 </a-form-item>
                 <a-form-item
                   label="관계"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input />
+                  <a-input v-model="relationship"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -550,56 +471,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input
-                    v-decorator="[
-                      'phone',
-                      {
-                        rules: [{ required: false, message: 'Please input your phone number!' }],
-                      },
-                    ]"
-                    style="width: 100%"
-                  >
-                    <a-select
-                      slot="addonBefore"
-                      v-decorator="['prefix', { initialValue: '81' }]"
-                      style="width: 80px"
-                    >
-                      <a-select-option value="81">
-                        +81
-                      </a-select-option>
-                      <a-select-option value="82">
-                        +82
-                      </a-select-option>
-                    </a-select>
-                  </a-input>
+                  <a-input v-model="guarantorTel1"/>
                 </a-form-item>
                 <a-form-item
                   label="TEL-2"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input
-                    v-decorator="[
-                      'phone',
-                      {
-                        rules: [{ required: false, message: 'Please input your phone number!' }],
-                      },
-                    ]"
-                    style="width: 100%"
-                  >
-                    <a-select
-                      slot="addonBefore"
-                      v-decorator="['prefix', { initialValue: '81' }]"
-                      style="width: 80px"
-                    >
-                      <a-select-option value="81">
-                        +81
-                      </a-select-option>
-                      <a-select-option value="82">
-                        +82
-                      </a-select-option>
-                    </a-select>
-                  </a-input>
+                  <a-input v-model="guarantorTel2"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -613,35 +492,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input />
+                  <a-input v-model="guarantorCompanyName"/>
                 </a-form-item>
                 <a-form-item
                   label="직장 TEL"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input
-                    v-decorator="[
-                      'phone',
-                      {
-                        rules: [{ required: false, message: 'Please input your phone number!' }],
-                      },
-                    ]"
-                    style="width: 100%"
-                  >
-                    <a-select
-                      slot="addonBefore"
-                      v-decorator="['prefix', { initialValue: '81' }]"
-                      style="width: 80px"
-                    >
-                      <a-select-option value="81">
-                        +81
-                      </a-select-option>
-                      <a-select-option value="82">
-                        +82
-                      </a-select-option>
-                    </a-select>
-                  </a-input>
+                  <a-input v-model="guarantorCompanyTel"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -650,7 +508,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-input />
+              <a-input v-model="guarantorCompanyAddress"/>
             </a-form-item>
           </div>
           <div class="form-cell">
@@ -677,14 +535,14 @@
                   :wrapper-col="{ span: 24 }"
                 >
                 
-                  <a-input />
+                  <a-input v-model="comfirmPerson"/>
                 </a-form-item>
                 <a-form-item
                   label="상관 승인자"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input />
+                  <a-input v-model="approvalPerson"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -717,22 +575,62 @@ export default {
   },
   data() {
     return {
+      contractorType: "개인", // 등록선택
+      contractorName: "", // 계약자이름
+      contractorCountry: "", // 계약자국적
+      contractorJobType: "학생", // 계약자 분류
+      contractorAdress: "", // 계약자 주소
+      contractorTel: "22", // 계약자 전화번호
+      contractorCompanyAddress: "", // 계약자 직장주소
+      contractorCompanyTel: "", // 계약자 직장 전화번호
+      moveIntoDate: "", // 입주예정일
+      contractorSex: "", // 계약자 성별
+      contractorBirthday: "", // 계약자 생년월일
+      contractorEmail: "", // 계약자 이메일
+      contractorSms: "", // 계약자 sms
+      contractorResidenceQualification: "", // 계약자 재류자격
+      contractorCompanyName: "", // 계약자 회사이름
+      contractorLengthOfService: "", // 계약자 근속연수
+      contractorSalary : "", // 계약자 급여
+      propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
+      guaranteeType: "긴급연락처", // 보증형태
+      propertyManagermentCompanyFeePercentage: 70, // 대리점 수수료 퍼센트
+      propertyName: "", // 멘션명 
+      propertyAdress: "", // 멘션 주소
+      roomNumber: "", // 호실
+      roomType: "", // 방 타입
+      rent: 0, // 월세
+      managementCost: 0, // 관리비
+      otherCosts: 0, // 기타비용
+      propertyManagermentCompanyFee:0, // 대리점 수수료
+      totalPayment:0, // 총 비용
+      roomMate: false, // 동반 입주자 여부
+      roomMateHeadCount: 1, // 동반 입주자 인수
+      roomMateName: "", // 동반 입주자 이름
+      roomMateBirthday: "", // 동반 입주자 생년월일
+      roomMateTel: "", // 동반 입주자 전화번호
+      roomMateCountry: "", // 동반 입주자 국적
+      roomMateIdCard: "", // 동반 입주자 신분증
+      guarantorType: "연대보증인", // 보증 타입 연대 보증인 or 긴급연락처
+      guarantorName: "", // 보증인 이름
+      guarantorCountry: "", // 보증인 국적
+      guarantorAdress: "", // 보증인 주소
+      relationship: "", // 관계
+      guarantorTel1: "", // 보증인TEL-1
+      guarantorTel2: "", // 보증인TEL-2
+      guarantorCompanyName: "", // 보증인 회사명
+      guarantorCompanyTel: "", // 보증인 회사 전화번호
+      guarantorCompanyAddress: "", // 보증인 회사 주소
+      guarantorIdCard: "", // 보증인 신분증
+      comfirmPerson: "", // 확인담당자
+      approvalPerson: "", // 상관승인자
+      // jointGuarantor: "", // 연대 보증인
+      // emergencyContact: "", // 긴급 연락처
       formLayout: 'horizontal',
       emailDataSource: [],
       roomTypeDataSource: [],
       companyTypeDataSource: ["A관리회사","B관리회사"],
       countryDataSource: ["대한민국","일본"],
-      searchCompanyType:"회사명",
-      paymentType:"긴급연락처",
-      payment1:0,
-      payment2:0,
-      payment3:0,
-      payment4:0,
-      totalPayment:0,
-      paymentPercent:70,
-      inputNumber:1,
-      roommateBoolean:false,
-      guarantor:"연대보증인"
     };
   },
   computed: {
@@ -760,7 +658,10 @@ export default {
           ? []
           : [`${value}@gmail.com`, `${value}@yahoo.com`, `${value}@other.com`];
     },
-    handleChangecountry(value) {
+    handleChangeRoomMateCountry(value) {
+      this.countryDataSource = ["대한민국","일본"].filter(item=>item.indexOf(value)!=-1)
+    },
+    handleChangeGuarantorCountry(value) {
       this.countryDataSource = ["대한민국","일본"].filter(item=>item.indexOf(value)!=-1)
     },
     handleChangeRoomType(value) {
@@ -768,31 +669,34 @@ export default {
     },
     handleChangeCompanyList(value) {
       let dataList = [];
-      if(this.searchCompanyType == "회사명"){
+      if(this.propertyManagermentCompanySearchType == "회사명"){
         dataList = ["A관리회사","B관리회사"];
       }
       this.companyTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
     },
-    onChangeDate(date, dateString) {
-      console.log(date, dateString);
+    onChangeMoveIntoDate(date, dateString) {
+      this.moveIntoDate = dateString;
+    },
+    onChangeRoomMateBirthday(date, dateString) {
+      this.roomMateBirthday = dateString;
     },
     onChangePayment() {
-      this.payment1 = parseInt(this.payment1);
-      this.payment2 = parseInt(this.payment2);
-      this.payment3 = parseInt(this.payment3);
-      this.payment4 = parseInt((this.payment1+this.payment2+this.payment3)*this.paymentPercent/100);
-      this.totalPayment = parseInt(this.payment1+this.payment2+this.payment3+this.payment4);
+      this.rent = parseInt(this.rent);
+      this.managementCost = parseInt(this.managementCost);
+      this.otherCosts = parseInt(this.otherCosts);
+      this.propertyManagermentCompanyFee = parseInt((this.rent+this.managementCost+this.otherCosts)*this.propertyManagermentCompanyFeePercentage/100);
+      this.totalPayment = parseInt(this.rent+this.managementCost+this.otherCosts+this.propertyManagermentCompanyFee);
     },
     onChangePaymentPercent() {
-      switch (this.paymentType) {
+      switch (this.guaranteeType) {
         case "긴급연락처":
-          this.paymentPercent = 70;
+          this.propertyManagermentCompanyFeePercentage = 70;
           break;
         case "연대보증인":
-          this.paymentPercent = 40;
+          this.propertyManagermentCompanyFeePercentage = 40;
           break;
         case "기타":
-          this.paymentPercent = 20;
+          this.propertyManagermentCompanyFeePercentage = 20;
           break;
       
         default:
