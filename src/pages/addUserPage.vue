@@ -14,24 +14,40 @@
             <a-form-item
               label="등록 선택"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
+              :wrapper-col="{ span: 16 }"
             >
-              <a-radio-group v-model="contractorType" >
-                <a-radio-button value="개인">
-                  개인
-                </a-radio-button>
-                <a-radio-button value="법인">
-                  법인
-                </a-radio-button>
-                <a-radio-button value="타보증회사">
-                  타보증회사
-                </a-radio-button>
-              </a-radio-group>
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                
+                  <a-radio-group v-model="contractorType" >
+                    <a-radio-button value="개인">
+                      개인
+                    </a-radio-button>
+                    <a-radio-button value="법인">
+                      법인
+                    </a-radio-button>
+                    <a-radio-button value="타보증회사">
+                      타보증회사
+                    </a-radio-button>
+                  </a-radio-group>
+                </a-form-item>
+                <a-form-item
+                  label="입주예정일"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                
+                  <a-date-picker @change="onChangeMoveIntoDate" style="width: 100%;"/>
+                </a-form-item>
+              </div>
             </a-form-item>
             <a-form-item
               label="이름"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -41,101 +57,23 @@
                   <a-input v-model="contractorName"/>
                 </a-form-item>
                 <a-form-item
-                  label="국적"
+                  label="성별"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                  <a-input v-model="contractorCountry"/>
+                  <a-radio-group v-model="contractorSex" >
+                    <a-radio-button value="남">
+                      남
+                    </a-radio-button>
+                    <a-radio-button value="여">
+                      여
+                    </a-radio-button>
+                  </a-radio-group>
                 </a-form-item>
               </div>
             </a-form-item>
             <a-form-item
-              label="분류"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-radio-group v-model="contractorJobType" >
-                <a-radio-button value="학생">
-                  학생
-                </a-radio-button>
-                <a-radio-button value="직장인">
-                  직장인
-                </a-radio-button>
-                <a-radio-button value="기타">
-                  기타
-                </a-radio-button>
-              </a-radio-group>
-            </a-form-item>
-            <a-form-item
-              label="주소"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-input v-model="contractorAdress"/>
-            </a-form-item>
-            <a-form-item v-bind="formItemLayout" label="TEL">
-              <a-input style="width: 39%" v-model="contractorTel" />
-            </a-form-item>
-            <a-form-item
-              label="직장주소"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-input v-model="contractorCompanyAddress"/>
-            </a-form-item>
-            <a-form-item v-bind="formItemLayout" label="직장 TEL">
-              <a-input style="width: 39%" v-model="contractorCompanyTel" />
-            </a-form-item>
-
-            <a-form-item
-              label="입주예정일"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-date-picker @change="onChangeMoveIntoDate" style="width: 39%;"/>
-            </a-form-item>
-            <a-form-item
-              label="이메일"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-auto-complete
-                :dataSource="emailDataSource"
-                style="width: 100%;"
-                @change="handleChangeEmail"
-                v-model="contractorEmail"
-              />
-            </a-form-item>
-            <a-form-item
-              label="SMS ID"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-input v-model="contractorSms"/>
-            </a-form-item>
-            
-            <a-form-item label="재류자격" has-feedback
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol">
-              <a-select v-model="contractorResidenceQualification">
-                <a-select-option value="배우자 비자">
-                  배우자 비자
-                </a-select-option>
-                <a-select-option value="기술인문비자">
-                  기술인문비자
-                </a-select-option>
-              </a-select>
-            </a-form-item>
-            
-            <a-form-item
-              label="직장명"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="formItemLayout.wrapperCol"
-            >
-              <a-input v-model="contractorCompanyName"/>
-            </a-form-item>
-            <a-form-item
-              label="근속연수"
+              label="국적"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
@@ -144,19 +82,161 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                
-                  <a-input v-model="contractorLengthOfService"/>
+                  <a-input v-model="contractorCountry"/>
                 </a-form-item>
                 <a-form-item
-                  label="급여"
+                  label="생년월일"
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                
-                  <a-input v-model="contractorSalary"/>
+                  <a-date-picker @change="onChangeContractorBirthday" style="width: 100%;"/>
                 </a-form-item>
               </div>
             </a-form-item>
+            <a-form-item
+              label="분류"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-radio-group v-model="contractorJobType" >
+                    <a-radio-button value="학생">
+                      학생
+                    </a-radio-button>
+                    <a-radio-button value="직장인">
+                      직장인
+                    </a-radio-button>
+                    <a-radio-button value="기타">
+                      기타
+                    </a-radio-button>
+                  </a-radio-group>
+                </a-form-item>
+                <a-form-item
+                  label="이메일"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-auto-complete
+                    :dataSource="emailDataSource"
+                    style="width: 100%;"
+                    @change="handleChangeEmail"
+                    v-model="contractorEmail"
+                  />
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="contractorAdress"/>
+                </a-form-item>
+                <a-form-item
+                  label="SMS ID"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input v-model="contractorSms"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="TEL"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input style="width: 100%" v-model="contractorTel" />
+                </a-form-item>
+                <a-form-item
+                  label="재류자격"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-select v-model="contractorResidenceQualification">
+                    <a-select-option value="배우자 비자">
+                      배우자 비자
+                    </a-select-option>
+                    <a-select-option value="기술인문비자">
+                      기술인문비자
+                    </a-select-option>
+                  </a-select>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="직장명"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="contractorCompanyName"/>
+                </a-form-item>
+                <a-form-item
+                  label="직장주소"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                 <a-input v-model="contractorCompanyAddress"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="직장TEL"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="contractorCompanyTEL"/>
+                </a-form-item>
+                <a-form-item
+                  label="근속연수"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <div class="form-row">
+                    <a-form-item
+                      :label-col="{ span: 1 }"
+                      :wrapper-col="{ span: 24 }"
+                    >
+                    
+                      <a-input v-model="contractorLengthOfService"/>
+                    </a-form-item>
+                    <a-form-item
+                      label="급여"
+                      :label-col="{ span: 8 }"
+                      :wrapper-col="{ span: 16 }"
+                    >
+                    
+                      <a-input v-model="contractorSalary"/>
+                    </a-form-item>
+                  </div>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            
           </div>
           <div class="form-cell">
             <a-form-item
@@ -580,16 +660,17 @@ export default {
       contractorCountry: "", // 계약자국적
       contractorJobType: "학생", // 계약자 분류
       contractorAdress: "", // 계약자 주소
-      contractorTel: "22", // 계약자 전화번호
+      contractorTel: "", // 계약자 전화번호
       contractorCompanyAddress: "", // 계약자 직장주소
       contractorCompanyTel: "", // 계약자 직장 전화번호
       moveIntoDate: "", // 입주예정일
-      contractorSex: "", // 계약자 성별
+      contractorSex: "남", // 계약자 성별
       contractorBirthday: "", // 계약자 생년월일
       contractorEmail: "", // 계약자 이메일
       contractorSms: "", // 계약자 sms
       contractorResidenceQualification: "", // 계약자 재류자격
       contractorCompanyName: "", // 계약자 회사이름
+      contractorCompanyTEL: "", // 계약자 회사TEL
       contractorLengthOfService: "", // 계약자 근속연수
       contractorSalary : "", // 계약자 급여
       propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
@@ -673,6 +754,9 @@ export default {
         dataList = ["A관리회사","B관리회사"];
       }
       this.companyTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
+    },
+    onChangeContractorBirthday(date, dateString) {
+      this.contractorBirthday = dateString;
     },
     onChangeMoveIntoDate(date, dateString) {
       this.moveIntoDate = dateString;
