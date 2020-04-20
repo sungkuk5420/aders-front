@@ -21,6 +21,7 @@
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
       <SearchPage v-show="tabIndex ==1"/>
       <addUserPage v-show="tabIndex ==2"/>
+      <addCompanyPage v-show="tabIndex ==3"/>
     </a-layout-content>
   </a-layout>
 </template>
@@ -30,10 +31,12 @@ import { T } from "../store/module-example/types";
 
 import SearchPage from "../pages/SearchPage.vue";
 import addUserPage from "../pages/addUserPage.vue";
+import addCompanyPage from "../pages/addCompanyPage.vue";
 export default {
   components: {
     SearchPage,
-    addUserPage
+    addUserPage,
+    addCompanyPage
   },
   data() {
     return {
@@ -57,6 +60,9 @@ export default {
           this.tabIndex =index;
           break;
         case 2:
+          this.tabIndex =index;
+          break;
+        case 3:
           this.tabIndex =index;
           break;
       
