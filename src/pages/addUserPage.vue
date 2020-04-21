@@ -94,7 +94,14 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="분류"
+              label="주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <a-input v-model="contractorAdress"/>
+            </a-form-item>
+            <a-form-item
+              label="TEL"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
@@ -103,17 +110,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-radio-group v-model="contractorJobType" >
-                    <a-radio-button value="학생">
-                      학생
-                    </a-radio-button>
-                    <a-radio-button value="직장인">
-                      직장인
-                    </a-radio-button>
-                    <a-radio-button value="기타">
-                      기타
-                    </a-radio-button>
-                  </a-radio-group>
+                  <a-input style="width: 100%" v-model="contractorTel" />
                 </a-form-item>
                 <a-form-item
                   label="이메일"
@@ -130,7 +127,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="주소"
+              label="SMS ID"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
@@ -138,29 +135,8 @@
                 <a-form-item
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
-                >
-                  <a-input v-model="contractorAdress"/>
-                </a-form-item>
-                <a-form-item
-                  label="SMS ID"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
                 >
                   <a-input v-model="contractorSms"/>
-                </a-form-item>
-              </div>
-            </a-form-item>
-            <a-form-item
-              label="TEL"
-              :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
-            >
-              <div class="form-row">
-                <a-form-item
-                  :label-col="{ span: 1 }"
-                  :wrapper-col="{ span: 24 }"
-                >
-                  <a-input style="width: 100%" v-model="contractorTel" />
                 </a-form-item>
                 <a-form-item
                   label="재류자격"
@@ -179,9 +155,57 @@
               </div>
             </a-form-item>
             <a-form-item
+              label="분류"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-radio-group v-model="contractorJobType" >
+                <a-radio-button value="학생">
+                  학생
+                </a-radio-button>
+                <a-radio-button value="직장인">
+                  직장인
+                </a-radio-button>
+                <a-radio-button value="기타">
+                  기타
+                </a-radio-button>
+              </a-radio-group>
+            </a-form-item>
+            <a-form-item
+              label="학교명"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='학생'"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="contractorSchoolName"/>
+                </a-form-item>
+                <a-form-item
+                  label="학교TEL"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input v-model="contractorSchoolTel"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="학교주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='학생'"
+            >
+              <a-input v-model="contractorSchoolAddress"/>
+            </a-form-item>
+            <a-form-item
               label="직장명"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='직장인'"
             >
               <div class="form-row">
                 <a-form-item
@@ -195,7 +219,7 @@
                   :label-col="{ span: 8 }"
                   :wrapper-col="{ span: 16 }"
                 >
-                 <a-input v-model="contractorCompanyAddress"/>
+                <a-input v-model="contractorCompanyAddress"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -203,13 +227,14 @@
               label="직장TEL"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='직장인'"
             >
               <div class="form-row">
                 <a-form-item
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="contractorCompanyTEL"/>
+                  <a-input v-model="contractorCompanyTel"/>
                 </a-form-item>
                 <a-form-item
                   label="근속연수"
@@ -236,7 +261,52 @@
                 </a-form-item>
               </div>
             </a-form-item>
-            
+            <a-form-item
+              label="기타 이름"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='기타'"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="contractorOtherName"/>
+                </a-form-item>
+                <a-form-item
+                  label="기타TEL"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                <a-input v-model="contractorOtherTel"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="기타 주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='기타'"
+            >
+              <a-input v-model="contractorOtherAddress"/>
+            </a-form-item>
+            <a-form-item
+              label="기타 내용"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='기타'"
+            >
+              <a-input v-model="contractorOtherContent"/>
+            </a-form-item>
+            <a-form-item
+              label="증빙서류"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+              v-show="contractorJobType=='기타'"
+            >
+              <ImageUpload></ImageUpload>
+            </a-form-item>
           </div>
           <div class="form-cell">
             <a-form-item
@@ -492,7 +562,7 @@
           </div>
           <div class="form-cell"></div>
         </div>
-        <VueSlideUpDown :active="guarantorType=='긴급연락처'" :duration="500" class="form-row">
+        <VueSlideUpDown :active="guarantorType=='연대보증인'" :duration="500" class="form-row">
           <div class="form-cell">
             <a-form-item
               label="이름"
@@ -521,7 +591,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="주소"
+              label="생년월일"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
             >
@@ -530,7 +600,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="guarantorAdress"/>
+                  <a-date-picker @change="onChangeGuarantorBirthday" style="width:100%;" />
                 </a-form-item>
                 <a-form-item
                   label="관계"
@@ -563,6 +633,13 @@
               </div>
             </a-form-item>
             <a-form-item
+              label="주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+                <a-input v-model="guarantorAdress"/>
+            </a-form-item>
+            <a-form-item
               label="직장명"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="{ span: 16 }"
@@ -593,12 +670,116 @@
           </div>
           <div class="form-cell">
             <a-form-item
-              label="신분증"
+              label="신분증(앞)"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <ImageUpload></ImageUpload>
+                </a-form-item>
+                <a-form-item
+                  label="신분증(뒤)"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <ImageUpload></ImageUpload>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="연대보증인 계약서"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <ImageUpload></ImageUpload>
             </a-form-item>
+          </div>
+        </VueSlideUpDown>
+        <VueSlideUpDown :active="guarantorType=='긴급연락처'" :duration="500" class="form-row">
+          <div class="form-cell">
+            <a-form-item
+              label="이름"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="guarantorName"/>
+                </a-form-item>
+                <a-form-item
+                  label="국적"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-auto-complete
+                    :dataSource="countryDataSource"
+                    style="width: 100%;"
+                    v-model="guarantorCountry"
+                    @change="handleChangeGuarantorCountry"
+                  />
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="생년월일"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-date-picker @change="onChangeGuarantorBirthday" style="width:100%;" />
+                </a-form-item>
+                <a-form-item
+                  label="관계"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input v-model="relationship"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="TEL-1"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input v-model="guarantorTel1"/>
+                </a-form-item>
+                <a-form-item
+                  label="TEL-2"
+                  :label-col="{ span: 8 }"
+                  :wrapper-col="{ span: 16 }"
+                >
+                  <a-input v-model="guarantorTel2"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+              label="주소"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="{ span: 16 }"
+            >
+                <a-input v-model="guarantorAdress"/>
+            </a-form-item>
+
+            
+          </div>
+          <div class="form-cell">
           </div>
         </VueSlideUpDown>
         <div class="form-row">
@@ -661,18 +842,31 @@ export default {
       contractorJobType: "학생", // 계약자 분류
       contractorAdress: "", // 계약자 주소
       contractorTel: "", // 계약자 전화번호
-      contractorCompanyAddress: "", // 계약자 직장주소
-      contractorCompanyTel: "", // 계약자 직장 전화번호
       moveIntoDate: "", // 입주예정일
       contractorSex: "남", // 계약자 성별
       contractorBirthday: "", // 계약자 생년월일
       contractorEmail: "", // 계약자 이메일
       contractorSms: "", // 계약자 sms
       contractorResidenceQualification: "", // 계약자 재류자격
+      //학생 start
+      contractorSchoolName: "", // 계약자 학교명
+      contractorSchoolTel: "", // 계약자 학교 TEL
+      contractorSchoolAddress: "", // 계약자 학교주소
+      //학생 end
+      //직장인 start
       contractorCompanyName: "", // 계약자 회사이름
-      contractorCompanyTEL: "", // 계약자 회사TEL
+      contractorCompanyTel: "", // 계약자 직장 전화번호
+      contractorCompanyAddress: "", // 계약자 직장주소
       contractorLengthOfService: "", // 계약자 근속연수
       contractorSalary : "", // 계약자 급여
+      // 직장인 end
+      // 기타 start
+      contractorOtherName: "", // 기타 이름
+      contractorOtherTel: "", // 기타 전화번호
+      contractorOtherAddress: "", // 기타 주소
+      contractorOtherContent: "", // 기타내용
+      contractorOtherFile : "", // 증빙서류
+      // 기타 end
       propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
       guaranteeType: "긴급연락처", // 보증형태
       propertyManagermentCompanyFeePercentage: 70, // 대리점 수수료 퍼센트
@@ -703,6 +897,7 @@ export default {
       guarantorCompanyTel: "", // 보증인 회사 전화번호
       guarantorCompanyAddress: "", // 보증인 회사 주소
       guarantorIdCard: "", // 보증인 신분증
+      guarantorBirthday: "", // 보증인 생년월일
       comfirmPerson: "", // 확인담당자
       approvalPerson: "", // 상관승인자
       // jointGuarantor: "", // 연대 보증인
@@ -754,6 +949,9 @@ export default {
         dataList = ["A관리회사","B관리회사"];
       }
       this.companyTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
+    },
+    onChangeGuarantorBirthday(date, dateString) {
+      this.guarantorBirthday = dateString;
     },
     onChangeContractorBirthday(date, dateString) {
       this.contractorBirthday = dateString;
