@@ -14,7 +14,7 @@
             <a-form-item
               label="등록 선택"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -36,8 +36,8 @@
                 </a-form-item>
                 <a-form-item
                   label="입주예정일"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                 
                   <a-date-picker @change="onChangeMoveIntoDate" style="width: 100%;"/>
@@ -58,8 +58,8 @@
                 </a-form-item>
                 <a-form-item
                   label="성별"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-radio-group v-model="contractorSex" >
                     <a-radio-button value="남">
@@ -75,7 +75,7 @@
             <a-form-item
               label="국적"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -86,8 +86,8 @@
                 </a-form-item>
                 <a-form-item
                   label="생년월일"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-date-picker @change="onChangeContractorBirthday" style="width: 100%;"/>
                 </a-form-item>
@@ -96,14 +96,14 @@
             <a-form-item
               label="주소"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input v-model="contractorAdress"/>
             </a-form-item>
             <a-form-item
               label="TEL"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -114,8 +114,8 @@
                 </a-form-item>
                 <a-form-item
                   label="이메일"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-auto-complete
                     :dataSource="emailDataSource"
@@ -129,7 +129,7 @@
             <a-form-item
               label="SMS ID"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -140,8 +140,8 @@
                 </a-form-item>
                 <a-form-item
                   label="재류자격"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-select v-model="contractorResidenceQualification">
                     <a-select-option value="배우자 비자">
@@ -174,7 +174,7 @@
             <a-form-item
               label="학교명"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='학생'"
             >
               <div class="form-row">
@@ -186,8 +186,8 @@
                 </a-form-item>
                 <a-form-item
                   label="학교TEL"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="contractorSchoolTel"/>
                 </a-form-item>
@@ -196,7 +196,7 @@
             <a-form-item
               label="학교주소"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='학생'"
             >
               <a-input v-model="contractorSchoolAddress"/>
@@ -204,7 +204,7 @@
             <a-form-item
               label="직장명"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='직장인'"
             >
               <div class="form-row">
@@ -216,8 +216,8 @@
                 </a-form-item>
                 <a-form-item
                   label="직장주소"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                 <a-input v-model="contractorCompanyAddress"/>
                 </a-form-item>
@@ -226,7 +226,7 @@
             <a-form-item
               label="직장TEL"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='직장인'"
             >
               <div class="form-row">
@@ -238,8 +238,8 @@
                 </a-form-item>
                 <a-form-item
                   label="근속연수"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <div class="form-row">
                     <a-form-item
@@ -251,8 +251,8 @@
                     </a-form-item>
                     <a-form-item
                       label="급여"
-                      :label-col="{ span: 8 }"
-                      :wrapper-col="{ span: 16 }"
+                      :label-col="formItemLayout.labelCol2"
+                      :wrapper-col="formItemLayout.wrapperCol"
                     >
                     
                       <a-input v-model="contractorSalary"/>
@@ -264,7 +264,7 @@
             <a-form-item
               label="기타 이름"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='기타'"
             >
               <div class="form-row">
@@ -276,8 +276,8 @@
                 </a-form-item>
                 <a-form-item
                   label="기타TEL"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                 <a-input v-model="contractorOtherTel"/>
                 </a-form-item>
@@ -286,7 +286,7 @@
             <a-form-item
               label="기타 주소"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='기타'"
             >
               <a-input v-model="contractorOtherAddress"/>
@@ -294,7 +294,7 @@
             <a-form-item
               label="기타 내용"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='기타'"
             >
               <a-input v-model="contractorOtherContent"/>
@@ -302,7 +302,7 @@
             <a-form-item
               label="증빙서류"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='기타'"
             >
               <ImageUpload></ImageUpload>
@@ -375,7 +375,7 @@
             <a-form-item
                 label="호실"
                 :label-col="formItemLayout.labelCol"
-                :wrapper-col="{ span: 16 }"
+                :wrapper-col="formItemLayout.wrapperCol"
               >
               <div class="form-row">
                 <a-form-item
@@ -386,8 +386,8 @@
                 </a-form-item>
                 <a-form-item
                   label="타입"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-auto-complete
                     :dataSource="roomTypeDataSource"
@@ -402,7 +402,7 @@
             <a-form-item
                 label="월세"
                 :label-col="formItemLayout.labelCol"
-                :wrapper-col="{ span: 16 }"
+                :wrapper-col="formItemLayout.wrapperCol"
               >
               <div class="form-row">
                 <a-form-item
@@ -413,8 +413,8 @@
                 </a-form-item>
                 <a-form-item
                   label="관리비"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="managementCost" @change="onChangePayment"/>
                 </a-form-item>
@@ -423,7 +423,7 @@
             <a-form-item
                 label="기타비용"
                 :label-col="formItemLayout.labelCol"
-                :wrapper-col="{ span: 16 }"
+                :wrapper-col="formItemLayout.wrapperCol"
               >
               <div class="form-row">
                 <a-form-item
@@ -434,8 +434,8 @@
                 </a-form-item>
                 <a-form-item
                   label="수수료"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="propertyManagermentCompanyFee" @change="onChangePayment"/>
                 </a-form-item>
@@ -461,7 +461,7 @@
             <a-form-item
               label="동반 입주자"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -473,8 +473,8 @@
                 </a-form-item>
                 <a-form-item
                   label="인원"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                   v-show="roomMate"
                 >
                   <a-input-number v-model="roomMateHeadCount" />
@@ -484,7 +484,7 @@
             <a-form-item
               label="입주자 이름"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -496,8 +496,8 @@
                 </a-form-item>
                 <a-form-item
                   label="생년월일"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-date-picker @change="onChangeRoomMateBirthday" />
                 </a-form-item>
@@ -510,7 +510,7 @@
                   <label title="TEL" class="">국적</label>
                 </div>
               </div>
-              <div class="ant-col-16 ant-form-item-control-wrapper">
+              <div class="ant-col-18 ant-form-item-control-wrapper">
                 <div class="form-row">
                   <a-form-item
                     :label-col="{ span: 1 }"
@@ -528,8 +528,8 @@
                   </a-form-item>
                   <a-form-item
                     label="신분증"
-                    :label-col="{ span: 8 }"
-                    :wrapper-col="{ span: 16 }"
+                    :label-col="formItemLayout.labelCol2"
+                    :wrapper-col="formItemLayout.wrapperCol"
                   >
                     <ImageUpload></ImageUpload>
                   </a-form-item>
@@ -567,7 +567,7 @@
             <a-form-item
               label="이름"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -578,8 +578,8 @@
                 </a-form-item>
                 <a-form-item
                   label="국적"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-auto-complete
                     :dataSource="countryDataSource"
@@ -593,7 +593,7 @@
             <a-form-item
               label="생년월일"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -604,8 +604,8 @@
                 </a-form-item>
                 <a-form-item
                   label="관계"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="relationship"/>
                 </a-form-item>
@@ -614,7 +614,7 @@
             <a-form-item
               label="TEL-1"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -625,8 +625,8 @@
                 </a-form-item>
                 <a-form-item
                   label="TEL-2"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="guarantorTel2"/>
                 </a-form-item>
@@ -635,14 +635,14 @@
             <a-form-item
               label="주소"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
                 <a-input v-model="guarantorAdress"/>
             </a-form-item>
             <a-form-item
               label="직장명"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -653,8 +653,8 @@
                 </a-form-item>
                 <a-form-item
                   label="직장 TEL"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="guarantorCompanyTel"/>
                 </a-form-item>
@@ -672,7 +672,7 @@
             <a-form-item
               label="신분증(앞)"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -683,8 +683,8 @@
                 </a-form-item>
                 <a-form-item
                   label="신분증(뒤)"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <ImageUpload></ImageUpload>
                 </a-form-item>
@@ -704,7 +704,7 @@
             <a-form-item
               label="이름"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -715,8 +715,8 @@
                 </a-form-item>
                 <a-form-item
                   label="국적"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-auto-complete
                     :dataSource="countryDataSource"
@@ -730,7 +730,7 @@
             <a-form-item
               label="생년월일"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -741,8 +741,8 @@
                 </a-form-item>
                 <a-form-item
                   label="관계"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="relationship"/>
                 </a-form-item>
@@ -751,7 +751,7 @@
             <a-form-item
               label="TEL-1"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -762,8 +762,8 @@
                 </a-form-item>
                 <a-form-item
                   label="TEL-2"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="guarantorTel2"/>
                 </a-form-item>
@@ -772,7 +772,7 @@
             <a-form-item
               label="주소"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
                 <a-input v-model="guarantorAdress"/>
             </a-form-item>
@@ -788,7 +788,7 @@
             <a-form-item
               label="확인 담당자"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -800,8 +800,8 @@
                 </a-form-item>
                 <a-form-item
                   label="상관 승인자"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
                 >
                   <a-input v-model="approvalPerson"/>
                 </a-form-item>
@@ -914,13 +914,14 @@ export default {
       const { formLayout } = this;
       return {
             labelCol: { span: 4 },
-            wrapperCol: { span: 16 },
+            labelCol2: { span: 6 },
+            wrapperCol: { span: 18 },
           };
     },
     buttonItemLayout() {
       const { formLayout } = this;
       return {
-            wrapperCol: { span: 16, offset: 4 },
+            wrapperCol: { span: 18, offset: 4 },
           };
     },
   },
