@@ -1,14 +1,13 @@
 <template>
   <div class="search-page">
     <div class="search-wrapper">
-      <a-select defaultValue="멘션명" @change="handleChange">
+      <a-select defaultValue="멘션명" >
         <a-select-option value="멘션명">멘션명</a-select-option>
         <a-select-option value="입주자명">입주자명</a-select-option>
         <a-select-option value="담당자명">담당자명</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"
-        @search="onSearch"
         size="large"
       >
       <a-button slot="enterButton" type="primary" icon="search">검색</a-button>

@@ -19,5 +19,26 @@
   </head>
   <body>
     <div id="q-app"></div>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyAGE-ldpWR8zVejYv5QOEHBX3c6X7RKe4A",
+        authDomain: "aders-6245c.firebaseapp.com",
+        databaseURL: "https://aders-6245c.firebaseio.com",
+        projectId: "aders-6245c",
+        storageBucket: "aders-6245c.appspot.com",
+        messagingSenderId: "897689819944",
+        appId: "1:897689819944:web:d5425dff5495413d43ce1d"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-database.js"></script>
   </body>
 </html>

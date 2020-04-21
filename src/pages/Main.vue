@@ -22,7 +22,7 @@
       <SearchPage v-show="tabIndex ==1"/>
       <addUserPage v-show="tabIndex ==2"/>
       <CompanyListPage v-show="tabIndex ==3" v-on:moveAddCompanyPage="changeTabIndex(30)"/>
-      <addCompanyPage v-show="tabIndex ==30" />
+      <addCompanyPage v-show="tabIndex ==30" v-on:moveCompanyListPage="changeTabIndex(3)"/>
     </a-layout-content>
   </a-layout>
 </template>

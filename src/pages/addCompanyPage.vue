@@ -4,8 +4,7 @@
       <a-form
         :layout="formLayout"
         :form="form"
-        v-bind="formItemLayout"
-        @submit="handleSubmit">
+        v-bind="formItemLayout">
         <div class="form-row">
           <h2>대리점 등록</h2>
         </div>
@@ -340,7 +339,7 @@
               
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
-              <a-button type="primary" html-type="submit">
+              <a-button type="primary" @click="handleSubmit" :loading="loading">
                 등록
               </a-button>
             </div>
@@ -362,6 +361,35 @@ export default {
   },
   data() {
     return {
+      loading:false,
+      db:"", // firebase
+      // companyType: "부동산", // 등록선택
+      // companyName: "", // 회사이름
+      // companyAdress: "", // 회사 주소
+      // companyOnwer: "", // 회사 대표자
+      // companyOnwerSex: "남", // 회사 대표자 성별
+      // companyOnwerTel: "", // 대표자 전화번호
+      // systemManager: "", // 시스템관리자
+      // systemManagerEmail: "", // 시스템관리자 이메일
+      // fax: "", // FAX
+      // notes: "", // 비고
+      // joinDate: "", // 등록날짜
+      // buildingCount: 0, // 보유물건 수
+      // employeeCount: 0, // 종업원 수
+      // productType: 0, // 상품 종류
+      // fee1: 0, // 보증 수수료 긴급연락처
+      // fee2: 0, // 보증 수수료 연대보증인
+      // fee3: 0, // 보증 수수료 기타
+      // novationFee:0, // 갱신료
+      // propertyManagermentCompanyFee:0, // 대리점 수수료
+      // bankName: "", // 은행명
+      // recipientName: "", // 수취인명
+      // recipientNameKana: "", // 카나
+      // bankAccountNumber: "", // 계좌번호
+      // remitType: "", // 송금타입
+      // branchOfficeName: "", // 지점명
+      // comfirmPerson: "", // 확인담당자
+      // approvalPerson: "", // 상관승인자
       companyType: "부동산", // 등록선택
       companyName: "회사이름", // 회사이름
       companyAdress: "회사 주소", // 회사 주소
@@ -420,6 +448,9 @@ export default {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
     this.form.getFieldDecorator('keys', { initialValue: [], preserve: true });
   },
+  mounted(){
+    this.db = firebase.firestore();
+  },
   methods: {
     remove(k) {
       const { form } = this;
@@ -464,12 +495,93 @@ export default {
       this.roomMateBirthday = dateString;
     },
     handleSubmit(e) {
-      e.preventDefault();
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-        }
+      const companyType = this.companyType;
+      const companyName = this.companyName;
+      const companyAdress = this.companyAdress;
+      const companyOnwer = this.companyOnwer;
+      const companyOnwerSex = this.companyOnwerSex;
+      const companyOnwerTel = this.companyOnwerTel;
+      const systemManager = this.systemManager;
+      const systemManagerEmail = this.systemManagerEmail;
+      const fax = this.fax;
+      const notes = this.notes;
+      const joinDate = this.joinDate;
+      const buildingCount = this.buildingCount;
+      const employeeCount = this.employeeCount;
+      const productType = this.productType;
+      const fee1 = this.fee1;
+      const fee2 = this.fee2;
+      const fee3 = this.fee3;
+      const novationFee = this.novationFee;
+      const propertyManagermentCompanyFee = this.propertyManagermentCompanyFee;
+      const bankName = this.bankName;
+      const recipientName = this.recipientName;
+      const recipientNameKana = this.recipientNameKana;
+      const bankAccountNumber = this.bankAccountNumber;
+      const remitType = this.remitType;
+      const branchOfficeName = this.branchOfficeName;
+      const comfirmPerson = this.comfirmPerson;
+      const approvalPerson = this.approvalPerson;
+      this.loading = true;
+      const thisObj = this;
+      this.db.collection("companys").add({
+        companyType,
+        companyName,
+        companyAdress,
+        companyOnwer,
+        companyOnwerSex,
+        companyOnwerTel,
+        systemManager,
+        systemManagerEmail,
+        fax,
+        notes,
+        joinDate,
+        buildingCount,
+        employeeCount,
+        productType,
+        fee1,
+        fee2,
+        fee3,
+        novationFee,
+        propertyManagermentCompanyFee,
+        bankName,
+        recipientName,
+        recipientNameKana,
+        bankAccountNumber,
+        remitType,
+        branchOfficeName,
+        comfirmPerson,
+        approvalPerson,
+      })
+      .then(function(docRef) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"success",msg:"등록 완료"});
+        thisObj.moveCompanyListPage();
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"등록 실패"});
+        console.error("Error adding document: ", error);
       });
+    },
+    alertMsg({type="info",msg=""}) {
+      switch (type) {
+        case "info":
+          this.$message.info(msg);
+          break;
+        case "error":
+          this.$message.error(msg);
+          break;
+        case "success":
+          this.$message.success(msg);
+          break;
+        default:
+          break;
+      }
+    },
+    moveCompanyListPage() {
+      this.$emit('moveCompanyListPage');
     },
   },
 };
