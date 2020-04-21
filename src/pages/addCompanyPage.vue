@@ -454,14 +454,10 @@ export default {
   methods: {
     remove(k) {
       const { form } = this;
-      // can use data-binding to get
       const keys = form.getFieldValue('keys');
-      // We need at least one passenger
       if (keys.length === 1) {
         return;
       }
-
-      // can use data-binding to set
       form.setFieldsValue({
         keys: keys.filter(key => key !== k),
       });
@@ -469,14 +465,11 @@ export default {
 
     add() {
       const { form } = this;
-      // can use data-binding to get
       const keys = form.getFieldValue('keys');
       if(keys.length > 4){
         return false;
       }
       const nextKeys = keys.concat(id++);
-      // can use data-binding to set
-      // important! notify form to detect changes
       form.setFieldsValue({
         keys: nextKeys,
       });
