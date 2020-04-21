@@ -145,14 +145,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="propertyName" addonAfter="개"/>
+                  <a-input v-model="buildingCount" addonAfter="개"/>
                 </a-form-item>
                 <a-form-item
                   label="종업원 수"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
-                  <a-input v-model="propertyAdress" addonAfter="명"/>
+                  <a-input v-model="employeeCount" addonAfter="명"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -160,7 +160,7 @@
               label="상품 종류"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
-              <a-select v-model="guarantorType">
+              <a-select v-model="productType">
                 <a-select-option value="A">
                   A
                 </a-select-option>
@@ -179,9 +179,9 @@
               label="보증 수수료"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
-              <a-input-number :max="999" :formatter="value => `긴급연락처 ${value}%`" style="width:140px; margin-right:10px;"/>
-              <a-input-number :max="999" :formatter="value => `연대보증인 ${value}%`" style="width:140px; margin-right:10px;"/>
-              <a-input-number :max="999" :formatter="value => `기타 ${value}%`" style="width:100px;"/>
+              <a-input-number :max="999" v-model="fee1" :formatter="value => `긴급연락처 ${value}%`" style="width:140px; margin-right:10px;"/>
+              <a-input-number :max="999" v-model="fee2" :formatter="value => `연대보증인 ${value}%`" style="width:140px; margin-right:10px;"/>
+              <a-input-number :max="999" v-model="fee3" :formatter="value => `기타 ${value}%`" style="width:100px;"/>
             </a-form-item>
             <a-form-item
                 label="갱신료"
@@ -193,14 +193,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="rent"/>
+                  <a-input v-model="novationFee"/>
                 </a-form-item>
                 <a-form-item
                   label="대리점 수수료"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
-                  <a-input v-model="managementCost"/>
+                  <a-input v-model="propertyManagermentCompanyFee"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -216,7 +216,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <a-input/>
+              <a-input v-model="bankName"/>
             </a-form-item>
             <a-form-item
               label="수취인명"
@@ -228,14 +228,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input/>
+                  <a-input v-model="recipientName"/>
                 </a-form-item>
                 <a-form-item
                   label="カナ）"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
-                  <a-input/>
+                  <a-input v-model="recipientNameKana"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -249,14 +249,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input/>
+                  <a-input v-model="bankAccountNumber"/>
                 </a-form-item>
                 <a-form-item
                   label="송금타입"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
-                  <a-input/>
+                  <a-input v-model="remitType"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -270,7 +270,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input/>
+                  <a-input v-model="branchOfficeName"/>
                 </a-form-item>
                 <a-form-item
                   label=""
@@ -283,8 +283,8 @@
             <a-form-item
               v-for="(k, index) in form.getFieldValue('keys')"
               :key="k"
-              v-bind="index === 0 ? formItemLayout : formItemLayoutWithOutLabel"
-              :label="index === 0 ? '사용자 지정' : ''"
+              v-bind="index === 0 ? formItemLayoutWithOutLabel : formItemLayoutWithOutLabel"
+              :label="index === 0 ? '사용자 지정1' : '사용자 지정'+(index+1)"
               :required="false"
             >
               <a-input
@@ -298,7 +298,7 @@
                 @click="() => remove(k)"
               />
             </a-form-item>
-            <a-form-item v-bind="formItemLayoutWithOutLabel">
+            <a-form-item v-bind="{wrapperCol:{ span: 16, offset: 4 }}" v-if="form.getFieldValue('keys').length < 5">
               <a-button type="dashed" style="width: 60%" @click="add">
                 <a-icon type="plus" /> Add field
               </a-button>
@@ -363,65 +363,38 @@ export default {
   data() {
     return {
       companyType: "부동산", // 등록선택
-      companyName: "", // 회사이름
-      companyAdress: "", // 회사 주소
-      companyOnwer: "", // 회사 대표자
-      companyOnwerTel: "", // 대표자 전화번호
-      systemManager: "", // 시스템관리자
-      fax: "", // FAX
-      systemManagerEmail: "", // 시스템관리자 이메일
-      notes: "", // 비고
-      joinDate: "", // 등록날짜
+      companyName: "회사이름", // 회사이름
+      companyAdress: "회사 주소", // 회사 주소
+      companyOnwer: "회사 대표자", // 회사 대표자
       companyOnwerSex: "남", // 회사 대표자 성별
-      companyBirthday: "", // 회사 생년월일
-      companySms: "", // 회사 sms
-      companyResidenceQualification: "", // 회사 재류자격
-      companyCompanyName: "", // 회사 회사이름
-      companyLengthOfService: "", // 회사 근속연수
-      companySalary : "", // 회사 급여
-      propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
-      guaranteeType: "긴급연락처", // 보증형태
-      propertyManagermentCompanyFeePercentage: 70, // 대리점 수수료 퍼센트
-      propertyName: "", // 멘션명 
-      propertyAdress: "", // 멘션 주소
-      roomNumber: "", // 호실
-      roomType: "", // 방 타입
-      rent: 0, // 월세
-      managementCost: 0, // 관리비
-      otherCosts: 0, // 기타비용
+      companyOnwerTel: "대표자 전화번호", // 대표자 전화번호
+      systemManager: "시스템관리자", // 시스템관리자
+      systemManagerEmail: "시스템관리자 이메일", // 시스템관리자 이메일
+      fax: "FAX", // FAX
+      notes: "비고", // 비고
+      joinDate: "등록날짜", // 등록날짜
+      buildingCount: 0, // 보유물건 수
+      employeeCount: 0, // 종업원 수
+      productType: 0, // 상품 종류
+      fee1: 0, // 보증 수수료 긴급연락처
+      fee2: 0, // 보증 수수료 연대보증인
+      fee3: 0, // 보증 수수료 기타
+      novationFee:0, // 갱신료
       propertyManagermentCompanyFee:0, // 대리점 수수료
-      totalPayment:0, // 총 비용
-      roomMate: false, // 동반 입주자 여부
-      roomMateHeadCount: 1, // 동반 입주자 인수
-      roomMateName: "", // 동반 입주자 이름
-      roomMateBirthday: "", // 동반 입주자 생년월일
-      roomMateTel: "", // 동반 입주자 전화번호
-      roomMateCountry: "", // 동반 입주자 국적
-      roomMateIdCard: "", // 동반 입주자 신분증
-      guarantorType: "A", // 보증 타입 연대 보증인 or 긴급연락처
-      guarantorName: "", // 보증인 이름
-      guarantorCountry: "", // 보증인 국적
-      guarantorAdress: "", // 보증인 주소
-      relationship: "", // 관계
-      guarantorTel1: "", // 보증인TEL-1
-      guarantorTel2: "", // 보증인TEL-2
-      guarantorCompanyName: "", // 보증인 회사명
-      guarantorCompanyTel: "", // 보증인 회사 전화번호
-      guarantorCompanyAddress: "", // 보증인 회사 주소
-      guarantorIdCard: "", // 보증인 신분증
-      comfirmPerson: "", // 확인담당자
-      approvalPerson: "", // 상관승인자
-      // jointGuarantor: "", // 연대 보증인
-      // emergencyContact: "", // 긴급 연락처
+      bankName: "은행명", // 은행명
+      recipientName: "수취인명", // 수취인명
+      recipientNameKana: "카나", // 카나
+      bankAccountNumber: "계좌번호", // 계좌번호
+      remitType: "송금타입", // 송금타입
+      branchOfficeName: "지점명", // 지점명
+      comfirmPerson: "확인담당자", // 확인담당자
+      approvalPerson: "상관승인자", // 상관승인자
       formLayout: 'horizontal',
       emailDataSource: [],
-      roomTypeDataSource: [],
-      companyTypeDataSource: ["A관리회사","B관리회사"],
-      countryDataSource: ["대한민국","일본"],
       formItemLayoutWithOutLabel: {
         wrapperCol: {
           xs: { span: 16, offset: 0 },
-          sm: { span: 16, offset: 4 },
+          sm: { span: 16, offset: 0 },
         },
       },
     };
@@ -489,30 +462,6 @@ export default {
     },
     onChangeRoomMateBirthday(date, dateString) {
       this.roomMateBirthday = dateString;
-    },
-    onChangePayment() {
-      this.rent = parseInt(this.rent);
-      this.managementCost = parseInt(this.managementCost);
-      this.otherCosts = parseInt(this.otherCosts);
-      this.propertyManagermentCompanyFee = parseInt((this.rent+this.managementCost+this.otherCosts)*this.propertyManagermentCompanyFeePercentage/100);
-      this.totalPayment = parseInt(this.rent+this.managementCost+this.otherCosts+this.propertyManagermentCompanyFee);
-    },
-    onChangePaymentPercent() {
-      switch (this.guaranteeType) {
-        case "긴급연락처":
-          this.propertyManagermentCompanyFeePercentage = 70;
-          break;
-        case "연대보증인":
-          this.propertyManagermentCompanyFeePercentage = 40;
-          break;
-        case "기타":
-          this.propertyManagermentCompanyFeePercentage = 20;
-          break;
-      
-        default:
-          break;
-      }
-      this.onChangePayment();
     },
     handleSubmit(e) {
       e.preventDefault();
