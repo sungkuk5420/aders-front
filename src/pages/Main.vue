@@ -12,7 +12,7 @@
       >
         <a-menu-item key="1" @click='changeTabIndex(1)'>검색</a-menu-item>
         <a-menu-item key="2" @click='changeTabIndex(2)'>신규등록</a-menu-item>
-        <a-menu-item key="3" @click='changeTabIndex(3)'>대리점 등록</a-menu-item>
+        <a-menu-item key="3" @click='changeTabIndex(3)'>대리점 목록</a-menu-item>
         <a-menu-item key="4" @click='changeTabIndex(4)'>연체자 등록</a-menu-item>
         <a-menu-item key="5" @click='changeTabIndex(5)'>지불용지 출력</a-menu-item>
         <a-menu-item key="6" @click='changeTabIndex(6)'>수익분석</a-menu-item>
@@ -21,7 +21,8 @@
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
       <SearchPage v-show="tabIndex ==1"/>
       <addUserPage v-show="tabIndex ==2"/>
-      <addCompanyPage v-show="tabIndex ==3"/>
+      <CompanyListPage v-show="tabIndex ==3" v-on:moveAddCompanyPage="changeTabIndex(30)"/>
+      <addCompanyPage v-show="tabIndex ==30" />
     </a-layout-content>
   </a-layout>
 </template>
@@ -32,11 +33,13 @@ import { T } from "../store/module-example/types";
 import SearchPage from "../pages/SearchPage.vue";
 import addUserPage from "../pages/addUserPage.vue";
 import addCompanyPage from "../pages/addCompanyPage.vue";
+import CompanyListPage from "../pages/CompanyListPage.vue";
 export default {
   components: {
     SearchPage,
     addUserPage,
-    addCompanyPage
+    addCompanyPage,
+    CompanyListPage
   },
   data() {
     return {
@@ -63,6 +66,9 @@ export default {
           this.tabIndex =index;
           break;
         case 3:
+          this.tabIndex =index;
+          break;
+        case 30:
           this.tabIndex =index;
           break;
       

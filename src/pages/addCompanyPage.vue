@@ -46,20 +46,20 @@
             <a-form-item
               label="대표자"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                
+
                   <a-input v-model="companyOnwer"/>
                 </a-form-item>
                 <a-form-item
                   label="성별"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                 
                   <a-radio-group v-model="companyOnwerSex" >
@@ -76,7 +76,7 @@
             <a-form-item
               label="대표자 TEL"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -87,8 +87,8 @@
                 </a-form-item>
                 <a-form-item
                   label="시스템관리자"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-input v-model="systemManager"/>
                 </a-form-item>
@@ -97,7 +97,7 @@
             <a-form-item
               label="시스템관리자 Email"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -113,8 +113,8 @@
                 </a-form-item>
                 <a-form-item
                   label="FAX"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-input v-model="fax"/>
                 </a-form-item>
@@ -138,7 +138,7 @@
             <a-form-item
               label="보유물건 수"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -149,8 +149,8 @@
                 </a-form-item>
                 <a-form-item
                   label="종업원 수"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-input v-model="propertyAdress" addonAfter="명"/>
                 </a-form-item>
@@ -186,7 +186,7 @@
             <a-form-item
                 label="갱신료"
                 :label-col="formItemLayout.labelCol"
-                :wrapper-col="{ span: 16 }"
+                :wrapper-col="formItemLayout.wrapperCol"
               >
               <div class="form-row">
                 <a-form-item
@@ -197,8 +197,8 @@
                 </a-form-item>
                 <a-form-item
                   label="대리점 수수료"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-input v-model="managementCost"/>
                 </a-form-item>
@@ -221,7 +221,7 @@
             <a-form-item
               label="수취인명"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -232,8 +232,8 @@
                 </a-form-item>
                 <a-form-item
                   label="カナ）"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-input/>
                 </a-form-item>
@@ -242,7 +242,7 @@
             <a-form-item
               label="계좌번호"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -253,8 +253,8 @@
                 </a-form-item>
                 <a-form-item
                   label="송금타입"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-input/>
                 </a-form-item>
@@ -263,7 +263,7 @@
             <a-form-item
               label="지점명"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -274,11 +274,34 @@
                 </a-form-item>
                 <a-form-item
                   label=""
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                 </a-form-item>
               </div>
+            </a-form-item>
+            <a-form-item
+              v-for="(k, index) in form.getFieldValue('keys')"
+              :key="k"
+              v-bind="index === 0 ? formItemLayout : formItemLayoutWithOutLabel"
+              :label="index === 0 ? '사용자 지정' : ''"
+              :required="false"
+            >
+              <a-input
+                style="width: 60%; margin-right: 8px"
+              />
+              <a-icon
+                v-if="form.getFieldValue('keys').length > 1"
+                class="dynamic-delete-button"
+                type="minus-circle-o"
+                :disabled="form.getFieldValue('keys').length === 1"
+                @click="() => remove(k)"
+              />
+            </a-form-item>
+            <a-form-item v-bind="formItemLayoutWithOutLabel">
+              <a-button type="dashed" style="width: 60%" @click="add">
+                <a-icon type="plus" /> Add field
+              </a-button>
             </a-form-item>
           </div>
           <div class="form-cell">
@@ -290,7 +313,7 @@
             <a-form-item
               label="확인 담당자"
               :label-col="formItemLayout.labelCol"
-              :wrapper-col="{ span: 16 }"
+              :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item
@@ -302,8 +325,8 @@
                 </a-form-item>
                 <a-form-item
                   label="상관 승인자"
-                  :label-col="{ span: 8 }"
-                  :wrapper-col="{ span: 16 }"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-input v-model="approvalPerson"/>
                 </a-form-item>
@@ -329,6 +352,7 @@
 </template>
 
 <script>
+let id = 0;
 import ImageUpload from "../components/ImageUpload"
 import VueSlideUpDown from 'vue-slide-up-down'
 export default {
@@ -374,7 +398,7 @@ export default {
       roomMateTel: "", // 동반 입주자 전화번호
       roomMateCountry: "", // 동반 입주자 국적
       roomMateIdCard: "", // 동반 입주자 신분증
-      guarantorType: "연대보증인", // 보증 타입 연대 보증인 or 긴급연락처
+      guarantorType: "A", // 보증 타입 연대 보증인 or 긴급연락처
       guarantorName: "", // 보증인 이름
       guarantorCountry: "", // 보증인 국적
       guarantorAdress: "", // 보증인 주소
@@ -394,6 +418,12 @@ export default {
       roomTypeDataSource: [],
       companyTypeDataSource: ["A관리회사","B관리회사"],
       countryDataSource: ["대한민국","일본"],
+      formItemLayoutWithOutLabel: {
+        wrapperCol: {
+          xs: { span: 16, offset: 0 },
+          sm: { span: 16, offset: 4 },
+        },
+      },
     };
   },
   computed: {
@@ -401,20 +431,53 @@ export default {
       const { formLayout } = this;
       return {
             labelCol: { span: 4 },
-            wrapperCol: { span: 16 },
+            labelCol2: { span: 10 },
+            wrapperCol: { span: 20 },
+            wrapperCol2: { span: 14 },
           };
     },
     buttonItemLayout() {
       const { formLayout } = this;
       return {
-            wrapperCol: { span: 16, offset: 4 },
+            wrapperCol: { span: 14, offset: 4 },
           };
     },
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
+    this.form.getFieldDecorator('keys', { initialValue: [], preserve: true });
   },
   methods: {
+    remove(k) {
+      const { form } = this;
+      // can use data-binding to get
+      const keys = form.getFieldValue('keys');
+      // We need at least one passenger
+      if (keys.length === 1) {
+        return;
+      }
+
+      // can use data-binding to set
+      form.setFieldsValue({
+        keys: keys.filter(key => key !== k),
+      });
+    },
+
+    add() {
+      const { form } = this;
+      // can use data-binding to get
+      const keys = form.getFieldValue('keys');
+      if(keys.length > 4){
+        return false;
+      }
+      const nextKeys = keys.concat(id++);
+      // can use data-binding to set
+      // important! notify form to detect changes
+      form.setFieldsValue({
+        keys: nextKeys,
+      });
+      console.log(nextKeys)
+    },
     handleChangeEmail(value) {
       this.emailDataSource =
         !value || value.indexOf('@') >= 0
