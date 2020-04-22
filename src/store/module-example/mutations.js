@@ -1,9 +1,9 @@
 import { T } from "./types";
 
 export const mutations = {
-  [T.CHANGE_MODAL_VISIBLE](state) {
+  [T.GET_COMPANY_LIST](state,companyList) {
     // console.log(`mutation [T.CHANGE_MODAL_VISIBLE] ${!state.modalVisible}`);
-    state.modalVisible = !state.modalVisible;
+    state.companyList = companyList;
   },
   [T.GET_TEAM_CARDS](state, result) {
     // console.log(`mutation [T.GET_TEAM_CARDS] ${result}`);

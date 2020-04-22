@@ -339,9 +339,14 @@
               
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
-              <a-button type="primary" @click="handleSubmit" :loading="loading">
-                등록
-              </a-button>
+              <div class="form-row">
+                <a-button type="primary" @click="handleSubmit" :loading="loading">
+                  등록
+                </a-button>
+                <a-button type="default" @click="cancel" style="margin-left:10px;">
+                  취소
+                </a-button>
+              </div>
             </div>
           </div>
         </div>
@@ -351,6 +356,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { T } from "../store/module-example/types";
 let id = 0;
 import ImageUpload from "../components/ImageUpload"
 import VueSlideUpDown from 'vue-slide-up-down'
@@ -363,44 +370,17 @@ export default {
     return {
       loading:false,
       db:"", // firebase
-      // companyType: "부동산", // 등록선택
-      // companyName: "", // 회사이름
-      // companyAdress: "", // 회사 주소
-      // companyOnwer: "", // 회사 대표자
-      // companyOnwerSex: "남", // 회사 대표자 성별
-      // companyOnwerTel: "", // 대표자 전화번호
-      // systemManager: "", // 시스템관리자
-      // systemManagerEmail: "", // 시스템관리자 이메일
-      // fax: "", // FAX
-      // notes: "", // 비고
-      // joinDate: "", // 등록날짜
-      // buildingCount: 0, // 보유물건 수
-      // employeeCount: 0, // 종업원 수
-      // productType: 0, // 상품 종류
-      // fee1: 0, // 보증 수수료 긴급연락처
-      // fee2: 0, // 보증 수수료 연대보증인
-      // fee3: 0, // 보증 수수료 기타
-      // novationFee:0, // 갱신료
-      // propertyManagermentCompanyFee:0, // 대리점 수수료
-      // bankName: "", // 은행명
-      // recipientName: "", // 수취인명
-      // recipientNameKana: "", // 카나
-      // bankAccountNumber: "", // 계좌번호
-      // remitType: "", // 송금타입
-      // branchOfficeName: "", // 지점명
-      // comfirmPerson: "", // 확인담당자
-      // approvalPerson: "", // 상관승인자
       companyType: "부동산", // 등록선택
-      companyName: "회사이름", // 회사이름
-      companyAdress: "회사 주소", // 회사 주소
-      companyOnwer: "회사 대표자", // 회사 대표자
+      companyName: "", // 회사이름
+      companyAdress: "", // 회사 주소
+      companyOnwer: "", // 회사 대표자
       companyOnwerSex: "남", // 회사 대표자 성별
-      companyOnwerTel: "대표자 전화번호", // 대표자 전화번호
-      systemManager: "시스템관리자", // 시스템관리자
-      systemManagerEmail: "시스템관리자 이메일", // 시스템관리자 이메일
-      fax: "FAX", // FAX
-      notes: "비고", // 비고
-      joinDate: "등록날짜", // 등록날짜
+      companyOnwerTel: "", // 대표자 전화번호
+      systemManager: "", // 시스템관리자
+      systemManagerEmail: "", // 시스템관리자 이메일
+      fax: "", // FAX
+      notes: "", // 비고
+      joinDate: "", // 등록날짜
       buildingCount: 0, // 보유물건 수
       employeeCount: 0, // 종업원 수
       productType: 0, // 상품 종류
@@ -409,14 +389,41 @@ export default {
       fee3: 0, // 보증 수수료 기타
       novationFee:0, // 갱신료
       propertyManagermentCompanyFee:0, // 대리점 수수료
-      bankName: "은행명", // 은행명
-      recipientName: "수취인명", // 수취인명
-      recipientNameKana: "카나", // 카나
-      bankAccountNumber: "계좌번호", // 계좌번호
-      remitType: "송금타입", // 송금타입
-      branchOfficeName: "지점명", // 지점명
-      comfirmPerson: "확인담당자", // 확인담당자
-      approvalPerson: "상관승인자", // 상관승인자
+      bankName: "", // 은행명
+      recipientName: "", // 수취인명
+      recipientNameKana: "", // 카나
+      bankAccountNumber: "", // 계좌번호
+      remitType: "", // 송금타입
+      branchOfficeName: "", // 지점명
+      comfirmPerson: "", // 확인담당자
+      approvalPerson: "", // 상관승인자
+      // companyType: "부동산", // 등록선택
+      // companyName: "회사이름", // 회사이름
+      // companyAdress: "회사 주소", // 회사 주소
+      // companyOnwer: "회사 대표자", // 회사 대표자
+      // companyOnwerSex: "남", // 회사 대표자 성별
+      // companyOnwerTel: "대표자 전화번호", // 대표자 전화번호
+      // systemManager: "시스템관리자", // 시스템관리자
+      // systemManagerEmail: "시스템관리자 이메일", // 시스템관리자 이메일
+      // fax: "FAX", // FAX
+      // notes: "비고", // 비고
+      // joinDate: "등록날짜", // 등록날짜
+      // buildingCount: 0, // 보유물건 수
+      // employeeCount: 0, // 종업원 수
+      // productType: 0, // 상품 종류
+      // fee1: 0, // 보증 수수료 긴급연락처
+      // fee2: 0, // 보증 수수료 연대보증인
+      // fee3: 0, // 보증 수수료 기타
+      // novationFee:0, // 갱신료
+      // propertyManagermentCompanyFee:0, // 대리점 수수료
+      // bankName: "은행명", // 은행명
+      // recipientName: "수취인명", // 수취인명
+      // recipientNameKana: "카나", // 카나
+      // bankAccountNumber: "계좌번호", // 계좌번호
+      // remitType: "송금타입", // 송금타입
+      // branchOfficeName: "지점명", // 지점명
+      // comfirmPerson: "확인담당자", // 확인담당자
+      // approvalPerson: "상관승인자", // 상관승인자
       formLayout: 'horizontal',
       emailDataSource: [],
       formItemLayoutWithOutLabel: {
@@ -482,7 +489,7 @@ export default {
           : [`${value}@gmail.com`, `${value}@yahoo.com`, `${value}@other.com`];
     },
     onChangeJoinDate(date, dateString) {
-      this.moveIntoDate = dateString;
+      this.joinDate = dateString;
     },
     onChangeRoomMateBirthday(date, dateString) {
       this.roomMateBirthday = dateString;
@@ -547,16 +554,53 @@ export default {
         approvalPerson,
       })
       .then(function(docRef) {
-        thisObj.loading = false;
-        thisObj.alertMsg({type:"success",msg:"등록 완료"});
-        thisObj.moveCompanyListPage();
-        console.log("Document written with ID: ", docRef.id);
+        thisObj.getCompanyList(()=>{
+          thisObj.clearDatas()
+          thisObj.loading = false;
+          thisObj.alertMsg({type:"success",msg:"등록 완료"});
+          thisObj.moveCompanyListPage();
+        })
       })
       .catch(function(error) {
         thisObj.loading = false;
         thisObj.alertMsg({type:"error",msg:"등록 실패"});
         console.error("Error adding document: ", error);
       });
+    },
+    cancel(){
+      this.moveCompanyListPage();
+    },
+    clearDatas(){
+      this.companyType = "부동산";
+      this.companyName = "";
+      this.companyAdress = "";
+      this.companyOnwer = "";
+      this.companyOnwerSex = "남";
+      this.companyOnwerTel = "";
+      this.systemManager = "";
+      this.systemManagerEmail = "";
+      this.fax = "";
+      this.notes = "";
+      this.joinDate = "";
+      this.buildingCount = 0;
+      this.employeeCount = 0;
+      this.productType = 0;
+      this.fee1 = 0;
+      this.fee2 = 0;
+      this.fee3 = 0;
+      this.novationFee = 0;
+      this.propertyManagermentCompanyFee = 0;
+      this.bankName = "";
+      this.recipientName = "";
+      this.recipientNameKana = "";
+      this.bankAccountNumber = "";
+      this.remitType = "";
+      this.branchOfficeName = "";
+      this.comfirmPerson = "";
+      this.approvalPerson = "";
+    },
+    getCompanyList(cb){
+      this.$store.dispatch(T.GET_COMPANY_LIST,{cb});
     },
     alertMsg({type="info",msg=""}) {
       switch (type) {

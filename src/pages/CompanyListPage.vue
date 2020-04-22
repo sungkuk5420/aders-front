@@ -1,10 +1,10 @@
 <template>
   <div class="company-list-page">
     <div class="search-wrapper">
-      <a-select defaultValue="멘션명">
-        <a-select-option value="멘션명">멘션명</a-select-option>
-        <a-select-option value="입주자명">입주자명</a-select-option>
-        <a-select-option value="담당자명">담당자명</a-select-option>
+      <a-select defaultValue="회사명">
+        <a-select-option value="회사명">회사명</a-select-option>
+        <a-select-option value="대표자명">대표자명</a-select-option>
+        <a-select-option value="대리점 구분">대리점 구분</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"
@@ -34,13 +34,18 @@ export default {
   },
   computed: {
     ...mapGetters({
+      companyList:"getCompanyList"
     })
   },
   watch: {
   },
   mounted() {
+    this.getCompanyList()
   },
   methods: {
+    getCompanyList(){
+      this.$store.dispatch(T.GET_COMPANY_LIST,{});
+    },
     moveAddCompanyPage() {
       this.$emit('moveAddCompanyPage');
     },
