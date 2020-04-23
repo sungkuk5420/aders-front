@@ -2,12 +2,14 @@ import { T } from "./types";
 
 export const mutations = {
   [T.GET_COMPANY_LIST](state,companyList) {
-    // console.log(`mutation [T.CHANGE_MODAL_VISIBLE] ${!state.modalVisible}`);
     state.companyList = companyList;
   },
-  [T.GET_TEAM_CARDS](state, result) {
-    // console.log(`mutation [T.GET_TEAM_CARDS] ${result}`);
-    state.teamCards = result;
+  [T.SEARCH_COMPANY](state, {companySearchType,companySearchKeyword}) {
+    console.log(`mutation [T.SEARCH_COMPANY]`)
+    console.log(companySearchType)
+    console.log(companySearchKeyword)
+    state.companySearchType = companySearchType;
+    state.companySearchKeyword = companySearchKeyword;
   },
   [T.INSERT_TEAM_CARD_DATA](state, updateTeamCardData) {
     // console.log(`mutation [T.INSERT_TEAM_CARD_DATA] ${result}`);

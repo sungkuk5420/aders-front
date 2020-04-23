@@ -315,15 +315,16 @@
               :wrapper-col="formItemLayout.wrapperCol"
               class="search-row"
             >
-              <a-radio-group default-value="회사명" v-model="propertyManagermentCompanySearchType" class="ant-col-10" style="max-width:180px;">
+              <a-radio-group default-value="회사명" @change="onChangeSearchCompanyType" v-model="propertyManagermentCompanySearchType" class="ant-col-10" style="max-width:180px;">
                 <a-radio-button value="회사명">
                   회사명
                 </a-radio-button>
-                <a-radio-button value="코드번호">
-                  코드번호
+                <a-radio-button value="대표자명">
+                  대표자명
                 </a-radio-button>
               </a-radio-group>
               <a-auto-complete
+                v-model="propertyManagermentCompanySearchKeyword"
                 :dataSource="companyTypeDataSource"
                 style="width: 200px"
                 @change="handleChangeCompanyList"
@@ -347,6 +348,12 @@
                 </a-radio-button>
               </a-radio-group>
             </a-form-item>
+            <a-form-item 
+              label="검색된 회사"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol">
+              <span>{{searchedCompanyName}}</span>
+            </a-form-item>
 
             
             <a-form-item 
@@ -355,7 +362,7 @@
               :wrapper-col="formItemLayout.wrapperCol">
               <b>
                 <span class="ant-form-text">
-                  {{propertyManagermentCompanyFeePercentage}}%
+                  {{propertyManagermentCompanyFeePercentage? propertyManagermentCompanyFeePercentage+"%" : ""}}
                 </span>
               </b>
             </a-form-item>
@@ -827,6 +834,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+import { T } from "../store/module-example/types";
 import ImageUpload from "../components/ImageUpload"
 import VueSlideUpDown from 'vue-slide-up-down'
 export default {
@@ -868,6 +877,9 @@ export default {
       contractorOtherFile : "", // 증빙서류
       // 기타 end
       propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
+      propertyManagermentCompanySearchKeyword: "", // 회사 검색 키워드
+      searchedCompanyName: "", // 회사 검색 이름
+      searchedCompany: null, // 회사 검색 오브젝트
       guaranteeType: "긴급연락처", // 보증형태
       propertyManagermentCompanyFeePercentage: 70, // 대리점 수수료 퍼센트
       propertyName: "", // 멘션명 
@@ -905,11 +917,14 @@ export default {
       formLayout: 'horizontal',
       emailDataSource: [],
       roomTypeDataSource: [],
-      companyTypeDataSource: ["A관리회사","B관리회사"],
+      companyTypeDataSource: [],
       countryDataSource: ["대한민국","일본"],
     };
   },
   computed: {
+    ...mapGetters({
+      companyList:"getCompanyList",
+    }),
     formItemLayout() {
       const { formLayout } = this;
       return {
@@ -924,6 +939,19 @@ export default {
             wrapperCol: { span: 18, offset: 4 },
           };
     },
+  },
+  watch: {
+      companyList: {
+          handler(companys) {
+              if (companys) {
+                  const dataList = this.updateCompanyListDataSource(companys);
+                  this.companyTypeDataSource = dataList;
+              }
+          },
+          immediate: true
+      }
+  },
+  mounted(){
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
@@ -944,12 +972,46 @@ export default {
     handleChangeRoomType(value) {
       this.roomTypeDataSource = ["1K","1DK","1LDK","2K","2DK","2LDK","3K","3DK","3LDK","4K","4DK","4LDK"].filter(item=>item.indexOf(value)!=-1)
     },
-    handleChangeCompanyList(value) {
+    onChangeSearchCompanyType(){
+      this.handleChangeCompanyList(this.propertyManagermentCompanySearchKeyword)
+    },
+    updateCompanyListDataSource(companyList){
       let dataList = [];
       if(this.propertyManagermentCompanySearchType == "회사명"){
-        dataList = ["A관리회사","B관리회사"];
+        dataList = companyList.map(item=>item.companyName);
+      }else if(this.propertyManagermentCompanySearchType == "대표자명"){
+        dataList = companyList.map(item=>item.companyOnwer);
       }
+      return dataList;
+    },
+    handleChangeCompanyList(value) {
+      const dataList = this.updateCompanyListDataSource(this.companyList);
       this.companyTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
+      this.searchedCompany = null;
+      if(this.companyTypeDataSource.length == 1){
+        let filteredCompany = {};
+        if(this.propertyManagermentCompanySearchType == "회사명"){
+          filteredCompany = this.companyList.filter(item=>item.companyName == value);
+        }else if(this.propertyManagermentCompanySearchType == "대표자명"){
+          filteredCompany = this.companyList.filter(item=>item.companyOnwer == value);
+        }
+        console.log(filteredCompany)
+        if(filteredCompany.length > 0){
+          this.searchedCompanyName = filteredCompany[0].companyName;
+          this.searchedCompany = filteredCompany[0];
+        }else{
+        this.searchedCompanyName = "검색된 회사가 없습니다.";
+        }
+      }else if(this.companyTypeDataSource.length == 0){
+        this.searchedCompanyName = "검색된 회사가 없습니다.";
+      }else{
+        if(value != ""){
+          this.searchedCompanyName = "검색된 회사가 2개 이상입니다.";
+        }else{
+          this.searchedCompanyName = "";
+        }
+      }
+      this.onChangePaymentPercent()
     },
     onChangeGuarantorBirthday(date, dateString) {
       this.guarantorBirthday = dateString;
@@ -964,6 +1026,10 @@ export default {
       this.roomMateBirthday = dateString;
     },
     onChangePayment() {
+      console.log(this.searchedCompany)
+      if(this.searchedCompany == null){
+        return false;
+      }
       this.rent = parseInt(this.rent);
       this.managementCost = parseInt(this.managementCost);
       this.otherCosts = parseInt(this.otherCosts);
@@ -971,19 +1037,23 @@ export default {
       this.totalPayment = parseInt(this.rent+this.managementCost+this.otherCosts+this.propertyManagermentCompanyFee);
     },
     onChangePaymentPercent() {
-      switch (this.guaranteeType) {
-        case "긴급연락처":
-          this.propertyManagermentCompanyFeePercentage = 70;
-          break;
-        case "연대보증인":
-          this.propertyManagermentCompanyFeePercentage = 40;
-          break;
-        case "기타":
-          this.propertyManagermentCompanyFeePercentage = 20;
-          break;
-      
-        default:
-          break;
+      if(this.searchedCompany == null){
+        this.propertyManagermentCompanyFeePercentage = "";
+      }else{
+        switch (this.guaranteeType) {
+          case "긴급연락처":
+            this.propertyManagermentCompanyFeePercentage = this.searchedCompany.fee1;
+            break;
+          case "연대보증인":
+            this.propertyManagermentCompanyFeePercentage = this.searchedCompany.fee2;
+            break;
+          case "기타":
+            this.propertyManagermentCompanyFeePercentage = this.searchedCompany.fee3;
+            break;
+        
+          default:
+            break;
+        }
       }
       this.onChangePayment();
     },

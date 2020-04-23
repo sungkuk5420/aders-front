@@ -1,7 +1,7 @@
 <template>
   <div class="company-list-page">
     <div class="search-wrapper">
-      <a-select defaultValue="회사명">
+      <a-select v-model="companySearchType" @change="onSearch">
         <a-select-option value="회사명">회사명</a-select-option>
         <a-select-option value="대표자명">대표자명</a-select-option>
         <a-select-option value="대리점 구분">대리점 구분</a-select-option>
@@ -9,8 +9,11 @@
       <a-input-search
         placeholder="키워드 입력"
         size="large"
+        v-model="companySearchKeyword" 
+        @search="onSearch"
+        @change="onSearch"
       >
-      <a-button slot="enterButton" type="primary" icon="search">검색</a-button>
+      <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading" >검색</a-button>
       </a-input-search>
       <a-button type="primary" @click="moveAddCompanyPage">대리점 등록</a-button>
     </div>
@@ -30,6 +33,9 @@ export default {
   },
   data() {
     return {
+      companySearchType:"회사명",
+      companySearchKeyword:"",
+      searchLoading:false
     };
   },
   computed: {
@@ -45,6 +51,12 @@ export default {
   methods: {
     getCompanyList(){
       this.$store.dispatch(T.GET_COMPANY_LIST,{});
+    },
+    onSearch(){
+      console.log("search click");
+      const companySearchType = this.companySearchType;
+      const companySearchKeyword = this.companySearchKeyword;
+      this.$store.dispatch(T.SEARCH_COMPANY,{companySearchType,companySearchKeyword});
     },
     moveAddCompanyPage() {
       this.$emit('moveAddCompanyPage');
