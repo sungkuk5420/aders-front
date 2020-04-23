@@ -881,7 +881,7 @@ export default {
       searchedCompanyName: "", // 회사 검색 이름
       searchedCompany: null, // 회사 검색 오브젝트
       guaranteeType: "긴급연락처", // 보증형태
-      propertyManagermentCompanyFeePercentage: 70, // 대리점 수수료 퍼센트
+      propertyManagermentCompanyFeePercentage: "", // 대리점 수수료 퍼센트
       propertyName: "", // 멘션명 
       propertyAdress: "", // 멘션 주소
       roomNumber: "", // 호실
