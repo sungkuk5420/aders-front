@@ -923,7 +923,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      companyList:"getCompanyList",
+      companyList:"getAllCompanyList",
     }),
     formItemLayout() {
       const { formLayout } = this;
@@ -952,6 +952,7 @@ export default {
       }
   },
   mounted(){
+    
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'validate_other' });

@@ -25,4 +25,7 @@ export const getters = {
       }
     });
   },
+  getAllCompanyList(state) {
+    return state.companyList;
+  },
 };
