@@ -340,8 +340,11 @@
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
               <div class="form-row">
-                <a-button type="primary" @click="handleSubmit" :loading="loading">
+                <a-button type="primary" v-show="!companyDataForUpdate" @click="handleSubmit" :loading="loading">
                   등록
+                </a-button>
+                <a-button type="primary" v-show="companyDataForUpdate" @click="handleUpdate" :loading="loading">
+                  수정
                 </a-button>
                 <a-button type="default" @click="cancel" style="margin-left:10px;">
                   취소
@@ -397,6 +400,7 @@ export default {
       branchOfficeName: "", // 지점명
       comfirmPerson: "", // 확인담당자
       approvalPerson: "", // 상관승인자
+      createdDate: "", // 상관승인자
       // companyType: "부동산", // 등록선택
       // companyName: "회사이름", // 회사이름
       // companyAdress: "회사 주소", // 회사 주소
@@ -435,6 +439,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      companyDataForUpdate:"getCompanyDataForUpdate"
+    }),
     formItemLayout() {
       const { formLayout } = this;
       return {
@@ -450,6 +457,47 @@ export default {
             wrapperCol: { span: 14, offset: 4 },
           };
     },
+  },
+
+  watch: {
+    companyDataForUpdate: {
+      handler(companyData) {
+        console.log("companyData",companyData)
+          if (companyData) {
+              this.companyType = companyData.companyType;
+              this.companyName = companyData.companyName;
+              this.companyAdress = companyData.companyAdress;
+              this.companyOnwer = companyData.companyOnwer;
+              this.companyOnwerSex = companyData.companyOnwerSex;
+              this.companyOnwerTel = companyData.companyOnwerTel;
+              this.systemManager = companyData.systemManager;
+              this.systemManagerEmail = companyData.systemManagerEmail;
+              this.fax = companyData.fax;
+              this.notes = companyData.notes;
+              this.joinDate = companyData.joinDate;
+              this.buildingCount = companyData.buildingCount;
+              this.employeeCount = companyData.employeeCount;
+              this.productType = companyData.productType;
+              this.fee1 = companyData.fee1;
+              this.fee2 = companyData.fee2;
+              this.fee3 = companyData.fee3;
+              this.novationFee = companyData.novationFee;
+              this.propertyManagermentCompanyFee = companyData.propertyManagermentCompanyFee;
+              this.bankName = companyData.bankName;
+              this.recipientName = companyData.recipientName;
+              this.recipientNameKana = companyData.recipientNameKana;
+              this.bankAccountNumber = companyData.bankAccountNumber;
+              this.remitType = companyData.remitType;
+              this.branchOfficeName = companyData.branchOfficeName;
+              this.comfirmPerson = companyData.comfirmPerson;
+              this.approvalPerson = companyData.approvalPerson;
+              this.createdDate = companyData.createdDate;
+          }else{
+              this.clearDatas()
+          }
+      },
+      immediate: true
+    }
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
@@ -494,7 +542,7 @@ export default {
     onChangeRoomMateBirthday(date, dateString) {
       this.roomMateBirthday = dateString;
     },
-    handleSubmit(e) {
+    getCompanyInputValues(){
       const companyType = this.companyType;
       const companyName = this.companyName;
       const companyAdress = this.companyAdress;
@@ -522,9 +570,8 @@ export default {
       const branchOfficeName = this.branchOfficeName;
       const comfirmPerson = this.comfirmPerson;
       const approvalPerson = this.approvalPerson;
-      this.loading = true;
-      const thisObj = this;
-      this.db.collection("companys").add({
+      const createdDate = Date.now();
+      return {
         companyType,
         companyName,
         companyAdress,
@@ -552,6 +599,15 @@ export default {
         branchOfficeName,
         comfirmPerson,
         approvalPerson,
+        createdDate,
+      }
+    },
+    handleSubmit(e) {
+      this.loading = true;
+      const thisObj = this;
+      const companyValues = this.getCompanyInputValues();
+      this.db.collection("companys").add({
+        ...companyValues
       })
       .then(function(docRef) {
         thisObj.getCompanyList(()=>{
@@ -564,6 +620,27 @@ export default {
       .catch(function(error) {
         thisObj.loading = false;
         thisObj.alertMsg({type:"error",msg:"등록 실패"});
+        console.error("Error adding document: ", error);
+      });
+    },
+    handleUpdate(e) {
+      this.loading = true;
+      const thisObj = this;
+      const companyValues = this.getCompanyInputValues();
+      this.db.collection("companys").doc(this.companyDataForUpdate.id).update({
+        ...companyValues
+      })
+      .then(function(docRef) {
+        thisObj.getCompanyList(()=>{
+          thisObj.clearDatas()
+          thisObj.loading = false;
+          thisObj.alertMsg({type:"success",msg:"수정 완료"});
+          thisObj.moveCompanyListPage();
+        })
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"수정 실패"});
         console.error("Error adding document: ", error);
       });
     },
@@ -584,7 +661,7 @@ export default {
       this.joinDate = "";
       this.buildingCount = 0;
       this.employeeCount = 0;
-      this.productType = 0;
+      this.productType ="A";
       this.fee1 = 0;
       this.fee2 = 0;
       this.fee3 = 0;
@@ -598,6 +675,7 @@ export default {
       this.branchOfficeName = "";
       this.comfirmPerson = "";
       this.approvalPerson = "";
+      this.createdDate = "";
     },
     getCompanyList(cb){
       this.$store.dispatch(T.GET_COMPANY_LIST,{cb});
@@ -618,7 +696,8 @@ export default {
       }
     },
     moveCompanyListPage() {
-      this.$emit('moveCompanyListPage');
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,3);
+      this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
     },
   },
 };

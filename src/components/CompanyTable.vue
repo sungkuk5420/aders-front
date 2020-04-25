@@ -2,10 +2,14 @@
   <a-table :columns="columns" :dataSource="companyList" :scroll="windowSize" expandRowByClick @change="handleTableChange">
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
       <p style="margin: 0">{{ record.notes }}</p>
-      <a-button type="primary" @click="detail">상세보기</a-button>
+      <a-button type="primary" @click="function(){
+        detail(record.id)
+      }">상세보기</a-button>
       <a-popconfirm
         title="정말로 이 대리점을 삭제하시겠습니까?"
-        @confirm="confirm"
+        @confirm="function(){
+          confirm(record.id)
+        }"
         @cancel="cancel"
         okText="삭제"
         cancelText="취소"
@@ -40,16 +44,18 @@ import { T } from "../store/module-example/types";
 export default {
   data() {
     return {
+      db:"", // firebase
       columns,
       windowSize:{x:'max-content'}
     };
   },
   computed: {
     ...mapGetters({
-      companyList:"getCompanyList"
+      companyList:"getCompanyList",
     })
   },
   mounted(){
+    this.db = firebase.firestore();
     const y = window.innerHeight-300;
     this.windowSize = {
       x:'max-content' 
@@ -71,12 +77,20 @@ export default {
           break;
       }
     },
-    detail(){
-      this.alertMsg({type:"info",msg:"Comming soon"})
+    detail(id){
+      this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,id);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,30);
+      
     },
-    confirm(){
-      // this.alertMsg({type:"success",msg:"삭제완료"})
-      this.alertMsg({type:"info",msg:"Comming soon"})
+    confirm(id){
+      const thisObj = this;
+      this.db.collection("companys").doc(id).delete().then(function() {
+        thisObj.$store.dispatch(T.DELETE_COMPANY,id);
+        thisObj.alertMsg({type:"success",msg:"삭제 완료"});
+      }).catch(function(error) {
+        console.log(error)
+        thisObj.alertMsg({type:"error",msg:"삭제 실패"});
+      });
     },
     cancel(){
       this.alertMsg({type:"error",msg:"취소"})

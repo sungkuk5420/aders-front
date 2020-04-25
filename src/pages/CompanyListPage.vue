@@ -59,7 +59,7 @@ export default {
       this.$store.dispatch(T.SEARCH_COMPANY,{companySearchType,companySearchKeyword});
     },
     moveAddCompanyPage() {
-      this.$emit('moveAddCompanyPage');
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,30);
     },
     alertMsg() {
       this.$message.info("수정기능 개발중");

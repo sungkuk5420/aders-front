@@ -11,9 +11,16 @@ export const mutations = {
     state.companySearchType = companySearchType;
     state.companySearchKeyword = companySearchKeyword;
   },
-  [T.INSERT_TEAM_CARD_DATA](state, updateTeamCardData) {
-    // console.log(`mutation [T.INSERT_TEAM_CARD_DATA] ${result}`);
-    state.updateTeamCardData = updateTeamCardData;
+  [T.CHANGE_UPDATE_COMPNAY_ID](state, updateCompanyId) {
+    // console.log(`mutation [T.CHANGE_UPDATE_COMPNAY_ID] ${result}`);
+    state.updateCompanyId = updateCompanyId;
+  },
+  [T.DELETE_COMPANY](state, deleteId) {
+    // console.log(`mutation [T.DELETE_COMPANY] ${result}`);
+    state.companyList = state.companyList.filter(item=>item.id != deleteId);
+  },
+  [T.CHANGE_TAB_INDEX](state,tabIndex) {
+    state.tabIndex = tabIndex;
   },
   [T.ADD_TEAM_CARD](state, result) {
     // console.log(`mutation [T.ADD_TEAM_CARD] ${result}`);

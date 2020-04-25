@@ -12,11 +12,12 @@ export const getters = {
         case "대리점 구분":
         filtedCompanys = company.companyType.indexOf(state.companySearchKeyword) != -1
           break;
-      
         default:
           break;
       }
       return filtedCompanys;
+    }).sort((a,b)=>{
+      return new Date(a.createdDate) - new Date(b.createdDate);
     }).map((company,i) =>{
       let index = i+1;
       return {
@@ -27,5 +28,11 @@ export const getters = {
   },
   getAllCompanyList(state) {
     return state.companyList;
+  },
+  getCompanyDataForUpdate(state) {
+    return state.companyList.filter(item=>item.id==state.updateCompanyId)[0];
+  },
+  getTabIndex(state) {
+    return state.tabIndex;
   },
 };

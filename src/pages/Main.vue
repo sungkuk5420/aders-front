@@ -21,8 +21,8 @@
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
       <SearchPage v-show="tabIndex ==1"/>
       <addUserPage v-show="tabIndex ==2"/>
-      <CompanyListPage v-show="!showCompanyAddPage" v-on:moveAddCompanyPage="toggleAddCompanyPage"/>
-      <addCompanyPage v-show="showCompanyAddPage" v-on:moveCompanyListPage="toggleAddCompanyPage"/>
+      <CompanyListPage v-show="tabIndex ==3" />
+      <addCompanyPage v-show="tabIndex == 30" />
     </a-layout-content>
   </a-layout>
 </template>
@@ -43,12 +43,11 @@ export default {
   },
   data() {
     return {
-      tabIndex:1,
-      showCompanyAddPage:false
     };
   },
   computed: {
     ...mapGetters({
+      tabIndex:"getTabIndex"
     })
   },
   watch: {
@@ -58,23 +57,20 @@ export default {
     // this.alertMsg({type:"success",msg:"asdfwe"});
   },
   methods: {
-    toggleAddCompanyPage(){
-      this.showCompanyAddPage = !this.showCompanyAddPage;
-    },
     changeTabIndex(index){
       switch (index) {
         case 1:
-          this.tabIndex =index;
+          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
           break;
         case 2:
-          this.tabIndex =index;
+          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
           break;
         case 3:
-          this.tabIndex =index;
-          this.showCompanyAddPage = false;
+          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
+          this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
           break;
         case 30:
-          this.tabIndex =index;
+          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
           break;
       
         default:

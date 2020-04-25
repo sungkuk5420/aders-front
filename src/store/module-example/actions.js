@@ -27,27 +27,20 @@ export const actions = {
     console.log(companySearchKeyword)
     commit(T.SEARCH_COMPANY, {companySearchType,companySearchKeyword});
   },
-  [T.GET_TEAM_CARDS]({ commit }) {
-    // console.log(`store action [T.GET_TEAM_CARDS] `);
-    commit(T.GET_TEAM_CARDS, teamArray);
-    // ajaxActions.getTeamCards(
-    //   results => {
-    //     // console.log(`action / GET_TEAM_CARDS / success`);
-    //     // console.log(" reults=", results);
-        
-    //     commit(T.GET_TEAM_CARDS, results.data);
-    //   },
-    //   res => {
-    //     // console.log(`action / GET_TEAM_CARDS / error`, res);
-    //   }
-    // );
+  [T.CHANGE_TAB_INDEX]({ commit },tabIndex) {
+    console.log(`store action [T.CHANGE_TAB_INDEX] `);
+    console.log(tabIndex)
+    commit(T.CHANGE_TAB_INDEX, tabIndex);
   },
-  [T.INSERT_TEAM_CARD_DATA]({ commit }, params) {
-    // console.log(`store action [T.UPDATE_TEAM_CARD] `);
-    commit(T.INSERT_TEAM_CARD_DATA, params.insertTeamCardData);
-    if (params.cb) {
-      params.cb();
-    }
+  [T.CHANGE_UPDATE_COMPNAY_ID]({ commit }, updateCompanyId) {
+    console.log(`store action [T.CHANGE_UPDATE_COMPNAY_ID] `);
+    console.log(updateCompanyId)
+    commit(T.CHANGE_UPDATE_COMPNAY_ID, updateCompanyId);
+  },
+  [T.DELETE_COMPANY]({ commit }, deleteId) {
+    console.log(`store action [T.DELETE_COMPANY] `);
+    console.log(deleteId)
+    commit(T.DELETE_COMPANY, deleteId);
   },
   [T.CHECK_UPDATE_PASSWORD]({ commit }, params) {
     // console.log(`store action [T.CHECK_UPDATE_PASSWORD] `);
