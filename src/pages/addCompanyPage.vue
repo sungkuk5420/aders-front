@@ -400,7 +400,7 @@ export default {
       branchOfficeName: "", // 지점명
       comfirmPerson: "", // 확인담당자
       approvalPerson: "", // 상관승인자
-      createdDate: "", // 상관승인자
+      createdDate: Date.now(), // 생성날짜
       // companyType: "부동산", // 등록선택
       // companyName: "회사이름", // 회사이름
       // companyAdress: "회사 주소", // 회사 주소
@@ -570,7 +570,7 @@ export default {
       const branchOfficeName = this.branchOfficeName;
       const comfirmPerson = this.comfirmPerson;
       const approvalPerson = this.approvalPerson;
-      const createdDate = Date.now();
+      const createdDate = this.createdDate;
       return {
         companyType,
         companyName,
