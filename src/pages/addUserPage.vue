@@ -1262,6 +1262,10 @@ export default {
       }
       this.onChangePayment();
     },
+    moveUserListPage() {
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
+      // this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
+    },
     handleSubmit(e) {
       this.loading = true;
       const thisObj = this;
@@ -1274,7 +1278,7 @@ export default {
           thisObj.clearDatas()
           thisObj.loading = false;
           thisObj.alertMsg({type:"success",msg:"등록 완료"});
-          // thisObj.moveUserListPage();
+          thisObj.moveUserListPage();
         // })
       })
       .catch(function(error) {
