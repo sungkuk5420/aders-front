@@ -822,7 +822,7 @@
               
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
-              <a-button type="primary" html-type="submit">
+              <a-button type="primary"  @click="handleSubmit" :loading="loading">
                 등록
               </a-button>
             </div>
@@ -845,6 +845,8 @@ export default {
   },
   data() {
     return {
+      loading:false,
+      db:"", // firebase
       contractorType: "개인", // 등록선택
       contractorName: "", // 계약자이름
       contractorCountry: "", // 계약자국적
@@ -857,28 +859,21 @@ export default {
       contractorEmail: "", // 계약자 이메일
       contractorSms: "", // 계약자 sms
       contractorResidenceQualification: "", // 계약자 재류자격
-      //학생 start
       contractorSchoolName: "", // 계약자 학교명
       contractorSchoolTel: "", // 계약자 학교 TEL
       contractorSchoolAddress: "", // 계약자 학교주소
-      //학생 end
-      //직장인 start
       contractorCompanyName: "", // 계약자 회사이름
       contractorCompanyTel: "", // 계약자 직장 전화번호
       contractorCompanyAddress: "", // 계약자 직장주소
       contractorLengthOfService: "", // 계약자 근속연수
       contractorSalary : "", // 계약자 급여
-      // 직장인 end
-      // 기타 start
       contractorOtherName: "", // 기타 이름
       contractorOtherTel: "", // 기타 전화번호
       contractorOtherAddress: "", // 기타 주소
       contractorOtherContent: "", // 기타내용
       contractorOtherFile : "", // 증빙서류
-      // 기타 end
       propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
       propertyManagermentCompanySearchKeyword: "", // 회사 검색 키워드
-      searchedCompanyName: "", // 회사 검색 이름
       searchedCompany: null, // 회사 검색 오브젝트
       guaranteeType: "긴급연락처", // 보증형태
       propertyManagermentCompanyFeePercentage: "", // 대리점 수수료 퍼센트
@@ -912,8 +907,8 @@ export default {
       guarantorBirthday: "", // 보증인 생년월일
       comfirmPerson: "", // 확인담당자
       approvalPerson: "", // 상관승인자
-      // jointGuarantor: "", // 연대 보증인
-      // emergencyContact: "", // 긴급 연락처
+      //
+      searchedCompanyName: "", // 회사 검색 이름
       formLayout: 'horizontal',
       emailDataSource: [],
       roomTypeDataSource: [],
@@ -952,12 +947,213 @@ export default {
       }
   },
   mounted(){
-    
+    this.db = firebase.firestore();
   },
   beforeCreate() {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
   },
   methods: {
+    alertMsg({type="info",msg=""}) {
+      switch (type) {
+        case "info":
+          this.$message.info(msg);
+          break;
+        case "error":
+          this.$message.error(msg);
+          break;
+        case "success":
+          this.$message.success(msg);
+          break;
+        default:
+          break;
+      }
+    },
+    clearDatas(){
+      this.contractorType = "개인";
+      this.contractorName = "";
+      this.contractorCountry = "";
+      this.contractorJobType = "학생";
+      this.contractorAdress = "";
+      this.contractorTel = "";
+      this.moveIntoDate = "";
+      this.contractorSex = "남";
+      this.contractorBirthday = "";
+      this.contractorEmail = "";
+      this.contractorSms = "";
+      this.contractorResidenceQualification = "";
+      this.contractorSchoolName = "";
+      this.contractorSchoolTel = "";
+      this.contractorSchoolAddress = "";
+      this.contractorCompanyName = "";
+      this.contractorCompanyTel = "";
+      this.contractorCompanyAddress = "";
+      this.contractorLengthOfService = "";
+      this.contractorSalary  = "";
+      this.contractorOtherName = "";
+      this.contractorOtherTel = "";
+      this.contractorOtherAddress = "";
+      this.contractorOtherContent = "";
+      this.contractorOtherFile  = "";
+      this.propertyManagermentCompanySearchType = "회사명";
+      this.propertyManagermentCompanySearchKeyword = "";
+      this.searchedCompany = null;
+      this.guaranteeType = "긴급연락처";
+      this.propertyManagermentCompanyFeePercentage = "";
+      this.propertyName = "";
+      this.propertyAdress = "";
+      this.roomNumber = "";
+      this.roomType = "";
+      this.rent = 0;
+      this.managementCost = 0;
+      this.otherCosts = 0;
+      this.propertyManagermentCompanyFee =0;
+      this.totalPayment =0;
+      this.roomMate = false;
+      this.roomMateHeadCount = 1;
+      this.roomMateName = "";
+      this.roomMateBirthday = "";
+      this.roomMateTel = "";
+      this.roomMateCountry = "";
+      this.roomMateIdCard = "";
+      this.guarantorType = "연대보증인";
+      this.guarantorName = "";
+      this.guarantorCountry = "";
+      this.guarantorAdress = "";
+      this.relationship = "";
+      this.guarantorTel1 = "";
+      this.guarantorTel2 = "";
+      this.guarantorCompanyName = "";
+      this.guarantorCompanyTel = "";
+      this.guarantorCompanyAddress = "";
+      this.guarantorIdCard = "";
+      this.guarantorBirthday = "";
+      this.comfirmPerson = "";
+      this.approvalPerson = "";
+    },
+    getUserInputValues(){
+      const contractorType = this.contractorType;
+      const contractorName = this.contractorName;
+      const contractorCountry = this.contractorCountry;
+      const contractorJobType = this.contractorJobType;
+      const contractorAdress = this.contractorAdress;
+      const contractorTel = this.contractorTel;
+      const moveIntoDate = this.moveIntoDate;
+      const contractorSex = this.contractorSex;
+      const contractorBirthday = this.contractorBirthday;
+      const contractorEmail = this.contractorEmail;
+      const contractorSms = this.contractorSms;
+      const contractorResidenceQualification = this.contractorResidenceQualification;
+      const contractorSchoolName = this.contractorSchoolName;
+      const contractorSchoolTel = this.contractorSchoolTel;
+      const contractorSchoolAddress = this.contractorSchoolAddress;
+      const contractorCompanyName = this.contractorCompanyName;
+      const contractorCompanyTel = this.contractorCompanyTel;
+      const contractorCompanyAddress = this.contractorCompanyAddress;
+      const contractorLengthOfService = this.contractorLengthOfService;
+      const contractorSalary = this.contractorSalary;
+      const contractorOtherName = this.contractorOtherName;
+      const contractorOtherTel = this.contractorOtherTel;
+      const contractorOtherAddress = this.contractorOtherAddress;
+      const contractorOtherContent = this.contractorOtherContent;
+      const contractorOtherFile = this.contractorOtherFile;
+      const propertyManagermentCompanySearchType = this.propertyManagermentCompanySearchType;
+      const propertyManagermentCompanySearchKeyword = this.propertyManagermentCompanySearchKeyword;
+      const searchedCompany = this.searchedCompany;
+      const guaranteeType = this.guaranteeType;
+      const propertyManagermentCompanyFeePercentage = this.propertyManagermentCompanyFeePercentage;
+      const propertyName = this.propertyName;
+      const propertyAdress = this.propertyAdress;
+      const roomNumber = this.roomNumber;
+      const roomType = this.roomType;
+      const rent = this.rent;
+      const managementCost = this.managementCost;
+      const otherCosts = this.otherCosts;
+      const propertyManagermentCompanyFee = this.propertyManagermentCompanyFee;
+      const totalPayment = this.totalPayment;
+      const roomMate = this.roomMate;
+      const roomMateHeadCount = this.roomMateHeadCount;
+      const roomMateName = this.roomMateName;
+      const roomMateBirthday = this.roomMateBirthday;
+      const roomMateTel = this.roomMateTel;
+      const roomMateCountry = this.roomMateCountry;
+      const roomMateIdCard = this.roomMateIdCard;
+      const guarantorType = this.guarantorType;
+      const guarantorName = this.guarantorName;
+      const guarantorCountry = this.guarantorCountry;
+      const guarantorAdress = this.guarantorAdress;
+      const relationship = this.relationship;
+      const guarantorTel1 = this.guarantorTel1;
+      const guarantorTel2 = this.guarantorTel2;
+      const guarantorCompanyName = this.guarantorCompanyName;
+      const guarantorCompanyTel = this.guarantorCompanyTel;
+      const guarantorCompanyAddress = this.guarantorCompanyAddress;
+      const guarantorIdCard = this.guarantorIdCard;
+      const guarantorBirthday = this.guarantorBirthday;
+      const comfirmPerson = this.comfirmPerson;
+      const approvalPerson = this.approvalPerson;
+      return {
+        contractorType,
+        contractorName,
+        contractorCountry,
+        contractorJobType,
+        contractorAdress,
+        contractorTel,
+        moveIntoDate,
+        contractorSex,
+        contractorBirthday,
+        contractorEmail,
+        contractorSms,
+        contractorResidenceQualification,
+        contractorSchoolName,
+        contractorSchoolTel,
+        contractorSchoolAddress,
+        contractorCompanyName,
+        contractorCompanyTel,
+        contractorCompanyAddress,
+        contractorLengthOfService,
+        contractorSalary,
+        contractorOtherName,
+        contractorOtherTel,
+        contractorOtherAddress,
+        contractorOtherContent,
+        contractorOtherFile,
+        propertyManagermentCompanySearchType,
+        propertyManagermentCompanySearchKeyword,
+        searchedCompany,
+        guaranteeType,
+        propertyManagermentCompanyFeePercentage,
+        propertyName,
+        propertyAdress,
+        roomNumber,
+        roomType,
+        rent,
+        managementCost,
+        otherCosts,
+        propertyManagermentCompanyFee,
+        totalPayment,
+        roomMate,
+        roomMateHeadCount,
+        roomMateName,
+        roomMateBirthday,
+        roomMateTel,
+        roomMateCountry,
+        roomMateIdCard,
+        guarantorType,
+        guarantorName,
+        guarantorCountry,
+        guarantorAdress,
+        relationship,
+        guarantorTel1,
+        guarantorTel2,
+        guarantorCompanyName,
+        guarantorCompanyTel,
+        guarantorCompanyAddress,
+        guarantorIdCard,
+        guarantorBirthday,
+        comfirmPerson,
+        approvalPerson
+      }
+    },
     handleChangeEmail(value) {
       this.emailDataSource =
         !value || value.indexOf('@') >= 0
@@ -1059,11 +1255,24 @@ export default {
       this.onChangePayment();
     },
     handleSubmit(e) {
-      e.preventDefault();
-      this.form.validateFields((err, values) => {
-        if (!err) {
-          console.log('Received values of form: ', values);
-        }
+      this.loading = true;
+      const thisObj = this;
+      const userValues = this.getUserInputValues();
+      this.db.collection("users").add({
+        ...userValues
+      })
+      .then(function(docRef) {
+        // thisObj.getUserList(()=>{
+          thisObj.clearDatas()
+          thisObj.loading = false;
+          thisObj.alertMsg({type:"success",msg:"등록 완료"});
+          // thisObj.moveUserListPage();
+        // })
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"등록 실패"});
+        console.error("Error adding document: ", error);
       });
     },
   },

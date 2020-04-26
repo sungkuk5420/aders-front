@@ -641,7 +641,6 @@ export default {
       .catch(function(error) {
         thisObj.loading = false;
         thisObj.alertMsg({type:"error",msg:"수정 실패"});
-        console.error("Error adding document: ", error);
       });
     },
     cancel(){
