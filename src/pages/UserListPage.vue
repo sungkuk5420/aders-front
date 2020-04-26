@@ -1,5 +1,5 @@
 <template>
-  <div class="search-page">
+  <div class="user-list-page">
     <div class="search-wrapper">
       <a-select defaultValue="멘션명" >
         <a-select-option value="멘션명">멘션명</a-select-option>
@@ -13,6 +13,7 @@
       <a-button slot="enterButton" type="primary" icon="search">검색</a-button>
       </a-input-search>
       <a-button type="primary">상세검색</a-button>
+      <a-button type="primary" @click="moveAddUserPage">입주자 등록</a-button>
     </div>
     <div class="content">
       <UserTable/>
@@ -41,6 +42,9 @@ export default {
   
   },
   methods: {
+    moveAddUserPage() {
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,10);
+    },
     alertMsg() {
       this.$message.info("수정기능 개발중");
     }
@@ -49,7 +53,7 @@ export default {
 </script>
 
 <style lang="scss">
-.search-page{
+.user-list-page{
   display: flex;
   flex-direction: column;
   height: 100% ;

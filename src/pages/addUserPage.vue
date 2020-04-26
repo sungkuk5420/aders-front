@@ -822,9 +822,14 @@
               
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
-              <a-button type="primary"  @click="handleSubmit" :loading="loading">
-                등록
-              </a-button>
+              <div class="form-row">
+                <a-button type="primary"  @click="handleSubmit" :loading="loading">
+                  등록
+                </a-button>
+                <a-button type="default"  style="margin-left:10px;" @click="moveUserListPage" :loading="loading">
+                  취소
+                </a-button>
+              </div>
             </div>
           </div>
         </div>
@@ -953,6 +958,9 @@ export default {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
   },
   methods: {
+    moveUserListPage(){
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
+    },
     alertMsg({type="info",msg=""}) {
       switch (type) {
         case "info":

@@ -641,6 +641,7 @@ export default {
       .catch(function(error) {
         thisObj.loading = false;
         thisObj.alertMsg({type:"error",msg:"수정 실패"});
+        console.error("Error adding document: ", error);
       });
     },
     cancel(){
@@ -695,7 +696,7 @@ export default {
       }
     },
     moveCompanyListPage() {
-      this.$store.dispatch(T.CHANGE_TAB_INDEX,3);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,2);
       this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
     },
   },

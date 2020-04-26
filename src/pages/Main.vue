@@ -10,19 +10,18 @@
         :defaultSelectedKeys="['1']"
         :style="{ lineHeight: '64px' }"
       >
-        <a-menu-item key="1" @click='changeTabIndex(1)'>검색</a-menu-item>
-        <a-menu-item key="2" @click='changeTabIndex(2)'>신규등록</a-menu-item>
-        <a-menu-item key="3" @click='changeTabIndex(3)'>대리점 목록</a-menu-item>
-        <a-menu-item key="4" @click='changeTabIndex(4)'>연체자 등록</a-menu-item>
-        <a-menu-item key="5" @click='changeTabIndex(5)'>지불용지 출력</a-menu-item>
-        <a-menu-item key="6" @click='changeTabIndex(6)'>수익분석</a-menu-item>
+        <a-menu-item key="1" @click='changeTabIndex(1)'>입주자 목록</a-menu-item>
+        <a-menu-item key="3" @click='changeTabIndex(2)'>대리점 목록</a-menu-item>
+        <a-menu-item key="4" @click='changeTabIndex(3)'>연체자 목록</a-menu-item>
+        <a-menu-item key="5" @click='changeTabIndex(4)'>지불용지 출력</a-menu-item>
+        <a-menu-item key="6" @click='changeTabIndex(5)'>수익분석</a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
-      <SearchPage v-show="tabIndex ==1"/>
-      <addUserPage v-show="tabIndex ==2"/>
-      <CompanyListPage v-show="tabIndex ==3" />
-      <addCompanyPage v-show="tabIndex == 30" />
+      <UserListPage v-show="tabIndex ==1"/>
+      <addUserPage v-show="tabIndex ==10"/>
+      <CompanyListPage v-show="tabIndex ==2" />
+      <addCompanyPage v-show="tabIndex == 20" />
     </a-layout-content>
   </a-layout>
 </template>
@@ -30,13 +29,13 @@
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
 
-import SearchPage from "../pages/SearchPage.vue";
+import UserListPage from "../pages/UserListPage.vue";
 import addUserPage from "../pages/addUserPage.vue";
 import addCompanyPage from "../pages/addCompanyPage.vue";
 import CompanyListPage from "../pages/CompanyListPage.vue";
 export default {
   components: {
-    SearchPage,
+    UserListPage,
     addUserPage,
     addCompanyPage,
     CompanyListPage
@@ -64,12 +63,12 @@ export default {
           break;
         case 2:
           this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
+          this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
           break;
         case 3:
           this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
-          this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
           break;
-        case 30:
+        case 20:
           this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
           break;
       

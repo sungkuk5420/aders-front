@@ -79,7 +79,7 @@ export default {
     },
     detail(id){
       this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,id);
-      this.$store.dispatch(T.CHANGE_TAB_INDEX,30);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,20);
       
     },
     confirm(id){

@@ -1,5 +1,6 @@
 export const getters = {
   getCompanyList(state) {
+    console.log(state.companyList)
     return state.companyList.filter(company=>{
       let filtedCompanys = [];
       switch (state.companySearchType) {
@@ -17,7 +18,7 @@ export const getters = {
       }
       return filtedCompanys;
     }).sort((a,b)=>{
-      return new Date(a.createdDate) - new Date(b.createdDate);
+      return b.createdDate - a.createdDate;
     }).map((company,i) =>{
       let index = i+1;
       return {
