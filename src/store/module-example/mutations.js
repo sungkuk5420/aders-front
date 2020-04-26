@@ -4,6 +4,9 @@ export const mutations = {
   [T.GET_COMPANY_LIST](state,companyList) {
     state.companyList = companyList;
   },
+  [T.GET_USER_LIST](state,userList) {
+    state.userList = userList;
+  },
   [T.SEARCH_COMPANY](state, {companySearchType,companySearchKeyword}) {
     console.log(`mutation [T.SEARCH_COMPANY]`)
     console.log(companySearchType)

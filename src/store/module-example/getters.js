@@ -30,6 +30,15 @@ export const getters = {
   getAllCompanyList(state) {
     return state.companyList;
   },
+  getAllUserList(state) {
+    return state.userList.map((company,i) =>{
+      let index = i+1;
+      return {
+        index,
+        ...company,
+      }
+    });
+  },
   getCompanyDataForUpdate(state) {
     return state.companyList.filter(item=>item.id==state.updateCompanyId)[0];
   },
