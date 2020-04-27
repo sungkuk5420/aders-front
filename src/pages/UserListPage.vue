@@ -39,12 +39,8 @@ export default {
   watch: {
   },
   mounted() {
-    this.getUserList();
   },
   methods: {
-    getUserList(){
-      this.$store.dispatch(T.GET_USER_LIST,{});
-    },
     moveAddUserPage() {
       this.$store.dispatch(T.CHANGE_TAB_INDEX,10);
     },

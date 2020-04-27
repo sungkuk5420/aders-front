@@ -46,12 +46,8 @@ export default {
   watch: {
   },
   mounted() {
-    this.getCompanyList()
   },
   methods: {
-    getCompanyList(){
-      this.$store.dispatch(T.GET_COMPANY_LIST,{});
-    },
     onSearch(){
       console.log("search click");
       const companySearchType = this.companySearchType;

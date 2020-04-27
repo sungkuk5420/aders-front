@@ -31,11 +31,20 @@ export const getters = {
     return state.companyList;
   },
   getAllUserList(state) {
-    return state.userList.map((company,i) =>{
+    return state.userList.map((user,i) =>{
       let index = i+1;
+      const companyId = user.companyId
+      const companyOfuser = state.companyList.filter(item=>item.id == companyId)[0];
       return {
         index,
-        ...company,
+        ...user,
+        company:{
+          companyName:companyOfuser.companyName,
+          bankName:companyOfuser.bankName,
+          branchOfficeName:companyOfuser.branchOfficeName,
+          bankAccountNumber:companyOfuser.bankAccountNumber,
+          notes:companyOfuser.notes,
+        }
       }
     });
   },

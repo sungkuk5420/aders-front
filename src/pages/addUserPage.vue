@@ -614,7 +614,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-input v-model="relationship"/>
+                  <a-input v-model="guarantorRelationship"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -718,7 +718,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="guarantorName"/>
+                  <a-input v-model="emergencyName"/>
                 </a-form-item>
                 <a-form-item
                   label="국적"
@@ -728,8 +728,8 @@
                   <a-auto-complete
                     :dataSource="countryDataSource"
                     style="width: 100%;"
-                    v-model="guarantorCountry"
-                    @change="handleChangeGuarantorCountry"
+                    v-model="emergencyCountry"
+                    @change="handleChangeEmergencyCountry"
                   />
                 </a-form-item>
               </div>
@@ -751,7 +751,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-input v-model="relationship"/>
+                  <a-input v-model="guarantorRelationship"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -765,14 +765,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="guarantorTel1"/>
+                  <a-input v-model="emergencyTel1"/>
                 </a-form-item>
                 <a-form-item
                   label="TEL-2"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-input v-model="guarantorTel2"/>
+                  <a-input v-model="emergencyTel2"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -781,7 +781,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-                <a-input v-model="guarantorAdress"/>
+                <a-input v-model="emergencyAdress"/>
             </a-form-item>
 
             
@@ -852,40 +852,105 @@ export default {
     return {
       loading:false,
       db:"", // firebase
+      // contractorType: "개인", // 등록선택
+      // contractorName: "", // 계약자이름
+      // contractorCountry: "", // 계약자국적
+      // contractorJobType: "학생", // 계약자 분류
+      // contractorAdress: "", // 계약자 주소
+      // contractorTel: "", // 계약자 전화번호
+      // moveIntoDate: "", // 입주예정일
+      // contractorSex: "남", // 계약자 성별
+      // contractorBirthday: "", // 계약자 생년월일
+      // contractorEmail: "", // 계약자 이메일
+      // contractorSms: "", // 계약자 sms
+      // contractorResidenceQualification: "", // 계약자 재류자격
+      // contractorSchoolName: "", // 계약자 학교명
+      // contractorSchoolTel: "", // 계약자 학교 TEL
+      // contractorSchoolAddress: "", // 계약자 학교주소
+      // contractorCompanyName: "", // 계약자 회사이름
+      // contractorCompanyTel: "", // 계약자 직장 전화번호
+      // contractorCompanyAddress: "", // 계약자 직장주소
+      // contractorLengthOfService: "", // 계약자 근속연수
+      // contractorSalary : "", // 계약자 급여
+      // contractorOtherName: "", // 기타 이름
+      // contractorOtherTel: "", // 기타 전화번호
+      // contractorOtherAddress: "", // 기타 주소
+      // contractorOtherContent: "", // 기타내용
+      // contractorOtherFile : "", // 증빙서류
+      // companyId: "", // 회사Id
+      // guaranteeType: "긴급연락처", // 보증형태
+      // propertyManagermentCompanyFeePercentage: "", // 대리점 수수료 퍼센트
+      // propertyName: "", // 멘션명 
+      // propertyAdress: "", // 멘션 주소
+      // roomNumber: "", // 호실
+      // roomType: "", // 방 타입
+      // rent: 0, // 월세
+      // managementCost: 0, // 관리비
+      // otherCosts: 0, // 기타비용
+      // propertyManagermentCompanyFee:0, // 대리점 수수료
+      // totalPayment:0, // 총 비용
+      // roomMate: false, // 동반 입주자 여부
+      // roomMateHeadCount: 1, // 동반 입주자 인수
+      // roomMateName: "", // 동반 입주자 이름
+      // roomMateBirthday: "", // 동반 입주자 생년월일
+      // roomMateTel: "", // 동반 입주자 전화번호
+      // roomMateCountry: "", // 동반 입주자 국적
+      // roomMateIdCard: "", // 동반 입주자 신분증
+      // guarantorType: "연대보증인", // 보증 타입 연대 보증인 or 긴급연락처
+      // guarantorName: "", // 보증인 이름
+      // guarantorCountry: "", // 보증인 국적
+      // guarantorAdress: "", // 보증인 주소
+      // guarantorRelationship: "", // 보증인 관계
+      // guarantorTel1: "", // 보증인TEL-1
+      // guarantorTel2: "", // 보증인TEL-2
+      // guarantorCompanyName: "", // 보증인 회사명
+      // guarantorCompanyTel: "", // 보증인 회사 전화번호
+      // guarantorCompanyAddress: "", // 보증인 회사 주소
+      // guarantorIdCard: "", // 보증인 신분증
+      // guarantorBirthday: "", // 보증인 생년월일
+      // //
+      // emergencyName: "", // 긴급연락처 이름
+      // emergencyCountry: "", // 긴급연락처 국적
+      // emergencyBirthday: "", // 긴급연락처 생년월일
+      // emergencyRelationship: "", // 긴급연락처 관계
+      // emergencyTel1: "", // 긴급연락처TEL-1
+      // emergencyTel2: "", // 긴급연락처TEL-2
+      // emergencyAdress: "", // 긴급연락처 주소
+      // comfirmPerson: "", // 확인담당자
+      // approvalPerson: "", // 상관승인자
+      //test data
       contractorType: "개인", // 등록선택
-      contractorName: "", // 계약자이름
-      contractorCountry: "", // 계약자국적
+      contractorName: "계약자이름", // 계약자이름
+      contractorCountry: "계약자국적", // 계약자국적
       contractorJobType: "학생", // 계약자 분류
-      contractorAdress: "", // 계약자 주소
-      contractorTel: "", // 계약자 전화번호
-      moveIntoDate: "", // 입주예정일
+      contractorAdress: "계약자 주소", // 계약자 주소
+      contractorTel: "계약자 전화번호", // 계약자 전화번호
+      moveIntoDate: "입주예정일", // 입주예정일
       contractorSex: "남", // 계약자 성별
-      contractorBirthday: "", // 계약자 생년월일
-      contractorEmail: "", // 계약자 이메일
-      contractorSms: "", // 계약자 sms
-      contractorResidenceQualification: "", // 계약자 재류자격
-      contractorSchoolName: "", // 계약자 학교명
-      contractorSchoolTel: "", // 계약자 학교 TEL
-      contractorSchoolAddress: "", // 계약자 학교주소
-      contractorCompanyName: "", // 계약자 회사이름
-      contractorCompanyTel: "", // 계약자 직장 전화번호
-      contractorCompanyAddress: "", // 계약자 직장주소
-      contractorLengthOfService: "", // 계약자 근속연수
-      contractorSalary : "", // 계약자 급여
-      contractorOtherName: "", // 기타 이름
-      contractorOtherTel: "", // 기타 전화번호
-      contractorOtherAddress: "", // 기타 주소
-      contractorOtherContent: "", // 기타내용
-      contractorOtherFile : "", // 증빙서류
-      propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
-      propertyManagermentCompanySearchKeyword: "", // 회사 검색 키워드
-      searchedCompany: null, // 회사 검색 오브젝트
+      contractorBirthday: "계약자 생년월일", // 계약자 생년월일
+      contractorEmail: "계약자 이메일", // 계약자 이메일
+      contractorSms: "계약자 sms", // 계약자 sms
+      contractorResidenceQualification: "계약자 재류자격", // 계약자 재류자격
+      contractorSchoolName: "계약자 학교명", // 계약자 학교명
+      contractorSchoolTel: "계약자 학교 TEL", // 계약자 학교 TEL
+      contractorSchoolAddress: "계약자 학교주소", // 계약자 학교주소
+      contractorCompanyName: "계약자 회사이름", // 계약자 회사이름
+      contractorCompanyTel: "계약자 직장 전화번호", // 계약자 직장 전화번호
+      contractorCompanyAddress: "계약자 직장주소", // 계약자 직장주소
+      contractorLengthOfService: "계약자 근속연수", // 계약자 근속연수
+      contractorSalary : "계약자 급여", // 계약자 급여
+      contractorOtherName: "기타 이름", // 기타 이름
+      contractorOtherTel: "기타 전화번호", // 기타 전화번호
+      contractorOtherAddress: "기타 주소", // 기타 주소
+      contractorOtherContent: "기타내용", // 기타내용
+      contractorOtherFile : "증빙서류", // 증빙서류
+      companyId: "회사Id", // 회사Id
       guaranteeType: "긴급연락처", // 보증형태
-      propertyManagermentCompanyFeePercentage: "", // 대리점 수수료 퍼센트
-      propertyName: "", // 멘션명 
-      propertyAdress: "", // 멘션 주소
-      roomNumber: "", // 호실
-      roomType: "", // 방 타입
+      propertyManagermentCompanyFeePercentage: "대리점 수수료 퍼센트", // 대리점 수수료 퍼센트
+      propertyName: "멘션명 ", // 멘션명 
+      propertyAdress: "멘션 주소", // 멘션 주소
+      roomNumber: "호실", // 호실
+      roomType: "방 타입", // 방 타입
       rent: 0, // 월세
       managementCost: 0, // 관리비
       otherCosts: 0, // 기타비용
@@ -893,27 +958,38 @@ export default {
       totalPayment:0, // 총 비용
       roomMate: false, // 동반 입주자 여부
       roomMateHeadCount: 1, // 동반 입주자 인수
-      roomMateName: "", // 동반 입주자 이름
-      roomMateBirthday: "", // 동반 입주자 생년월일
-      roomMateTel: "", // 동반 입주자 전화번호
-      roomMateCountry: "", // 동반 입주자 국적
-      roomMateIdCard: "", // 동반 입주자 신분증
+      roomMateName: "동반 입주자 이름", // 동반 입주자 이름
+      roomMateBirthday: "동반 입주자 생년월일", // 동반 입주자 생년월일
+      roomMateTel: "동반 입주자 전화번호", // 동반 입주자 전화번호
+      roomMateCountry: "동반 입주자 국적", // 동반 입주자 국적
+      roomMateIdCard: "동반 입주자 신분증", // 동반 입주자 신분증
       guarantorType: "연대보증인", // 보증 타입 연대 보증인 or 긴급연락처
-      guarantorName: "", // 보증인 이름
-      guarantorCountry: "", // 보증인 국적
-      guarantorAdress: "", // 보증인 주소
-      relationship: "", // 관계
-      guarantorTel1: "", // 보증인TEL-1
-      guarantorTel2: "", // 보증인TEL-2
-      guarantorCompanyName: "", // 보증인 회사명
-      guarantorCompanyTel: "", // 보증인 회사 전화번호
-      guarantorCompanyAddress: "", // 보증인 회사 주소
-      guarantorIdCard: "", // 보증인 신분증
-      guarantorBirthday: "", // 보증인 생년월일
-      comfirmPerson: "", // 확인담당자
-      approvalPerson: "", // 상관승인자
+      guarantorName: "보증인 이름", // 보증인 이름
+      guarantorCountry: "보증인 국적", // 보증인 국적
+      guarantorAdress: "보증인 주소", // 보증인 주소
+      guarantorRelationship: "보증인 관계", // 보증인 관계
+      guarantorTel1: "보증인TEL-1", // 보증인TEL-1
+      guarantorTel2: "보증인TEL-2", // 보증인TEL-2
+      guarantorCompanyName: "보증인 회사명", // 보증인 회사명
+      guarantorCompanyTel: "보증인 회사 전화번호", // 보증인 회사 전화번호
+      guarantorCompanyAddress: "보증인 회사 주소", // 보증인 회사 주소
+      guarantorIdCard: "보증인 신분증", // 보증인 신분증
+      guarantorBirthday: "보증인 생년월일", // 보증인 생년월일
+      //
+      emergencyName: "긴급연락처 이름", // 긴급연락처 이름
+      emergencyCountry: "긴급연락처 국적", // 긴급연락처 국적
+      emergencyBirthday: "긴급연락처 생년월일", // 긴급연락처 생년월일
+      emergencyRelationship: "긴급연락처 관계", // 긴급연락처 관계
+      emergencyTel1: "긴급연락처TEL-1", // 긴급연락처TEL-1
+      emergencyTel2: "긴급연락처TEL-2", // 긴급연락처TEL-2
+      emergencyAdress: "긴급연락처 주소", // 긴급연락처 주소
+      comfirmPerson: "확인담당자", // 확인담당자
+      approvalPerson: "상관승인자", // 상관승인자
       //
       searchedCompanyName: "", // 회사 검색 이름
+      searchedCompany: null, // 회사 검색 오브젝트
+      propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
+      propertyManagermentCompanySearchKeyword: "", // 회사 검색 키워드
       formLayout: 'horizontal',
       emailDataSource: [],
       roomTypeDataSource: [],
@@ -1002,9 +1078,8 @@ export default {
       this.contractorOtherAddress = "";
       this.contractorOtherContent = "";
       this.contractorOtherFile  = "";
+      this.companyId  = "";
       this.propertyManagermentCompanySearchType = "회사명";
-      this.propertyManagermentCompanySearchKeyword = "";
-      this.searchedCompany = null;
       this.guaranteeType = "긴급연락처";
       this.propertyManagermentCompanyFeePercentage = "";
       this.propertyName = "";
@@ -1027,7 +1102,7 @@ export default {
       this.guarantorName = "";
       this.guarantorCountry = "";
       this.guarantorAdress = "";
-      this.relationship = "";
+      this.guarantorRelationship = "";
       this.guarantorTel1 = "";
       this.guarantorTel2 = "";
       this.guarantorCompanyName = "";
@@ -1035,6 +1110,13 @@ export default {
       this.guarantorCompanyAddress = "";
       this.guarantorIdCard = "";
       this.guarantorBirthday = "";
+      this.emergencyName = "";
+      this.emergencyCountry = "";
+      this.emergencyBirthday = "";
+      this.emergencyRelationship = "";
+      this.emergencyTel1 = "";
+      this.emergencyTel2 = "";
+      this.emergencyAdress = "";
       this.comfirmPerson = "";
       this.approvalPerson = "";
     },
@@ -1064,9 +1146,7 @@ export default {
       const contractorOtherAddress = this.contractorOtherAddress;
       const contractorOtherContent = this.contractorOtherContent;
       const contractorOtherFile = this.contractorOtherFile;
-      const propertyManagermentCompanySearchType = this.propertyManagermentCompanySearchType;
-      const propertyManagermentCompanySearchKeyword = this.propertyManagermentCompanySearchKeyword;
-      const searchedCompany = this.searchedCompany;
+      const companyId = this.companyId;
       const guaranteeType = this.guaranteeType;
       const propertyManagermentCompanyFeePercentage = this.propertyManagermentCompanyFeePercentage;
       const propertyName = this.propertyName;
@@ -1089,7 +1169,7 @@ export default {
       const guarantorName = this.guarantorName;
       const guarantorCountry = this.guarantorCountry;
       const guarantorAdress = this.guarantorAdress;
-      const relationship = this.relationship;
+      const guarantorRelationship = this.guarantorRelationship;
       const guarantorTel1 = this.guarantorTel1;
       const guarantorTel2 = this.guarantorTel2;
       const guarantorCompanyName = this.guarantorCompanyName;
@@ -1097,6 +1177,13 @@ export default {
       const guarantorCompanyAddress = this.guarantorCompanyAddress;
       const guarantorIdCard = this.guarantorIdCard;
       const guarantorBirthday = this.guarantorBirthday;
+      const emergencyName = this.emergencyName;
+      const emergencyCountry = this.emergencyCountry;
+      const emergencyBirthday = this.emergencyBirthday;
+      const emergencyRelationship = this.emergencyRelationship;
+      const emergencyTel1 = this.emergencyTel1;
+      const emergencyTel2 = this.emergencyTel2;
+      const emergencyAdress = this.emergencyAdress;
       const comfirmPerson = this.comfirmPerson;
       const approvalPerson = this.approvalPerson;
       return {
@@ -1125,9 +1212,7 @@ export default {
         contractorOtherAddress,
         contractorOtherContent,
         contractorOtherFile,
-        propertyManagermentCompanySearchType,
-        propertyManagermentCompanySearchKeyword,
-        searchedCompany,
+        companyId,
         guaranteeType,
         propertyManagermentCompanyFeePercentage,
         propertyName,
@@ -1150,7 +1235,7 @@ export default {
         guarantorName,
         guarantorCountry,
         guarantorAdress,
-        relationship,
+        guarantorRelationship,
         guarantorTel1,
         guarantorTel2,
         guarantorCompanyName,
@@ -1158,6 +1243,13 @@ export default {
         guarantorCompanyAddress,
         guarantorIdCard,
         guarantorBirthday,
+        emergencyName,
+        emergencyCountry,
+        emergencyBirthday,
+        emergencyRelationship,
+        emergencyTel1,
+        emergencyTel2,
+        emergencyAdress,
         comfirmPerson,
         approvalPerson
       }
@@ -1172,6 +1264,9 @@ export default {
       this.countryDataSource = ["대한민국","일본"].filter(item=>item.indexOf(value)!=-1)
     },
     handleChangeGuarantorCountry(value) {
+      this.countryDataSource = ["대한민국","일본"].filter(item=>item.indexOf(value)!=-1)
+    },
+    handleChangeEmergencyCountry(value) {
       this.countryDataSource = ["대한민국","일본"].filter(item=>item.indexOf(value)!=-1)
     },
     handleChangeRoomType(value) {
@@ -1204,6 +1299,7 @@ export default {
         if(filteredCompany.length > 0){
           this.searchedCompanyName = filteredCompany[0].companyName;
           this.searchedCompany = filteredCompany[0];
+          this.companyId = filteredCompany[0].id;
         }else{
         this.searchedCompanyName = "검색된 회사가 없습니다.";
         }
@@ -1214,12 +1310,16 @@ export default {
           this.searchedCompanyName = "검색된 회사가 2개 이상입니다.";
         }else{
           this.searchedCompanyName = "";
+          this.companyId = "";
         }
       }
       this.onChangePaymentPercent()
     },
     onChangeGuarantorBirthday(date, dateString) {
       this.guarantorBirthday = dateString;
+    },
+    onChangeEmergencyBirthday(date, dateString) {
+      this.emergencyBirthday = dateString;
     },
     onChangeContractorBirthday(date, dateString) {
       this.contractorBirthday = dateString;

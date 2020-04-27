@@ -52,10 +52,22 @@ export default {
   watch: {
   },
   mounted() {
+    this.getCompanyList()
     // this.notification("aaa","bbb")
     // this.alertMsg({type:"success",msg:"asdfwe"});
   },
   methods: {
+    getUserList(){
+      this.$store.dispatch(T.GET_USER_LIST,{});
+    },
+    getCompanyList(){
+      const thisObj = this;
+      this.$store.dispatch(T.GET_COMPANY_LIST,{
+        cb:()=>{
+          thisObj.getUserList();
+          }
+      });
+    },
     changeTabIndex(index){
       switch (index) {
         case 1:
