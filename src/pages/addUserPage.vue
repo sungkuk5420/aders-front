@@ -378,8 +378,13 @@
                   <b>
                     <span class="ant-form-text">
                       <a-input-number :max="999" 
+                      v-show="guaranteeFeePercentage"
                       v-model="guaranteeFeePercentage" 
                       :formatter="value => `${value}% = ${guaranteeFee}`" style="width:100%;" readonly />
+                      <a-input-number :max="999" 
+                      v-show="!guaranteeFeePercentage"
+                      value="" 
+                       style="width:100%;" readonly />
                     </span>
                   </b>
                 </a-form-item>
@@ -1333,6 +1338,8 @@ export default {
         if(value != ""){
           this.searchedCompanyName = "검색된 회사가 2개 이상입니다.";
         }else{
+          this.guaranteeFeePercentage = 0;
+          this.propertyManagermentCompanyFeePercentage = 0;
           this.searchedCompanyName = "";
           this.companyId = "";
         }
@@ -1362,7 +1369,7 @@ export default {
       this.rent = parseInt(this.rent);
       this.managementCost = parseInt(this.managementCost);
       this.otherCosts = parseInt(this.otherCosts);
-      this.guaranteeFee = parseInt((this.rent+this.managementCost+this.otherCosts)*this.guaranteeFeePercentage/100);
+      this.guaranteeFee = parseInt((this.rent+this.managementCost+this.otherCosts)*this.guaranteeFeePercentage);
       this.totalPayment = parseInt(this.rent+this.managementCost+this.otherCosts+this.guaranteeFee);
     },
     onChangePaymentPercent() {
