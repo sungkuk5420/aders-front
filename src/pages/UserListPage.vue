@@ -1,16 +1,19 @@
 <template>
   <div class="user-list-page">
     <div class="search-wrapper">
-      <a-select defaultValue="멘션명" >
+      <a-select v-model="userSearchType" @change="onSearch">
         <a-select-option value="멘션명">멘션명</a-select-option>
-        <a-select-option value="입주자명">입주자명</a-select-option>
+        <a-select-option value="계약자명">계약자명</a-select-option>
         <a-select-option value="담당자명">담당자명</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"
         size="large"
+        v-model="userSearchKeyword" 
+        @search="onSearch"
+        @change="onSearch"
       >
-      <a-button slot="enterButton" type="primary" icon="search">검색</a-button>
+      <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
       </a-input-search>
       <a-button type="primary">상세검색</a-button>
       <a-button type="primary" @click="moveAddUserPage">입주자 등록</a-button>
@@ -30,6 +33,9 @@ export default {
   },
   data() {
     return {
+      userSearchType:"회사명",
+      userSearchKeyword:"",
+      searchLoading:false
     };
   },
   computed: {
@@ -41,6 +47,12 @@ export default {
   mounted() {
   },
   methods: {
+    onSearch(){
+      console.log("search click");
+      const userSearchType = this.userSearchType;
+      const userSearchKeyword = this.userSearchKeyword;
+      this.$store.dispatch(T.SEARCH_USER,{userSearchType,userSearchKeyword});
+    },
     moveAddUserPage() {
       this.$store.dispatch(T.CHANGE_TAB_INDEX,10);
     },

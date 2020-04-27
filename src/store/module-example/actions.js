@@ -47,6 +47,11 @@ export const actions = {
     console.log(companySearchKeyword)
     commit(T.SEARCH_COMPANY, {companySearchType,companySearchKeyword});
   },
+  [T.SEARCH_USER]({ commit }, {userSearchType="회사명",userSearchKeyword=""}) {
+    console.log(`store action [T.SEARCH_USER] `);
+    console.log(userSearchKeyword)
+    commit(T.SEARCH_USER, {userSearchType,userSearchKeyword});
+  },
   [T.CHANGE_TAB_INDEX]({ commit },tabIndex) {
     console.log(`store action [T.CHANGE_TAB_INDEX] `);
     console.log(tabIndex)

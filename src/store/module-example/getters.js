@@ -31,10 +31,37 @@ export const getters = {
     return state.companyList;
   },
   getAllUserList(state) {
-    return state.userList.map((user,i) =>{
+    return state.userList.filter(user=>{
+      let filtedCompanys = [];
+      switch (state.userSearchType) {
+        case "멘션명":
+        filtedCompanys = user.propertyName.indexOf(state.userSearchKeyword) != -1
+          break;
+        case "계약자명":
+        filtedCompanys = user.contractorName.indexOf(state.userSearchKeyword) != -1
+          break;
+        case "담당자명":
+        filtedCompanys = user.comfirmPerson.indexOf(state.userSearchKeyword) != -1
+          break;
+        default:
+          break;
+      }
+      return filtedCompanys;
+    }).sort((a,b)=>{
+      return a.createdDate - b.createdDate;
+    }).map((user,i) =>{
       let index = i+1;
       const companyId = user.companyId
-      const companyOfuser = state.companyList.filter(item=>item.id == companyId)[0];
+      let companyOfuser = state.companyList.filter(item=>item.id == companyId)[0];
+      if(!companyOfuser){
+        companyOfuser = {
+          companyName:"",
+          bankName:"",
+          branchOfficeName:"",
+          bankAccountNumber:"",
+          notes:"",
+        }
+      }
       return {
         index,
         ...user,

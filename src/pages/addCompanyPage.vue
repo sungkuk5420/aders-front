@@ -199,7 +199,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
-                  <a-input v-model="propertyManagermentCompanyFee"/>
+                  <a-input-number :max="999" v-model="propertyManagermentCompanyFee" :formatter="value => `${value}%`" style="width:100px;"/>
                 </a-form-item>
               </div>
             </a-form-item>

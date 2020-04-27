@@ -14,6 +14,13 @@ export const mutations = {
     state.companySearchType = companySearchType;
     state.companySearchKeyword = companySearchKeyword;
   },
+  [T.SEARCH_USER](state, {userSearchType,userSearchKeyword}) {
+    console.log(`mutation [T.SEARCH_USER]`)
+    console.log(userSearchType)
+    console.log(userSearchKeyword)
+    state.userSearchType = userSearchType;
+    state.userSearchKeyword = userSearchKeyword;
+  },
   [T.CHANGE_UPDATE_COMPNAY_ID](state, updateCompanyId) {
     // console.log(`mutation [T.CHANGE_UPDATE_COMPNAY_ID] ${result}`);
     state.updateCompanyId = updateCompanyId;

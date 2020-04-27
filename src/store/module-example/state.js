@@ -5,5 +5,7 @@ export default {
   userList: [],
   companySearchType:"회사명",
   companySearchKeyword:"",
+  userSearchType:"멘션명",
+  userSearchKeyword:"",
   tabIndex:1
 };
