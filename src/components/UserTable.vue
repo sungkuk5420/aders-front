@@ -1,7 +1,23 @@
 <template>
   <a-table :columns="columns" :dataSource="userList" :scroll="windowSize" expandRowByClick @change="handleTableChange">
     <!-- <a slot="action" slot-scope="text" href="javascript:;">Delete</a> -->
-    <p slot="expandedRowRender" slot-scope="record" style="margin: 0">{{ record.description }}</p>
+    <div slot="expandedRowRender" slot-scope="record" class="detail-row">
+      <p style="margin: 0">{{ record.notes }}</p>
+      <a-button type="primary" @click="function(){
+        detail(record.id)
+      }">상세보기</a-button>
+      <a-popconfirm
+        title="정말로 이 대리점을 삭제하시겠습니까?"
+        @confirm="function(){
+          confirm(record.id)
+        }"
+        @cancel="cancel"
+        okText="삭제"
+        cancelText="취소"
+      >
+        <a-button type="default">삭제</a-button>
+      </a-popconfirm>
+    </div>
   </a-table>
 </template>
 <script>
@@ -52,6 +68,40 @@ export default {
     }
   },
   methods: {
+
+    alertMsg({type="info",msg=""}) {
+      switch (type) {
+        case "info":
+          this.$message.info(msg);
+          break;
+        case "error":
+          this.$message.error(msg);
+          break;
+        case "success":
+          this.$message.success(msg);
+          break;
+        default:
+          break;
+      }
+    },
+    detail(id){
+      this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,id);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,10);
+      
+    },
+    confirm(id){
+      const thisObj = this;
+      this.db.collection("companys").doc(id).delete().then(function() {
+        thisObj.$store.dispatch(T.DELETE_COMPANY,id);
+        thisObj.alertMsg({type:"success",msg:"삭제 완료"});
+      }).catch(function(error) {
+        console.log(error)
+        thisObj.alertMsg({type:"error",msg:"삭제 실패"});
+      });
+    },
+    cancel(){
+      this.alertMsg({type:"error",msg:"취소"})
+    },
     handleTableChange(pagination, filters, sorter) {
       console.log(pagination);
       const pager = { ...this.pagination };

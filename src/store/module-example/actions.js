@@ -62,6 +62,11 @@ export const actions = {
     console.log(updateCompanyId)
     commit(T.CHANGE_UPDATE_COMPNAY_ID, updateCompanyId);
   },
+  [T.CHANGE_UPDATE_USER_ID]({ commit }, updateUserId) {
+    console.log(`store action [T.CHANGE_UPDATE_USER_ID] `);
+    console.log(updateUserId)
+    commit(T.CHANGE_UPDATE_USER_ID, updateUserId);
+  },
   [T.DELETE_COMPANY]({ commit }, deleteId) {
     console.log(`store action [T.DELETE_COMPANY] `);
     console.log(deleteId)

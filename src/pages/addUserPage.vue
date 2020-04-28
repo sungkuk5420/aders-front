@@ -40,7 +40,7 @@
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
                 
-                  <a-date-picker @change="onChangeMoveIntoDate" style="width: 100%;"/>
+                  <a-date-picker :value="moment(moveIntoDate, dateFormat)" :format="dateFormat"  @change="onChangeMoveIntoDate" style="width: 100%;"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -89,7 +89,8 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-date-picker @change="onChangeContractorBirthday" style="width: 100%;"/>
+                {{contractorBirthday}}
+                  <a-date-picker :value="moment(contractorBirthday, dateFormat)" :format="dateFormat" @change="onChangeContractorBirthday" style="width: 100%;"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -380,11 +381,13 @@
                       <a-input-number :max="999" 
                       v-show="guaranteeFeePercentage"
                       v-model="guaranteeFeePercentage" 
-                      :formatter="value => `${value}% = ${guaranteeFee}`" style="width:100%;" readonly />
+                      :formatter="value => `${value}% = ${guaranteeFee}円`" style="width:100%;" readonly 
+                      />
                       <a-input-number :max="999" 
                       v-show="!guaranteeFeePercentage"
                       value="" 
-                       style="width:100%;" readonly />
+                       style="width:100%;" readonly 
+                       />
                     </span>
                   </b>
                 </a-form-item>
@@ -440,14 +443,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="rent" @change="onChangePayment"/>
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="rent" @change="onChangePayment"/>
                 </a-form-item>
                 <a-form-item
                   label="관리비"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-input v-model="managementCost" @change="onChangePayment"/>
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="managementCost" @change="onChangePayment"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -461,7 +464,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input v-model="otherCosts" @change="onChangePayment"/>
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="otherCosts" @change="onChangePayment"/>
                 </a-form-item>
                 <a-form-item
                   label=""
@@ -476,8 +479,11 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
               <b>
-                <span class="ant-form-text">
-                  {{totalPayment}}
+                <span class="ant-form-text" v-show="totalPayment">
+                  {{totalPayment}}円
+                </span>
+                <span class="ant-form-text" v-show="!totalPayment">
+                  {{totalPayment}}円
                 </span>
               </b>
             </a-form-item>
@@ -630,7 +636,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-date-picker @change="onChangeGuarantorBirthday" style="width:100%;" />
+                  <a-date-picker :value="moment(guarantorBirthday, dateFormat)" :format="dateFormat"  @change="onChangeGuarantorBirthday" style="width:100%;" />
                 </a-form-item>
                 <a-form-item
                   label="관계"
@@ -767,14 +773,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-date-picker @change="onChangeGuarantorBirthday" style="width:100%;" />
+                  <a-date-picker :value="moment(emergencyBirthday, dateFormat)" :format="dateFormat" @change="onChangeEmergencyBirthday" style="width:100%;" />
                 </a-form-item>
                 <a-form-item
                   label="관계"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-input v-model="guarantorRelationship"/>
+                  <a-input v-model="emergencyRelationship"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -864,8 +870,10 @@
 <script>
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
+
 import ImageUpload from "../components/ImageUpload"
 import VueSlideUpDown from 'vue-slide-up-down'
+import moment from 'moment';
 export default {
   components:{
     ImageUpload,
@@ -875,6 +883,7 @@ export default {
     return {
       loading:false,
       db:"", // firebase
+      dateFormat: 'YYYY-MM-DD',
       contractorType: "개인", // 등록선택
       contractorName: "", // 계약자이름
       contractorCountry: "", // 계약자국적
@@ -1026,6 +1035,7 @@ export default {
   computed: {
     ...mapGetters({
       companyList:"getAllCompanyList",
+      userDataForUpdate:"getUserDataForUpdate"
     }),
     formItemLayout() {
       const { formLayout } = this;
@@ -1043,15 +1053,112 @@ export default {
     },
   },
   watch: {
-      companyList: {
-          handler(companys) {
-              if (companys) {
-                  const dataList = this.updateCompanyListDataSource(companys);
-                  this.companyTypeDataSource = dataList;
+    companyList: {
+        handler(companys) {
+            if (companys) {
+                const dataList = this.updateCompanyListDataSource(companys);
+                this.companyTypeDataSource = dataList;
+            }
+        },
+        immediate: true
+    },
+    userDataForUpdate: {
+      handler(userData) {
+        console.log("userDatauserDatauserDatauserDatauserDatauserDatauserDatauserData",userData)
+          if (userData) {
+            const companyId = userData.companyId
+            let companyOfuser = this.companyList.filter(item=>item.id == companyId)[0];
+            console.log(companyOfuser)
+            this.contractorType = userData.contractorType;
+            this.contractorName = userData.contractorName;
+            this.contractorCountry = userData.contractorCountry;
+            this.contractorJobType = userData.contractorJobType;
+            this.contractorAdress = userData.contractorAdress;
+            this.contractorTel = userData.contractorTel;
+            this.moveIntoDate = userData.moveIntoDate;
+            this.contractorSex = userData.contractorSex;
+            this.contractorBirthday = userData.contractorBirthday;
+            this.contractorEmail = userData.contractorEmail;
+            this.contractorSms = userData.contractorSms;
+            this.contractorResidenceQualification = userData.contractorResidenceQualification;
+            this.contractorSchoolName = userData.contractorSchoolName;
+            this.contractorSchoolTel = userData.contractorSchoolTel;
+            this.contractorSchoolAddress = userData.contractorSchoolAddress;
+            this.contractorCompanyName = userData.contractorCompanyName;
+            this.contractorCompanyTel = userData.contractorCompanyTel;
+            this.contractorCompanyAddress = userData.contractorCompanyAddress;
+            this.contractorLengthOfService = userData.contractorLengthOfService;
+            this.contractorSalary = userData.contractorSalary;
+            this.contractorOtherName = userData.contractorOtherName;
+            this.contractorOtherTel = userData.contractorOtherTel;
+            this.contractorOtherAddress = userData.contractorOtherAddress;
+            this.contractorOtherContent = userData.contractorOtherContent;
+            this.contractorOtherFile = userData.contractorOtherFile;
+            this.companyId = userData.companyId;
+            this.guaranteeType = userData.guaranteeType;
+            this.propertyManagermentCompanyFeePercentage = userData.propertyManagermentCompanyFeePercentage;
+            this.guaranteeFee = userData.guaranteeFee;
+            this.propertyName = userData.propertyName;
+            this.propertyAdress = userData.propertyAdress;
+            this.roomNumber = userData.roomNumber;
+            this.roomType = userData.roomType;
+            this.rent = userData.rent;
+            this.managementCost = userData.managementCost;
+            this.otherCosts = userData.otherCosts;
+            this.totalPayment = userData.totalPayment;
+            this.roomMate = userData.roomMate;
+            this.roomMateHeadCount = userData.roomMateHeadCount;
+            this.roomMateName = userData.roomMateName;
+            this.roomMateBirthday = userData.roomMateBirthday;
+            this.roomMateTel = userData.roomMateTel;
+            this.roomMateCountry = userData.roomMateCountry;
+            this.roomMateIdCard = userData.roomMateIdCard;
+            this.guarantorType = userData.guarantorType;
+            this.guarantorName = userData.guarantorName;
+            this.guarantorCountry = userData.guarantorCountry;
+            this.guarantorAdress = userData.guarantorAdress;
+            this.guarantorRelationship = userData.guarantorRelationship;
+            this.guarantorTel1 = userData.guarantorTel1;
+            this.guarantorTel2 = userData.guarantorTel2;
+            this.guarantorCompanyName = userData.guarantorCompanyName;
+            this.guarantorCompanyTel = userData.guarantorCompanyTel;
+            this.guarantorCompanyAddress = userData.guarantorCompanyAddress;
+            this.guarantorIdCard = userData.guarantorIdCard;
+            this.guarantorBirthday = userData.guarantorBirthday;
+            this.emergencyName = userData.emergencyName;
+            this.emergencyCountry = userData.emergencyCountry;
+            this.emergencyBirthday = userData.emergencyBirthday;
+            this.emergencyRelationship = userData.emergencyRelationship;
+            this.emergencyTel1 = userData.emergencyTel1;
+            this.emergencyTel2 = userData.emergencyTel2;
+            this.emergencyAdress = userData.emergencyAdress;
+            this.comfirmPerson = userData.comfirmPerson;
+            this.approvalPerson = userData.approvalPerson;
+            this.createdDate = userData.createdDate;
+            if(companyOfuser){
+              this.searchedCompanyName = companyOfuser.companyName;
+              this.searchedCompany = companyOfuser;
+              switch (this.guaranteeType) {
+                case "긴급연락처":
+                  this.guaranteeFeePercentage = this.searchedCompany.fee1;
+                  break;
+                case "연대보증인":
+                  this.guaranteeFeePercentage = this.searchedCompany.fee2;
+                  break;
+                case "기타":
+                  this.guaranteeFeePercentage = this.searchedCompany.fee3;
+                  break;
+              
+                default:
+                  break;
               }
-          },
-          immediate: true
-      }
+            }
+          }else{
+              this.clearDatas()
+          }
+      },
+      immediate: true
+    }
   },
   mounted(){
     this.db = firebase.firestore();
@@ -1060,6 +1167,7 @@ export default {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
   },
   methods: {
+    moment,
     moveUserListPage(){
       this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
     },
@@ -1369,7 +1477,7 @@ export default {
       this.rent = parseInt(this.rent);
       this.managementCost = parseInt(this.managementCost);
       this.otherCosts = parseInt(this.otherCosts);
-      this.guaranteeFee = parseInt((this.rent+this.managementCost+this.otherCosts)*this.guaranteeFeePercentage);
+      this.guaranteeFee = parseInt((this.rent+this.managementCost+this.otherCosts)*this.guaranteeFeePercentage / 100);
       this.totalPayment = parseInt(this.rent+this.managementCost+this.otherCosts+this.guaranteeFee);
     },
     onChangePaymentPercent() {

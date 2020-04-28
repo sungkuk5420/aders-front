@@ -78,6 +78,9 @@ export const getters = {
   getCompanyDataForUpdate(state) {
     return state.companyList.filter(item=>item.id==state.updateCompanyId)[0];
   },
+  getUserDataForUpdate(state) {
+    return state.userList.filter(item=>item.id==state.updateUserId)[0];
+  },
   getTabIndex(state) {
     return state.tabIndex;
   },

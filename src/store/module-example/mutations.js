@@ -22,8 +22,14 @@ export const mutations = {
     state.userSearchKeyword = userSearchKeyword;
   },
   [T.CHANGE_UPDATE_COMPNAY_ID](state, updateCompanyId) {
-    // console.log(`mutation [T.CHANGE_UPDATE_COMPNAY_ID] ${result}`);
+    console.log(`mutation [T.SEARCH_USER]`)
+    console.log(updateCompanyId)
     state.updateCompanyId = updateCompanyId;
+  },
+  [T.CHANGE_UPDATE_USER_ID](state, updateUserId) {
+    console.log(`mutation [T.SEARCH_USER]`)
+    console.log(updateUserId)
+    state.updateUserId = updateUserId;
   },
   [T.DELETE_COMPANY](state, deleteId) {
     // console.log(`mutation [T.DELETE_COMPANY] ${result}`);
