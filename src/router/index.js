@@ -6,11 +6,7 @@ import routes from "./routes";
 import Antd from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css'
 
-const Vant = require("vant");
-import "vant/lib/index.css";
-
 Vue.use(VueRouter);
-Vue.use(Vant);
 Vue.use(Antd)
 
 /*
