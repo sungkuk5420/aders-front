@@ -7,7 +7,7 @@
         detail(record.id)
       }">상세보기</a-button>
       <a-popconfirm
-        title="정말로 이 대리점을 삭제하시겠습니까?"
+        title="정말로 이 입주자를 삭제하시겠습니까?"
         @confirm="function(){
           confirm(record.id)
         }"
@@ -62,6 +62,7 @@ export default {
     })
   },
   mounted(){
+    this.db = firebase.firestore();
     const y = window.innerHeight-300;
     this.windowSize = {
       x:'max-content' 
@@ -91,8 +92,8 @@ export default {
     },
     confirm(id){
       const thisObj = this;
-      this.db.collection("companys").doc(id).delete().then(function() {
-        thisObj.$store.dispatch(T.DELETE_COMPANY,id);
+      this.db.collection("users").doc(id).delete().then(function() {
+        thisObj.$store.dispatch(T.DELETE_USER,id);
         thisObj.alertMsg({type:"success",msg:"삭제 완료"});
       }).catch(function(error) {
         console.log(error)

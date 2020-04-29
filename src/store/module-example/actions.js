@@ -72,6 +72,11 @@ export const actions = {
     console.log(deleteId)
     commit(T.DELETE_COMPANY, deleteId);
   },
+  [T.DELETE_USER]({ commit }, deleteId) {
+    console.log(`store action [T.DELETE_USER] `);
+    console.log(deleteId)
+    commit(T.DELETE_USER, deleteId);
+  },
   [T.CHECK_UPDATE_PASSWORD]({ commit }, params) {
     // console.log(`store action [T.CHECK_UPDATE_PASSWORD] `);
     ajaxActions.checkPassword(

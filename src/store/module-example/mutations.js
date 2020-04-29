@@ -35,6 +35,10 @@ export const mutations = {
     // console.log(`mutation [T.DELETE_COMPANY] ${result}`);
     state.companyList = state.companyList.filter(item=>item.id != deleteId);
   },
+  [T.DELETE_USER](state, deleteId) {
+    // console.log(`mutation [T.DELETE_USER] ${result}`);
+    state.userList = state.userList.filter(item=>item.id != deleteId);
+  },
   [T.CHANGE_TAB_INDEX](state,tabIndex) {
     state.tabIndex = tabIndex;
   },

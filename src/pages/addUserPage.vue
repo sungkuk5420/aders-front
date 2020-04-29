@@ -852,8 +852,11 @@
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
               <div class="form-row">
-                <a-button type="primary"  @click="handleSubmit" :loading="loading">
+                <a-button type="primary" v-show="!userDataForUpdate" @click="handleSubmit" :loading="loading">
                   등록
+                </a-button>
+                <a-button type="primary" v-show="userDataForUpdate" @click="handleUpdate" :loading="loading">
+                  수정
                 </a-button>
                 <a-button type="default"  style="margin-left:10px;" @click="moveUserListPage" :loading="loading">
                   취소
@@ -1505,6 +1508,29 @@ export default {
     moveUserListPage() {
       this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
       // this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
+    },
+    handleUpdate(e) {
+      this.loading = true;
+      const thisObj = this;
+      const userValues = this.getUserInputValues();
+      this.db.collection("users").doc(this.userDataForUpdate.id).update({
+        ...userValues
+      })
+      .then(function(docRef) {
+        thisObj.$store.dispatch(T.GET_USER_LIST,{
+          cb:()=>{
+          thisObj.clearDatas()
+          thisObj.loading = false;
+          thisObj.alertMsg({type:"success",msg:"수정 완료"});
+          thisObj.moveUserListPage();
+          }
+        });
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"수정 실패"});
+        console.error("Error adding document: ", error);
+      });
     },
     handleSubmit(e) {
       this.loading = true;
