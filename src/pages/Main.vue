@@ -53,8 +53,6 @@ export default {
   },
   mounted() {
     this.getCompanyList()
-    // this.notification("aaa","bbb")
-    // this.alertMsg({type:"success",msg:"asdfwe"});
   },
   methods: {
     getUserList(){
@@ -72,6 +70,7 @@ export default {
       switch (index) {
         case 1:
           this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
+          this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
           break;
         case 2:
           this.$store.dispatch(T.CHANGE_TAB_INDEX,index);

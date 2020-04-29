@@ -40,7 +40,7 @@
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
                 
-                  <a-date-picker :value="moment(moveIntoDate, dateFormat)" :format="dateFormat"  @change="onChangeMoveIntoDate" style="width: 100%;"/>
+                  <a-date-picker :value="moveIntoDate!=''?moment(moveIntoDate, dateFormat):''" :format="dateFormat"  @change="onChangeMoveIntoDate" style="width: 100%;"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -89,8 +89,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                {{contractorBirthday}}
-                  <a-date-picker :value="moment(contractorBirthday, dateFormat)" :format="dateFormat" @change="onChangeContractorBirthday" style="width: 100%;"/>
+                  <a-date-picker :value="contractorBirthday!=''?moment(contractorBirthday, dateFormat):''" :format="dateFormat" @change="onChangeContractorBirthday" style="width: 100%;"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -636,7 +635,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-date-picker :value="moment(guarantorBirthday, dateFormat)" :format="dateFormat"  @change="onChangeGuarantorBirthday" style="width:100%;" />
+                  <a-date-picker :value="guarantorBirthday!=''?moment(guarantorBirthday, dateFormat):''" :format="dateFormat"  @change="onChangeGuarantorBirthday" style="width:100%;" />
                 </a-form-item>
                 <a-form-item
                   label="관계"
@@ -773,7 +772,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-date-picker :value="moment(emergencyBirthday, dateFormat)" :format="dateFormat" @change="onChangeEmergencyBirthday" style="width:100%;" />
+                  <a-date-picker :value="emergencyBirthday!=''?moment(emergencyBirthday, dateFormat):''" :format="dateFormat" @change="onChangeEmergencyBirthday" style="width:100%;" />
                 </a-form-item>
                 <a-form-item
                   label="관계"
@@ -1173,6 +1172,7 @@ export default {
     moment,
     moveUserListPage(){
       this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
+      this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
     },
     alertMsg({type="info",msg=""}) {
       switch (type) {
@@ -1257,6 +1257,13 @@ export default {
       this.comfirmPerson = "";
       this.approvalPerson = "";
       this.createdDate = "";
+      
+      this.searchedCompany = null;
+      this.guaranteeFeePercentage = 0;
+      this.propertyManagermentCompanyFeePercentage = 0;
+      this.searchedCompanyName = "";
+      this.companyId = "";
+
     },
     getUserInputValues(){
       const contractorType = this.contractorType;
@@ -1505,10 +1512,6 @@ export default {
       }
       this.onChangePayment();
     },
-    moveUserListPage() {
-      this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
-      // this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
-    },
     handleUpdate(e) {
       this.loading = true;
       const thisObj = this;
@@ -1519,10 +1522,10 @@ export default {
       .then(function(docRef) {
         thisObj.$store.dispatch(T.GET_USER_LIST,{
           cb:()=>{
-          thisObj.clearDatas()
-          thisObj.loading = false;
-          thisObj.alertMsg({type:"success",msg:"수정 완료"});
-          thisObj.moveUserListPage();
+            thisObj.clearDatas()
+            thisObj.loading = false;
+            thisObj.alertMsg({type:"success",msg:"수정 완료"});
+            thisObj.moveUserListPage();
           }
         });
       })
