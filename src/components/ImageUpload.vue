@@ -22,11 +22,24 @@ function getBase64(img, callback) {
   reader.readAsDataURL(img);
 }
 export default {
+  props:["imageCbFunc","imageData"],
   data() {
     return {
       loading: false,
       imageUrl: '',
     };
+  },
+  watch:{
+    imageData:{
+      handler(imageData) {
+          if (imageData) {
+            this.imageUrl = imageData
+          }
+      },
+      immediate: true
+    }
+  },
+  mounted(){
   },
   methods: {
     handleChange(info) {
@@ -39,6 +52,9 @@ export default {
         getBase64(info.file.originFileObj, imageUrl => {
           this.imageUrl = imageUrl;
           this.loading = false;
+          if(this.imageCbFunc){
+            this.imageCbFunc(this.imageUrl);
+          }
         });
       }
     },

@@ -44,7 +44,7 @@ const columns = [
   { title: '비고', dataIndex: 'company.notes', key: 'company.notes'},
   { title: '연대보증인연락처', dataIndex: 'guarantorTel1', key: 'guarantorTel1'},
   { title: '긴급연락처', dataIndex: 'emergencyTel1', key: 'emergencyTel1'},
-  { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
+  // { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
 ];
 
 import { mapGetters } from "vuex";

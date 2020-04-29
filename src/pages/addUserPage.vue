@@ -21,7 +21,6 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                
                   <a-radio-group v-model="contractorType" >
                     <a-radio-button value="개인">
                       개인
@@ -305,7 +304,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='기타'"
             >
-              <ImageUpload></ImageUpload>
+              <ImageUpload :imageData="contractorOtherFile" :imageCbFunc="contractorOtherFileFunc"></ImageUpload>
             </a-form-item>
           </div>
           <div class="form-cell">
@@ -566,7 +565,7 @@
                     :label-col="formItemLayout.labelCol2"
                     :wrapper-col="formItemLayout.wrapperCol"
                   >
-                    <ImageUpload></ImageUpload>
+                    <ImageUpload :imageData="roomMateIdCard" :imageCbFunc="roomMateIdCardFunc"></ImageUpload>
                   </a-form-item>
                 </div>
               </div>
@@ -714,14 +713,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <ImageUpload></ImageUpload>
+                  <ImageUpload :imageData="guarantorIdCardFront" :imageCbFunc="guarantorIdCardFrontFunc"></ImageUpload>
                 </a-form-item>
                 <a-form-item
                   label="신분증(뒤)"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <ImageUpload></ImageUpload>
+                  <ImageUpload :imageData="guarantorIdCardBack" :imageCbFunc="guarantorIdCardBackFunc"></ImageUpload>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -730,7 +729,7 @@
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
-              <ImageUpload></ImageUpload>
+              <ImageUpload :imageData="guarantorContract" :imageCbFunc="guarantorContractFunc"></ImageUpload>
             </a-form-item>
           </div>
         </VueSlideUpDown>
@@ -939,7 +938,9 @@ export default {
       guarantorCompanyName: "", // 보증인 회사명
       guarantorCompanyTel: "", // 보증인 회사 전화번호
       guarantorCompanyAddress: "", // 보증인 회사 주소
-      guarantorIdCard: "", // 보증인 신분증
+      guarantorIdCardFront:"", // 보증인 신분증 앞
+      guarantorIdCardBack:"", // 보증인 신분증 뒤
+      guarantorContract:"", // 보증인 계약서
       guarantorBirthday: "", // 보증인 생년월일
       //
       emergencyName: "", // 긴급연락처 이름
@@ -1007,7 +1008,9 @@ export default {
       // guarantorCompanyName: "보증인 회사명", // 보증인 회사명
       // guarantorCompanyTel: "보증인 회사 전화번호", // 보증인 회사 전화번호
       // guarantorCompanyAddress: "보증인 회사 주소", // 보증인 회사 주소
-      // guarantorIdCard: "보증인 신분증", // 보증인 신분증
+      // guarantorIdCardFront:"", // 보증인 신분증 앞
+      // guarantorIdCardBack:"", // 보증인 신분증 뒤
+      // guarantorContract:"", // 보증인 계약서
       // guarantorBirthday: "보증인 생년월일", // 보증인 생년월일
       // //
       // emergencyName: "긴급연락처 이름", // 긴급연락처 이름
@@ -1125,7 +1128,9 @@ export default {
             this.guarantorCompanyName = userData.guarantorCompanyName;
             this.guarantorCompanyTel = userData.guarantorCompanyTel;
             this.guarantorCompanyAddress = userData.guarantorCompanyAddress;
-            this.guarantorIdCard = userData.guarantorIdCard;
+            this.guarantorIdCardFront = userData.guarantorIdCardFront;
+            this.guarantorIdCardBack = userData.guarantorIdCardBack;
+            this.guarantorContract = userData.guarantorContract;
             this.guarantorBirthday = userData.guarantorBirthday;
             this.emergencyName = userData.emergencyName;
             this.emergencyCountry = userData.emergencyCountry;
@@ -1169,6 +1174,21 @@ export default {
     this.form = this.$form.createForm(this, { name: 'validate_other' });
   },
   methods: {
+    contractorOtherFileFunc(imageData){
+      this.contractorOtherFile = imageData;
+    },
+    roomMateIdCardFunc(imageData){
+      this.roomMateIdCard = imageData;
+    },
+    guarantorIdCardFrontFunc(imageData){
+      this.guarantorIdCardFront = imageData;
+    },
+    guarantorIdCardBackFunc(imageData){
+      this.guarantorIdCardBack = imageData;
+    },
+    guarantorContractFunc(imageData){
+      this.guarantorContract = imageData;
+    },
     moment,
     moveUserListPage(){
       this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
@@ -1245,7 +1265,9 @@ export default {
       this.guarantorCompanyName = "";
       this.guarantorCompanyTel = "";
       this.guarantorCompanyAddress = "";
-      this.guarantorIdCard = "";
+      this.guarantorIdCardFront = "";
+      this.guarantorIdCardBack = "";
+      this.guarantorContract = "";
       this.guarantorBirthday = "";
       this.emergencyName = "";
       this.emergencyCountry = "";
@@ -1320,7 +1342,9 @@ export default {
       const guarantorCompanyName = this.guarantorCompanyName;
       const guarantorCompanyTel = this.guarantorCompanyTel;
       const guarantorCompanyAddress = this.guarantorCompanyAddress;
-      const guarantorIdCard = this.guarantorIdCard;
+      const guarantorIdCardFront = this.guarantorIdCardFront;
+      const guarantorIdCardBack = this.guarantorIdCardBack;
+      const guarantorContract = this.guarantorContract;
       const guarantorBirthday = this.guarantorBirthday;
       const emergencyName = this.emergencyName;
       const emergencyCountry = this.emergencyCountry;
@@ -1387,7 +1411,9 @@ export default {
         guarantorCompanyName,
         guarantorCompanyTel,
         guarantorCompanyAddress,
-        guarantorIdCard,
+        guarantorIdCardFront,
+        guarantorIdCardBack,
+        guarantorContract,
         guarantorBirthday,
         emergencyName,
         emergencyCountry,
