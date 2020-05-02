@@ -42,6 +42,9 @@ export default {
   mounted(){
   },
   methods: {
+    clearImageData(){
+      this.imageUrl = "";
+    },
     handleChange(info) {
       if (info.file.status === 'uploading') {
         this.loading = true;

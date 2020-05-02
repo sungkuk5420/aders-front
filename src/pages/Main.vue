@@ -22,6 +22,8 @@
       <addUserPage v-show="tabIndex ==10"/>
       <CompanyListPage v-show="tabIndex ==2" />
       <addCompanyPage v-show="tabIndex == 20" />
+      <DelinquentListPage v-show="tabIndex ==3" />
+      <addDelinquentPage v-show="tabIndex ==30" />
     </a-layout-content>
   </a-layout>
 </template>
@@ -32,13 +34,17 @@ import { T } from "../store/module-example/types";
 import UserListPage from "../pages/UserListPage.vue";
 import addUserPage from "../pages/addUserPage.vue";
 import addCompanyPage from "../pages/addCompanyPage.vue";
+import addDelinquentPage from "../pages/addDelinquentPage.vue";
 import CompanyListPage from "../pages/CompanyListPage.vue";
+import DelinquentListPage from "../pages/DelinquentListPage.vue";
 export default {
   components: {
     UserListPage,
     addUserPage,
     addCompanyPage,
-    CompanyListPage
+    addDelinquentPage,
+    CompanyListPage,
+    DelinquentListPage
   },
   data() {
     return {

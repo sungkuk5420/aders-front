@@ -31,6 +31,12 @@ export const getters = {
     return state.companyList;
   },
   getAllUserList(state) {
+    return state.userList;
+  },
+  getAllDelinquentList(state) {
+    return state.delinquentList;
+  },
+  getAllUserList(state) {
     return state.userList.filter(user=>{
       let filtedCompanys = [];
       switch (state.userSearchType) {
@@ -74,6 +80,9 @@ export const getters = {
         }
       }
     });
+  },
+  getDelinquentDataForUpdate(state) {
+    return state.delinquentList.filter(item=>item.id==state.updateDelinquentListId)[0];
   },
   getCompanyDataForUpdate(state) {
     return state.companyList.filter(item=>item.id==state.updateCompanyId)[0];
