@@ -42,6 +42,25 @@ export const actions = {
     });
     // console.log(`store action [T.CHANGE_MODAL_VISIBLE]`);
   },
+  [T.GET_DELINQUENT_LIST]({ commit },{cb=function(){}}) {
+    console.log(`store action [T.GET_DELINQUENT_LIST] `);
+    const db = firebase.firestore();
+    db.collection("delinquents").get().then((querySnapshot) => {
+      let delinquentList = [];
+      querySnapshot.forEach((doc) => {
+        let id = doc.id;
+        delinquentList.push({
+          id,
+          ...doc.data()
+        })
+      });
+      commit(T.GET_DELINQUENT_LIST, delinquentList);
+      if(cb){
+        console.log(cb)
+        cb();
+      }
+    });
+  },
   [T.SEARCH_COMPANY]({ commit }, {companySearchType="회사명",companySearchKeyword=""}) {
     console.log(`store action [T.SEARCH_COMPANY] `);
     console.log(companySearchKeyword)

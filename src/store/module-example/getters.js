@@ -34,10 +34,58 @@ export const getters = {
     return state.userList;
   },
   getAllDelinquentList(state) {
-    return state.delinquentList;
+    return state.delinquentList.map((delinquent,i) =>{
+      let index = i+1;
+      const companyId = delinquent.companyId
+      let companyOfDelinquent = state.companyList.filter(item=>item.id == companyId)[0];
+      if(!companyOfDelinquent){
+        companyOfDelinquent = {
+          companyName:"",
+          bankName:"",
+          branchOfficeName:"",
+          bankAccountNumber:"",
+          notes:""
+        }
+      }
+      
+      const userId = delinquent.userId
+      let userOfDelinquent = state.userList.filter(item=>item.id == userId)[0];
+      if(!userOfDelinquent){
+        userOfDelinquent = {
+          contractorName:"",
+          propertyName:"",
+          roomNumber:"",
+          contractorTel:"",
+          rent:"",
+          comfirmPerson: "",
+          emergencyTel1:""
+        }
+      }
+
+      return {
+        index,
+        ...delinquent,
+        company:{
+          companyName:companyOfDelinquent.companyName,
+          bankName:companyOfDelinquent.bankName,
+          branchOfficeName:companyOfDelinquent.branchOfficeName,
+          bankAccountNumber:companyOfDelinquent.bankAccountNumber,
+          notes:companyOfDelinquent.notes
+        },
+        user:{
+          contractorName:userOfDelinquent.contractorName,
+          propertyName:userOfDelinquent.propertyName,
+          roomNumber:userOfDelinquent.roomNumber,
+          contractorTel:userOfDelinquent.contractorTel,
+          rent:userOfDelinquent.rent,
+          comfirmPerson:userOfDelinquent.comfirmPerson,
+          emergencyTel1:userOfDelinquent.emergencyTel1
+        }
+      }
+    });;
   },
   getAllUserList(state) {
-    return state.userList.filter(user=>{
+    return state.userList.filter(user=>{// 검색
       let filtedCompanys = [];
       switch (state.userSearchType) {
         case "멘션명":

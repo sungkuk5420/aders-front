@@ -869,14 +869,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="nonPayMonthly"/>
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="nonPayMonthly"  @change="onChangePayment" />
                 </a-form-item>
                 <a-form-item
                   label="수수료"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="fees"/>
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="fees"  @change="onChangePayment" />
                 </a-form-item>
               </div>
             </a-form-item>
@@ -890,13 +890,13 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="charges"/>
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="charges"  @change="onChangePayment" />
                 </a-form-item>
                 <a-form-item 
                   label="체납발생"
                   :label-col="formItemLayout.labelCol2"
-                  :wrapper-col="formItemLayout.wrapperCol">
-                    <a-input style="width:100%" v-model="Arrears" @change="onChangePayment"/>
+                  :wrapper-col="formItemLayout.wrapperCol"> 
+                    <a-input v-model="arrears" />
                 </a-form-item>
               </div>
             </a-form-item>
@@ -969,12 +969,14 @@
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
               <div class="form-row">
-                <!-- <a-button type="primary" v-show="!userDataForUpdate" @click="handleSubmit" :loading="loading">
+                 <a-button type="primary" @click="handleRegister" :loading="loading">
                   등록
                 </a-button>
+                <!--
                 <a-button type="primary" v-show="userDataForUpdate" @click="handleUpdate" :loading="loading">
                   수정
                 </a-button> -->
+                
                 <a-button type="default"  style="margin-left:10px;" @click="moveUserListPage" :loading="loading">
                   취소
                 </a-button>
@@ -1075,7 +1077,7 @@ export default {
       nonPayMonthly: "", //월세 미납분
       fees: "",//수수료
       charges: "",//청구액
-      Arrears: "",//체납발생
+      arrears: "",//체납발생
       //test data
       // contractorType: "개인", // 등록선택
       // contractorName: "계약자이름", // 계약자이름
@@ -1334,6 +1336,10 @@ export default {
       this.$store.dispatch(T.CHANGE_TAB_INDEX,1);
       this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
     },
+    moveDelinquentPage(){
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,3);
+      this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
+    },
     alertMsg({type="info",msg=""}) {
       switch (type) {
         case "info":
@@ -1425,6 +1431,10 @@ export default {
       this.propertyManagermentCompanyFeePercentage = 0;
       this.searchedCompanyName = "";
       this.companyId = "";
+      this.nonPayMonthly = "",  //월세 미납분
+      this.fees = "",  //수수료
+      this.charges = "",  //청구액
+      this.arrears = ""  //체납발생
       
       if(this.$refs.contractorOtherFile){
         this.$refs.contractorOtherFile.clearImageData();
@@ -1861,6 +1871,35 @@ export default {
         console.error("Error adding document: ", error);
       });
     },
+    handleRegister(e) {
+      this.loading = true;
+      const thisObj = this;
+      const userValues = this.getUserInputValues();
+      
+      this.db.collection("delinquents").add({
+        userId:this.userId,
+        companyId:this.searchedUser.companyId,
+        nonPayMonthly: this.nonPayMonthly,  //월세 미납분
+        fees: this.fees,  //수수료
+        charges: this.charges,  //청구액
+        arrears: this.arrears   //체납발생
+      })
+      .then(function(docRef) {
+        thisObj.$store.dispatch(T.GET_DELINQUENT_LIST,{ // GET_USER_LIST 참고
+          cb:()=>{
+          thisObj.clearDatas()
+          thisObj.loading = false;
+          thisObj.alertMsg({type:"success",msg:"연체자 등록 완료"}); 
+          thisObj.moveDelinquentPage(); //moveDelinquentPage함수제작
+          }
+        });
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"연체자 등록 실패"});
+        console.error("Error adding document: ", error);
+      });
+    }
   },
 };
 </script>

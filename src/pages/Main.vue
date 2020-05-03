@@ -116,7 +116,15 @@ export default {
       document.getElementsByClassName("ant-modal-close")[0].click();
     },
     getUserList(){
-      this.$store.dispatch(T.GET_USER_LIST,{});
+      const thisObj = this;
+      this.$store.dispatch(T.GET_USER_LIST,{
+        cb:()=>{
+          thisObj.getDelinquentList();
+          }
+      });
+    },
+    getDelinquentList(){
+      this.$store.dispatch(T.GET_DELINQUENT_LIST,{});
     },
     getCompanyList(){
       const thisObj = this;
