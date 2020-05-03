@@ -857,6 +857,42 @@
           <div class="form-cell"></div>
           <div class="form-cell">
             <a-form-item
+              label="블랙리스트"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-button type="default" v-if="searchedUser.blackList === true" @click="deleteBlackList" :loading="loading">
+                    삭제
+                  </a-button>
+                  <a-button type="default" v-else @click="setBlackList" :loading="loading">
+                    추가
+                  </a-button>
+                </a-form-item>
+                <a-form-item
+                  label="회심추심"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
+                >
+                  <a-button type="default" @click="setCollectionList" :loading="loading">
+                    지정
+                  </a-button>
+                  <a-button type="default" @click="deleteCollectionList" :loading="loading">
+                    해제
+                  </a-button>
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-cell"></div>
+          <div class="form-cell">
+            <a-form-item
               label="확인 담당자"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
@@ -1064,7 +1100,10 @@ export default {
       searchedCompanyName: "", // 회사 검색 이름
       searchedCompany: null, // 회사 검색 오브젝트
       searchedUserName: "", // 연체자 검색 이름
-      searchedUser: null, // 연체자 검색 오브젝트
+      searchedUser: { // 연체자 검색 오브젝트
+        blackList: false,
+        collectionList: false
+      }, 
       guaranteeFeePercentage:0, // 심사 수수료 퍼센트
       propertyManagermentCompanyFeePercentage: "", // 대리점 수수료 퍼센트
       propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
@@ -1565,7 +1604,10 @@ export default {
       console.log(this.userTypeDataSource)
       const dataList = this.updateUserListDataSource(this.userList);
       this.userTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
-      this.searchedUser = null;
+      this.searchedUser = {
+        blackList: false,
+        collectionList: false
+      };
       if(this.userTypeDataSource.length == 1){
         let filteredUser = {};
         filteredUser = this.userList.filter(item=>item.contractorName == value);
@@ -1663,6 +1705,86 @@ export default {
       .catch(function(error) {
         thisObj.loading = false;
         thisObj.alertMsg({type:"error",msg:"수정 실패"});
+        console.error("Error adding document: ", error);
+      });
+    },
+    setBlackList(e) {
+      this.loading = true;
+      const thisObj = this;
+      const userValues = this.getUserInputValues();
+
+      this.db.collection("users").doc(this.userId).update({
+        ...userValues,
+        blackList:true
+      })
+      .then(function(docRef) {
+        thisObj.searchedUser.blackList = true
+        thisObj.alertMsg({type:"success",msg:"블랙 리스트 추가 완료"});
+        thisObj.loading = false;
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"블랙 리스트 추가 실패"});
+        console.error("Error adding document: ", error);
+      });
+    },
+    deleteBlackList(e) {
+      this.loading = true;
+      const thisObj = this;
+      const userValues = this.getUserInputValues();
+
+      this.db.collection("users").doc(this.userId).update({
+        ...userValues,
+        blackList:false
+      })
+      .then(function(docRef) {
+        thisObj.searchedUser.blackList = false
+        thisObj.alertMsg({type:"success",msg:"블랙 리스트 삭제 완료"});
+        thisObj.loading = false;
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"블랙 리스트 삭제 실패"});
+        console.error("Error adding document: ", error);
+      });
+    },
+    setCollectionList(e) {
+      this.loading = true;
+      const thisObj = this;
+      const userValues = this.getUserInputValues();
+
+      this.db.collection("users").doc(this.userId).update({
+        ...userValues,
+        collectionList:true
+      })
+      .then(function(docRef) {
+        thisObj.searchedUser.collectionList = true
+        thisObj.alertMsg({type:"success",msg:"회심 추심 지정 완료"});
+        thisObj.loading = false;
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"회심 추심 지정 실패"});
+        console.error("Error adding document: ", error);
+      });
+    },
+    deleteCollectionList(e) {
+      this.loading = true;
+      const thisObj = this;
+      const userValues = this.getUserInputValues();
+
+      this.db.collection("users").doc(this.userId).update({
+        ...userValues,
+        collectionList:false
+      })
+      .then(function(docRef) {
+        thisObj.searchedUser.collectionList = false
+        thisObj.alertMsg({type:"success",msg:"회심 추심 삭제 완료"});
+        thisObj.loading = false;
+      })
+      .catch(function(error) {
+        thisObj.loading = false;
+        thisObj.alertMsg({type:"error",msg:"회심 추심 삭제 실패"});
         console.error("Error adding document: ", error);
       });
     },
