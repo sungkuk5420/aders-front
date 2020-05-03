@@ -959,7 +959,7 @@ export default {
       db:"", // firebase
       dateFormat: 'YYYY-MM-DD',
       contractorType: "개인", // 등록선택
-      contractorName: "aa", // 계약자이름
+      contractorName: "", // 계약자이름
       contractorCountry: "", // 계약자국적
       contractorJobType: "학생", // 계약자 분류
       contractorAdress: "", // 계약자 주소

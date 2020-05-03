@@ -1,5 +1,6 @@
 export default {
   db:null,
+  adminPassword:1234,
   updateCompanyId:"",
   updateUserId:"",
   updateDelinquentListId:"",
@@ -10,5 +11,8 @@ export default {
   companySearchKeyword:"",
   userSearchType:"멘션명",
   userSearchKeyword:"",
-  tabIndex:1
+  tabIndex:1,
+  isUnLogin:true,
+  successMessage:"",
+  errorMessage:""
 };

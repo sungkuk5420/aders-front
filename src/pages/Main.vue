@@ -18,12 +18,33 @@
       </a-menu>
     </a-layout-header>
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
-      <UserListPage v-show="tabIndex ==1"/>
-      <addUserPage v-show="tabIndex ==10"/>
-      <CompanyListPage v-show="tabIndex ==2" />
-      <addCompanyPage v-show="tabIndex == 20" />
-      <DelinquentListPage v-show="tabIndex ==3" />
-      <addDelinquentPage v-show="tabIndex ==30" />
+      <UserListPage v-if="!isUnLogin" v-show="tabIndex ==1"/>
+      <addUserPage v-if="!isUnLogin" v-show="tabIndex ==10"/>
+      <CompanyListPage v-if="!isUnLogin" v-show="tabIndex ==2" />
+      <addCompanyPage v-if="!isUnLogin" v-show="tabIndex == 20" />
+      <DelinquentListPage v-if="!isUnLogin" v-show="tabIndex ==3" />
+      <addDelinquentPage v-if="!isUnLogin" v-show="tabIndex ==30" />
+      <a-modal title="관리자 비밀번호" v-model="isUnLogin">
+        <template slot="footer">
+          <a-button key="back" @click="handleCancel">취소</a-button>
+          <a-button
+            key="submit"
+            type="primary"
+            :loading="loading"
+            @click="checkAdminPassword"
+          >확인</a-button>
+        </template>
+        <div class="row-div popup">
+          <div class="content-div">
+            <div class="components-input-demo-presuffix">
+              <span class="label">비밀 번호</span>
+              <a-input placeholder="비밀 번호" v-model="password" ref="userNameInput">
+                <a-icon slot="prefix" type="lock"/>
+              </a-input>
+            </div>
+          </div>
+        </div>
+      </a-modal>
     </a-layout-content>
   </a-layout>
 </template>
@@ -48,19 +69,52 @@ export default {
   },
   data() {
     return {
+      loading :false,
+      password :""
     };
   },
   computed: {
     ...mapGetters({
-      tabIndex:"getTabIndex"
+      tabIndex:"getTabIndex",
+      isUnLogin: "getIsUnLogin",
+      changeSuccessMessage: "changeSuccessMessage",
+      changeErrorMessage: "changeErrorMessage"
     })
   },
   watch: {
+    changeSuccessMessage (text) {
+      this.loading = false
+      if(text !== ""){
+        this.$message.success(text)
+        this.$store.dispatch(T.CHANGE_SUCCESS_MESSAGE, "")
+        if(text == "로그인 성공"){
+          this.getCompanyList()
+        }
+      }
+    },
+    changeErrorMessage (text) {
+      this.loading = false
+      if(text !== ""){
+        this.$message.error(text)
+        this.$store.dispatch(T.CHANGE_ERROR_MESSAGE, "")
+      }
+    }
   },
   mounted() {
-    this.getCompanyList()
   },
   methods: {
+    checkAdminPassword(password) {
+      var password = this.password
+      if(!this.loading){
+        this.loading = true
+        setTimeout(() => {
+          this.$store.dispatch(T.CHECK_ADMIN_PASSWORD,password)
+        }, 500);
+      }
+    },
+    handleCancel() {
+      document.getElementsByClassName("ant-modal-close")[0].click();
+    },
     getUserList(){
       this.$store.dispatch(T.GET_USER_LIST,{});
     },

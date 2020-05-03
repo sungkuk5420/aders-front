@@ -81,6 +81,12 @@ export const getters = {
       }
     });
   },
+  changeSuccessMessage (state) {
+    return state.successMessage
+  },
+  changeErrorMessage (state) {
+    return state.errorMessage
+  },
   getDelinquentDataForUpdate(state) {
     return state.delinquentList.filter(item=>item.id==state.updateDelinquentListId)[0];
   },
@@ -92,5 +98,8 @@ export const getters = {
   },
   getTabIndex(state) {
     return state.tabIndex;
+  },
+  getIsUnLogin (state) {
+    return state.isUnLogin
   },
 };
