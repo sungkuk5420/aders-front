@@ -878,11 +878,11 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-button type="default" @click="setCollectionList" :loading="loading">
-                    지정
-                  </a-button>
-                  <a-button type="default" @click="deleteCollectionList" :loading="loading">
+                  <a-button type="default" v-if="searchedUser.collectionList === true" @click="deleteCollectionList" :loading="loading">
                     해제
+                  </a-button>
+                  <a-button type="default" v-else @click="setCollectionList" :loading="loading">
+                    지정
                   </a-button>
                 </a-form-item>
               </div>
@@ -1712,7 +1712,7 @@ export default {
       this.loading = true;
       const thisObj = this;
       const userValues = this.getUserInputValues();
-
+      debugger;
       this.db.collection("users").doc(this.userId).update({
         ...userValues,
         blackList:true
