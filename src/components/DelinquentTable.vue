@@ -23,29 +23,33 @@
 <script>
 const columns = [
   { title: '구분', dataIndex: 'index', key: 'index'},
-  { title: '승인일', dataIndex: 'key1', key: 'key1'},
+  { title: '월세 미납분', dataIndex: 'key1', key: 'key1'},
+  { title: '승인일', dataIndex: 'key2', key: 'key2'},
   { title: '대리점', dataIndex: 'company.companyName', key: 'company.companyName'},
   { title: '대리점 계약번호', dataIndex: 'key3', key: 'key3'},
-  { title: '대리점 수수료', dataIndex: 'propertyManagermentCompanyFeePercentage', key: 'propertyManagermentCompanyFeePercentage' },
-  { title: '승인번호', dataIndex: 'key5', key: 'key5'},
-  { title: '계약자명 (영문)', dataIndex: 'key6', key: 'key6'},
-  { title: '계약자명', dataIndex: 'contractorName', key: 'contractorName'},
+  { title: '승인번호', dataIndex: 'key4', key: 'key4'},
+  { title: '계약자(영문)', dataIndex: 'key5', key: 'key5'},
+  { title: '계약자', dataIndex: 'contractorName', key: 'contractorName'},
   { title: '멘션명', dataIndex: 'propertyName', key: 'propertyName'},
   { title: '방번호', dataIndex: 'roomNumber', key: 'roomNumber'},
-  { title: '연락처', dataIndex: 'contractorTel', key: 'contractorTel'},
+  { title: '국내 핸드폰 번호', dataIndex: 'contractorTel', key: 'contractorTel'},
+  { title: '청구액', dataIndex: 'key6', key: 'key6' },
   { title: '월세', dataIndex: 'rent', key: 'rent'},
-  { title: '심사금액', dataIndex: 'key12', key: 'key12'},
-  { title: '심사율', dataIndex: 'key13', key: 'key13'},
-  { title: '갱신료', dataIndex: 'key14', key: 'key14'},
+  { title: '수수료', dataIndex: 'key7', key: 'key7' },
+  { title: '체납발생', dataIndex: 'key8', key: 'key8' },
   { title: '담당자', dataIndex: 'comfirmPerson', key: 'comfirmPerson'},
   { title: '은행명', dataIndex: 'company.bankName', key: 'company.bankName'},
   { title: '지점명', dataIndex: 'company.branchOfficeName', key: 'company.branchOfficeName'},
   { title: '계좌번호', dataIndex: 'company.bankAccountNumber', key: 'company.bankAccountNumber'},
   { title: '비고', dataIndex: 'company.notes', key: 'company.notes'},
-  { title: '연대보증인연락처', dataIndex: 'guarantorTel1', key: 'guarantorTel1'},
-  { title: '긴급연락처', dataIndex: 'emergencyTel1', key: 'emergencyTel1'},
-  // { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
+  { title: '긴급연락처', dataIndex: 'emergencyTel1', key: 'emergencyTel1'}
 ];
+const object = {
+  //월세 미납분
+  //수수료
+  //청구액
+  //체납발생
+}
 
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
@@ -53,14 +57,37 @@ export default {
   data() {
     return {
       columns,
-      windowSize:{x:'max-content'}
+      windowSize:{x:'max-content'},
+      delinquentList:[{
+        'index': '1',
+        'key1': '2',
+        'key2': '3',
+        'company.companyName':'4',
+        'key3': '5',
+        'key4': '6',
+        'key5': '7',
+        'contractorName': '8',
+        'propertyName': '9',
+        'roomNumber': '10',
+        'contractorTel': '11',
+        'key6': '12',
+        'rent': '13',
+        'key7': '14',
+        'key8': '15',
+        'comfirmPerson': '16',
+        'company.bankName': '17',
+        'company.branchOfficeName': '18',
+        'company.bankAccountNumber': '19',
+        'company.notes': '20',
+        'emergencyTel1': '21'
+      }]
     };
   },
-  computed: {
-    ...mapGetters({
-      delinquentList:"getAllDelinquentList",
-    })
-  },
+  // computed: {
+  //   ...mapGetters({
+  //     delinquentList:"getAllDelinquentList",
+  //   })
+  // },
   mounted(){
     this.db = firebase.firestore();
     const y = window.innerHeight-300;

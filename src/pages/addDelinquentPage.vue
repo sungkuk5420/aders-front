@@ -854,7 +854,53 @@
           </div>
         </VueSlideUpDown>
         <div class="form-row">
-          <div class="form-cell"></div>
+          <div class="form-cell">
+            <div class="form-row read-only-form-data">
+              <div class="overlay"></div>
+              <h2>연체보증</h2>
+            </div>
+            <a-form-item
+                label="월세 미납분"
+                :label-col="formItemLayout.labelCol"
+                :wrapper-col="formItemLayout.wrapperCol"
+              >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="nonPayMonthly"/>
+                </a-form-item>
+                <a-form-item
+                  label="수수료"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
+                >
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="fees"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+            <a-form-item
+                label="청구액"
+                :label-col="formItemLayout.labelCol"
+                :wrapper-col="formItemLayout.wrapperCol"
+              >
+              <div class="form-row">
+                <a-form-item
+                  :label-col="{ span: 1 }"
+                  :wrapper-col="{ span: 24 }"
+                >
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="charges"/>
+                </a-form-item>
+                <a-form-item 
+                  label="체납발생"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol">
+                    <a-input style="width:100%" v-model="Arrears" @change="onChangePayment"/>
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
           <div class="form-cell">
             <a-form-item
               label="블랙리스트"
@@ -1026,6 +1072,10 @@ export default {
       comfirmPerson: "", // 확인담당자
       approvalPerson: "", // 상관승인자
       createdDate: Date.now(), // 작성시간
+      nonPayMonthly: "", //월세 미납분
+      fees: "",//수수료
+      charges: "",//청구액
+      Arrears: "",//체납발생
       //test data
       // contractorType: "개인", // 등록선택
       // contractorName: "계약자이름", // 계약자이름
@@ -1897,7 +1947,7 @@ export default {
   height: 100%;
   position: absolute;
   opacity: 0;
-  z-index: 1;
+  z-index: 99999;
 }
 .read-only-form-data{
   position: relative;
