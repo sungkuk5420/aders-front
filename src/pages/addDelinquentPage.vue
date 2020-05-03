@@ -857,7 +857,7 @@
           <div class="form-cell">
             <div class="form-row read-only-form-data">
               <div class="overlay"></div>
-              <h2>연체보증</h2>
+              <h2>연체내용</h2>
             </div>
             <a-form-item
                 label="월세 미납분"
