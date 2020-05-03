@@ -27,9 +27,21 @@ export const mutations = {
     state.updateCompanyId = updateCompanyId;
   },
   [T.CHANGE_UPDATE_USER_ID](state, updateUserId) {
-    console.log(`mutation [T.SEARCH_USER]`)
+    console.log(`mutation [T.CHANGE_UPDATE_USER_ID]`)
     console.log(updateUserId)
     state.updateUserId = updateUserId;
+  },
+  [T.CHECK_ADMIN_PASSWORD](state, password) {
+    console.log(`mutation [T.CHECK_ADMIN_PASSWORD]`)
+    console.log(password)
+    console.log(state.adminPassword)
+    if(state.adminPassword == password){
+      state.isUnLogin = false;
+      this.commit(T.CHANGE_SUCCESS_MESSAGE,"로그인 성공")
+    }else{
+      state.isUnLogin = true;
+      this.commit(T.CHANGE_ERROR_MESSAGE,"비밀번호를 확인해주세요.")
+    }
   },
   [T.DELETE_COMPANY](state, deleteId) {
     // console.log(`mutation [T.DELETE_COMPANY] ${result}`);
@@ -55,5 +67,13 @@ export const mutations = {
       return currentCard;
     });
     state.teamCards = newList;
-  }
+  },
+  [T.CHANGE_SUCCESS_MESSAGE]  (state, string) {
+    console.log('mutation [T.CHANGE_SUCCESS_MESSAGE] string = ',string)
+    state.successMessage = string;
+  },
+  [T.CHANGE_ERROR_MESSAGE]  (state, string) {
+    console.log('mutation [T.CHANGE_ERROR_MESSAGE] string = ',string)
+    state.errorMessage = string;
+  },
 };

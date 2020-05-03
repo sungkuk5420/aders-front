@@ -77,6 +77,19 @@ export const actions = {
     console.log(deleteId)
     commit(T.DELETE_USER, deleteId);
   },
+  [T.CHECK_ADMIN_PASSWORD]({ commit }, password) {
+    console.log(`store action [T.CHECK_ADMIN_PASSWORD] `);
+    console.log(password)
+    commit(T.CHECK_ADMIN_PASSWORD, password);
+  },
+  [T.CHANGE_SUCCESS_MESSAGE] ({ commit }, text) {
+    console.log(`store action [T.CHANGE_SUCCESS_MESSAGE] text = ${text}`)
+    commit(T.CHANGE_SUCCESS_MESSAGE, text)
+  },
+  [T.CHANGE_ERROR_MESSAGE] ({ commit }, text) {
+    console.log(`store action [T.CHANGE_ERROR_MESSAGE] text = ${text}`)
+    commit(T.CHANGE_ERROR_MESSAGE, text)
+  },
   [T.CHECK_UPDATE_PASSWORD]({ commit }, params) {
     // console.log(`store action [T.CHECK_UPDATE_PASSWORD] `);
     ajaxActions.checkPassword(
