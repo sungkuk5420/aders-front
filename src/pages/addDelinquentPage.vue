@@ -1712,7 +1712,7 @@ export default {
       this.loading = true;
       const thisObj = this;
       const userValues = this.getUserInputValues();
-      debugger;
+      
       this.db.collection("users").doc(this.userId).update({
         ...userValues,
         blackList:true
