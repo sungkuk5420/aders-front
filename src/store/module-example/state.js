@@ -3,7 +3,7 @@ export default {
   adminPassword:1234,
   updateCompanyId:"",
   updateUserId:"",
-  updateDelinquentListId:"",
+  updateDelinquentId:"",
   companyList: [],
   userList: [],
   delinquentList: [],

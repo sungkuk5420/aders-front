@@ -34,6 +34,11 @@ export const mutations = {
     console.log(updateUserId)
     state.updateUserId = updateUserId;
   },
+  [T.CHANGE_UPDATE_DELINQUENT_ID](state, updateDelinquentId) {
+    console.log(`mutation [T.CHANGE_UPDATE_DELINQUENT_ID]`)
+    console.log(updateDelinquentId)
+    state.updateDelinquentId = updateDelinquentId;
+  },
   [T.CHECK_ADMIN_PASSWORD](state, password) {
     console.log(`mutation [T.CHECK_ADMIN_PASSWORD]`)
     console.log(password)

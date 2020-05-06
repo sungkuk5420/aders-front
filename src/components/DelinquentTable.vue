@@ -7,7 +7,7 @@
         detail(record.id)
       }">상세보기</a-button>
       <a-popconfirm
-        title="정말로 이 입주자를 삭제하시겠습니까?"
+        title="정말로 이 연체 기록을 삭제하시겠습니까?"
         @confirm="function(){
           confirm(record.id)
         }"
@@ -35,7 +35,7 @@ const columns = [
   { title: '연락처', dataIndex: 'user.contractorTel', key: 'user.contractorTel'},
   { title: '청구액', dataIndex: 'charges', key: 'charges' },
   { title: '월세', dataIndex: 'user.rent', key: 'user.rent'},
-  { title: '수수료', dataIndex: 'fees', key: 'fees' },
+  { title: '수수료', dataIndex: 'delinquentFee', key: 'delinquentFee' },
   { title: '체납발생', dataIndex: 'arrears', key: 'arrears' },
   { title: '담당자', dataIndex: 'user.comfirmPerson', key: 'user.comfirmPerson'},
   { title: '은행명', dataIndex: 'company.bankName', key: 'company.bankName'},
@@ -90,8 +90,8 @@ export default {
       }
     },
     detail(id){
-      this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,id);
-      this.$store.dispatch(T.CHANGE_TAB_INDEX,10);
+      this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID,id);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX,30);
       
     },
     confirm(id){

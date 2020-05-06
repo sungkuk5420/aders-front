@@ -82,7 +82,7 @@ export const getters = {
           emergencyTel1:userOfDelinquent.emergencyTel1
         }
       }
-    });;
+    });
   },
   getAllUserList(state) {
     return state.userList.filter(user=>{// 검색
@@ -136,7 +136,25 @@ export const getters = {
     return state.errorMessage
   },
   getDelinquentDataForUpdate(state) {
-    return state.delinquentList.filter(item=>item.id==state.updateDelinquentListId)[0];
+    console.log("getter")
+    console.log(state.updateDelinquentId)
+    return state.delinquentList.filter(item=>item.id==state.updateDelinquentId).map((delinquent,i) =>{
+      let index = i+1;
+      const companyId = delinquent.companyId
+      let companyOfDelinquent = state.companyList.filter(item=>item.id == companyId)[0];
+      const userId = delinquent.userId
+      let userOfDelinquent = state.userList.filter(item=>item.id == userId)[0];
+      return {
+        index,
+        ...delinquent,
+        company:{
+          ...companyOfDelinquent
+        },
+        user:{
+          ...userOfDelinquent
+        }
+      }
+    })[0];
   },
   getCompanyDataForUpdate(state) {
     return state.companyList.filter(item=>item.id==state.updateCompanyId)[0];

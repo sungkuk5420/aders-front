@@ -6,10 +6,11 @@
         :form="form"
         v-bind="formItemLayout"
         @submit="handleSubmit">
-        <div class="form-row">
+        <div class="form-row ">
           <h2>검색</h2>
         </div>
-        <div class="form-row">
+        <div class="form-row read-only-form-data">
+          <div class="overlay"></div>
           <div class="form-cell">
             <a-form-item
               label="입주자 검색"
@@ -869,14 +870,14 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="nonPayMonthly"  @change="onChangePayment" />
+                  <a-input style="width:100%" :formatter="value => `${value}円`" v-model="nonPayMonthly"  />
                 </a-form-item>
                 <a-form-item
                   label="수수료"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="fees"  @change="onChangePayment" />
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="delinquentFee" />
                 </a-form-item>
               </div>
             </a-form-item>
@@ -890,7 +891,7 @@
                   :label-col="{ span: 1 }"
                   :wrapper-col="{ span: 24 }"
                 >
-                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="charges"  @change="onChangePayment" />
+                  <a-input-number style="width:100%" :formatter="value => `${value}円`" v-model="charges" />
                 </a-form-item>
                 <a-form-item 
                   label="체납발생"
@@ -969,13 +970,13 @@
             </div>
             <div class="ant-col-16 ant-form-item-control-wrapper">
               <div class="form-row">
-                 <a-button type="primary" @click="handleRegister" :loading="loading">
+                 <a-button type="primary" v-show="!delinquentDataForUpdate" @click="handleRegister" :loading="loading">
                   등록
                 </a-button>
-                <!--
-                <a-button type="primary" v-show="userDataForUpdate" @click="handleUpdate" :loading="loading">
+                
+                <a-button type="primary" v-show="delinquentDataForUpdate" @click="handleUpdate" :loading="loading">
                   수정
-                </a-button> -->
+                </a-button>
                 
                 <a-button type="default"  style="margin-left:10px;" @click="moveUserListPage" :loading="loading">
                   취소
@@ -1075,80 +1076,9 @@ export default {
       approvalPerson: "", // 상관승인자
       createdDate: Date.now(), // 작성시간
       nonPayMonthly: "", //월세 미납분
-      fees: "",//수수료
+      delinquentFee: "",//수수료
       charges: "",//청구액
       arrears: "",//체납발생
-      //test data
-      // contractorType: "개인", // 등록선택
-      // contractorName: "계약자이름", // 계약자이름
-      // contractorCountry: "계약자국적", // 계약자국적
-      // contractorJobType: "학생", // 계약자 분류
-      // contractorAdress: "계약자 주소", // 계약자 주소
-      // contractorTel: "계약자 전화번호", // 계약자 전화번호
-      // moveIntoDate: "입주예정일", // 입주예정일
-      // contractorSex: "남", // 계약자 성별
-      // contractorBirthday: "계약자 생년월일", // 계약자 생년월일
-      // contractorEmail: "계약자 이메일", // 계약자 이메일
-      // contractorSms: "계약자 sms", // 계약자 sms
-      // contractorResidenceQualification: "계약자 재류자격", // 계약자 재류자격
-      // contractorSchoolName: "계약자 학교명", // 계약자 학교명
-      // contractorSchoolTel: "계약자 학교 TEL", // 계약자 학교 TEL
-      // contractorSchoolAddress: "계약자 학교주소", // 계약자 학교주소
-      // contractorCompanyName: "계약자 회사이름", // 계약자 회사이름
-      // contractorCompanyTel: "계약자 직장 전화번호", // 계약자 직장 전화번호
-      // contractorCompanyAddress: "계약자 직장주소", // 계약자 직장주소
-      // contractorLengthOfService: "계약자 근속연수", // 계약자 근속연수
-      // contractorSalary : "계약자 급여", // 계약자 급여
-      // contractorOtherName: "기타 이름", // 기타 이름
-      // contractorOtherTel: "기타 전화번호", // 기타 전화번호
-      // contractorOtherAddress: "기타 주소", // 기타 주소
-      // contractorOtherContent: "기타내용", // 기타내용
-      // contractorOtherFile : "증빙서류", // 증빙서류
-      // companyId: "회사Id", // 회사Id
-      // guaranteeType: "긴급연락처", // 보증형태
-      // propertyManagermentCompanyFeePercentage: "대리점 수수료 퍼센트", // 대리점 수수료 퍼센트
-      // guaranteeFee:0, // 심사 수수료
-      // propertyName: "멘션명 ", // 멘션명 
-      // propertyAdress: "멘션 주소", // 멘션 주소
-      // roomNumber: "호실", // 호실
-      // roomType: "방 타입", // 방 타입
-      // rent: 0, // 월세
-      // managementCost: 0, // 관리비
-      // otherCosts: 0, // 기타비용
-      // totalPayment:0, // 총 비용
-      // roomMate: false, // 동반 입주자 여부
-      // roomMateHeadCount: 1, // 동반 입주자 인수
-      // roomMateName: "동반 입주자 이름", // 동반 입주자 이름
-      // roomMateBirthday: "동반 입주자 생년월일", // 동반 입주자 생년월일
-      // roomMateTel: "동반 입주자 전화번호", // 동반 입주자 전화번호
-      // roomMateCountry: "동반 입주자 국적", // 동반 입주자 국적
-      // roomMateIdCard: "동반 입주자 신분증", // 동반 입주자 신분증
-      // guarantorType: "연대보증인", // 보증 타입 연대 보증인 or 긴급연락처
-      // guarantorName: "보증인 이름", // 보증인 이름
-      // guarantorCountry: "보증인 국적", // 보증인 국적
-      // guarantorAdress: "보증인 주소", // 보증인 주소
-      // guarantorRelationship: "보증인 관계", // 보증인 관계
-      // guarantorTel1: "보증인TEL-1", // 보증인TEL-1
-      // guarantorTel2: "보증인TEL-2", // 보증인TEL-2
-      // guarantorCompanyName: "보증인 회사명", // 보증인 회사명
-      // guarantorCompanyTel: "보증인 회사 전화번호", // 보증인 회사 전화번호
-      // guarantorCompanyAddress: "보증인 회사 주소", // 보증인 회사 주소
-      // guarantorIdCardFront:"", // 보증인 신분증 앞
-      // guarantorIdCardBack:"", // 보증인 신분증 뒤
-      // guarantorContract:"", // 보증인 계약서
-      // guarantorBirthday: "보증인 생년월일", // 보증인 생년월일
-      // //
-      // emergencyName: "긴급연락처 이름", // 긴급연락처 이름
-      // emergencyCountry: "긴급연락처 국적", // 긴급연락처 국적
-      // emergencyBirthday: "긴급연락처 생년월일", // 긴급연락처 생년월일
-      // emergencyRelationship: "긴급연락처 관계", // 긴급연락처 관계
-      // emergencyTel1: "긴급연락처TEL-1", // 긴급연락처TEL-1
-      // emergencyTel2: "긴급연락처TEL-2", // 긴급연락처TEL-2
-      // emergencyAdress: "긴급연락처 주소", // 긴급연락처 주소
-      // comfirmPerson: "확인담당자", // 확인담당자
-      // approvalPerson: "상관승인자", // 상관승인자
-      // createdDate: Date.now(), // 작성시간
-      //
       searchedCompanyName: "", // 회사 검색 이름
       searchedCompany: null, // 회사 검색 오브젝트
       searchedUserName: "", // 연체자 검색 이름
@@ -1173,7 +1103,7 @@ export default {
     ...mapGetters({
       companyList:"getAllCompanyList",
       userList:"getAllUserList",
-      userDataForUpdate:"getUserDataForUpdate"
+      delinquentDataForUpdate:"getDelinquentDataForUpdate"
     }),
     formItemLayout() {
       const { formLayout } = this;
@@ -1209,13 +1139,14 @@ export default {
       },
       immediate: true
     },
-    userDataForUpdate: {
-      handler(userData) {
-        console.log("userDatauserDatauserDatauserDatauserDatauserDatauserDatauserData",userData)
-          if (userData) {
-            const companyId = userData.companyId
+    delinquentDataForUpdate: {
+      handler(delinquentData) {
+        console.log("delinquentDatadelinquentDatadelinquentDatadelinquentDatadelinquentDatadelinquentDatadelinquentDatadelinquentData",delinquentData)
+          if (delinquentData) {
+            const userData = delinquentData.user;
+            console.log(userData)
+            const companyId = delinquentData.user.companyId;
             let companyOfuser = this.companyList.filter(item=>item.id == companyId)[0];
-            console.log(companyOfuser)
             this.contractorType = userData.contractorType;
             this.contractorName = userData.contractorName;
             this.contractorCountry = userData.contractorCountry;
@@ -1284,6 +1215,9 @@ export default {
             this.comfirmPerson = userData.comfirmPerson;
             this.approvalPerson = userData.approvalPerson;
             this.createdDate = userData.createdDate;
+            this.searchedUserName = userData.contractorName;
+            this.userId = userData.id;
+            console.log(companyOfuser)
             if(companyOfuser){
               this.searchedCompanyName = companyOfuser.companyName;
               this.searchedCompany = companyOfuser;
@@ -1424,7 +1358,9 @@ export default {
       this.emergencyAdress = "";
       this.comfirmPerson = "";
       this.approvalPerson = "";
-      this.createdDate = "";
+      this.createdDate = "";            
+      this.searchedUserName = "";
+      this.userId = "";
       
       this.searchedCompany = null;
       this.guaranteeFeePercentage = 0;
@@ -1432,7 +1368,7 @@ export default {
       this.searchedCompanyName = "";
       this.companyId = "";
       this.nonPayMonthly = "",  //월세 미납분
-      this.fees = "",  //수수료
+      this.delinquentFee = "",  //수수료
       this.charges = "",  //청구액
       this.arrears = ""  //체납발생
       
@@ -1748,17 +1684,22 @@ export default {
     handleUpdate(e) {
       this.loading = true;
       const thisObj = this;
-      const userValues = this.getUserInputValues();
-      this.db.collection("users").doc(this.userDataForUpdate.id).update({
-        ...userValues
+      console.log(this.delinquentDataForUpdate.id)
+      this.db.collection("delinquents").doc(this.delinquentDataForUpdate.id).update({
+        userId:this.delinquentDataForUpdate.userId,
+        companyId:this.delinquentDataForUpdate.companyId,
+        nonPayMonthly: this.nonPayMonthly,  //월세 미납분
+        delinquentFee: this.delinquentFee,  //수수료
+        charges: this.charges,  //청구액
+        arrears: this.arrears   //체납발생
       })
       .then(function(docRef) {
-        thisObj.$store.dispatch(T.GET_USER_LIST,{
+        thisObj.$store.dispatch(T.GET_DELINQUENT_LIST,{
           cb:()=>{
             thisObj.clearDatas()
             thisObj.loading = false;
             thisObj.alertMsg({type:"success",msg:"수정 완료"});
-            thisObj.moveUserListPage();
+            thisObj.moveDelinquentPage();
           }
         });
       })
@@ -1880,7 +1821,7 @@ export default {
         userId:this.userId,
         companyId:this.searchedUser.companyId,
         nonPayMonthly: this.nonPayMonthly,  //월세 미납분
-        fees: this.fees,  //수수료
+        delinquentFee: this.delinquentFee,  //수수료
         charges: this.charges,  //청구액
         arrears: this.arrears   //체납발생
       })

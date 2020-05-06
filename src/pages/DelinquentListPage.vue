@@ -97,7 +97,7 @@ export default {
         "연락처", // user.contractorTel
         "청구액", // charges
         "월세", // user.rent
-        "수수료", // fees
+        "수수료", // delinquentFee
         "체납발생", // arrears
         "담당자", // user.comfirmPerson
         "은행명", // company.bankName
@@ -118,7 +118,7 @@ export default {
           element.user.contractorTel,
           element.charges,
           element.user.rent,
-          element.fees,
+          element.delinquentFee,
           element.arrears,
           element.user.comfirmPerson,
           element.company.bankName,
