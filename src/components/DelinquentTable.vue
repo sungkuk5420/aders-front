@@ -97,7 +97,7 @@ export default {
     confirm(id){
       const thisObj = this;
       this.db.collection("delinquents").doc(id).delete().then(function() {
-        thisObj.$store.dispatch(T.DELETE_USER,id);
+        thisObj.$store.dispatch(T.DELETE_DELINQUENT,id);
         thisObj.alertMsg({type:"success",msg:"삭제 완료"});
       }).catch(function(error) {
         console.log(error)

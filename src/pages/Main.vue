@@ -146,6 +146,7 @@ export default {
           break;
         case 3:
           this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
+          this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID,"");
           break;
         case 20:
           this.$store.dispatch(T.CHANGE_TAB_INDEX,index);

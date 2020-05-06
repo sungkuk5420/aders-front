@@ -24,6 +24,13 @@ export const mutations = {
     state.userSearchType = userSearchType;
     state.userSearchKeyword = userSearchKeyword;
   },
+  [T.SEARCH_DELINQUENT](state, {delinquentSearchType,delinquentSearchKeyword}) {
+    console.log(`mutation [T.SEARCH_USER]`)
+    console.log(delinquentSearchType)
+    console.log(delinquentSearchKeyword)
+    state.delinquentSearchType = delinquentSearchType;
+    state.delinquentSearchKeyword = delinquentSearchKeyword;
+  },
   [T.CHANGE_UPDATE_COMPNAY_ID](state, updateCompanyId) {
     console.log(`mutation [T.SEARCH_USER]`)
     console.log(updateCompanyId)
@@ -58,6 +65,10 @@ export const mutations = {
   [T.DELETE_USER](state, deleteId) {
     // console.log(`mutation [T.DELETE_USER] ${result}`);
     state.userList = state.userList.filter(item=>item.id != deleteId);
+  },
+  [T.DELETE_DELINQUENT](state, deleteId) {
+    // console.log(`mutation [T.DELETE_DELINQUENT] ${result}`);
+    state.delinquentList = state.delinquentList.filter(item=>item.id != deleteId);
   },
   [T.CHANGE_TAB_INDEX](state,tabIndex) {
     state.tabIndex = tabIndex;

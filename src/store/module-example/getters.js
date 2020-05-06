@@ -82,6 +82,24 @@ export const getters = {
           emergencyTel1:userOfDelinquent.emergencyTel1
         }
       }
+    }).filter(delinquent=>{// 검색
+      let filtedCompanys = [];
+      switch (state.delinquentSearchType) {
+        case "멘션명":
+        filtedCompanys = delinquent.user.propertyName.indexOf(state.delinquentSearchKeyword) != -1
+          break;
+        case "계약자명":
+        filtedCompanys = delinquent.user.contractorName.indexOf(state.delinquentSearchKeyword) != -1
+          break;
+        case "담당자명":
+        filtedCompanys = delinquent.user.comfirmPerson.indexOf(state.delinquentSearchKeyword) != -1
+          break;
+        default:
+          break;
+      }
+      return filtedCompanys;
+    }).sort((a,b)=>{
+      return b.createdDate - a.createdDate;
     });
   },
   getAllUserList(state) {

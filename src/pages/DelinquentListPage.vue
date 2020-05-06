@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      delinquentSearchType:"회사명",
+      delinquentSearchType:"멘션명",
       delinquentSearchKeyword:"",
       searchLoading:false
     };
@@ -138,7 +138,7 @@ export default {
       console.log("search click");
       const delinquentSearchType = this.delinquentSearchType;
       const delinquentSearchKeyword = this.delinquentSearchKeyword;
-      this.$store.dispatch(T.SEARCH_USER,{delinquentSearchType,delinquentSearchKeyword});
+      this.$store.dispatch(T.SEARCH_DELINQUENT,{delinquentSearchType,delinquentSearchKeyword});
     },
     moveAddDelinquentPage() {
       this.$store.dispatch(T.CHANGE_TAB_INDEX,30);

@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      userSearchType:"회사명",
+      userSearchType:"멘션명",
       userSearchKeyword:"",
       searchLoading:false
     };

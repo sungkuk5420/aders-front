@@ -9,8 +9,8 @@
         <div class="form-row ">
           <h2>검색</h2>
         </div>
-        <div class="form-row read-only-form-data">
-          <div class="overlay"></div>
+        <div class="form-row" :class="delinquentDataForUpdate?'read-only-form-data':''">
+          <div v-if="delinquentDataForUpdate" class="overlay"></div>
           <div class="form-cell">
             <a-form-item
               label="입주자 검색"
@@ -978,7 +978,7 @@
                   수정
                 </a-button>
                 
-                <a-button type="default"  style="margin-left:10px;" @click="moveUserListPage" :loading="loading">
+                <a-button type="default"  style="margin-left:10px;" @click="moveDelinquentPage" :loading="loading">
                   취소
                 </a-button>
               </div>
@@ -1103,6 +1103,7 @@ export default {
     ...mapGetters({
       companyList:"getAllCompanyList",
       userList:"getAllUserList",
+      userDataForUpdate:"getUserDataForUpdate",
       delinquentDataForUpdate:"getDelinquentDataForUpdate"
     }),
     formItemLayout() {
@@ -1136,6 +1137,105 @@ export default {
           const dataList = this.updateUserListDataSource(users);
           this.userTypeDataSource = dataList;
         }
+      },
+      immediate: true
+    },
+    userDataForUpdate: {
+      handler(userData) {
+        console.log("userDatauserDatauserDatauserDatauserDatauserDatauserDatauserData",userData)
+          if (userData) {
+            const companyId = userData.companyId
+            let companyOfuser = this.companyList.filter(item=>item.id == companyId)[0];
+            console.log(companyOfuser)
+            this.contractorType = userData.contractorType;
+            this.contractorName = userData.contractorName;
+            this.contractorCountry = userData.contractorCountry;
+            this.contractorJobType = userData.contractorJobType;
+            this.contractorAdress = userData.contractorAdress;
+            this.contractorTel = userData.contractorTel;
+            this.moveIntoDate = userData.moveIntoDate;
+            this.contractorSex = userData.contractorSex;
+            this.contractorBirthday = userData.contractorBirthday;
+            this.contractorEmail = userData.contractorEmail;
+            this.contractorSms = userData.contractorSms;
+            this.contractorResidenceQualification = userData.contractorResidenceQualification;
+            this.contractorSchoolName = userData.contractorSchoolName;
+            this.contractorSchoolTel = userData.contractorSchoolTel;
+            this.contractorSchoolAddress = userData.contractorSchoolAddress;
+            this.contractorCompanyName = userData.contractorCompanyName;
+            this.contractorCompanyTel = userData.contractorCompanyTel;
+            this.contractorCompanyAddress = userData.contractorCompanyAddress;
+            this.contractorLengthOfService = userData.contractorLengthOfService;
+            this.contractorSalary = userData.contractorSalary;
+            this.contractorOtherName = userData.contractorOtherName;
+            this.contractorOtherTel = userData.contractorOtherTel;
+            this.contractorOtherAddress = userData.contractorOtherAddress;
+            this.contractorOtherContent = userData.contractorOtherContent;
+            this.contractorOtherFile = userData.contractorOtherFile;
+            this.companyId = userData.companyId;
+            this.guaranteeType = userData.guaranteeType;
+            this.propertyManagermentCompanyFeePercentage = userData.propertyManagermentCompanyFeePercentage;
+            this.guaranteeFee = userData.guaranteeFee;
+            this.propertyName = userData.propertyName;
+            this.propertyAdress = userData.propertyAdress;
+            this.roomNumber = userData.roomNumber;
+            this.roomType = userData.roomType;
+            this.rent = userData.rent;
+            this.managementCost = userData.managementCost;
+            this.otherCosts = userData.otherCosts;
+            this.totalPayment = userData.totalPayment;
+            this.roomMate = userData.roomMate;
+            this.roomMateHeadCount = userData.roomMateHeadCount;
+            this.roomMateName = userData.roomMateName;
+            this.roomMateBirthday = userData.roomMateBirthday;
+            this.roomMateTel = userData.roomMateTel;
+            this.roomMateCountry = userData.roomMateCountry;
+            this.roomMateIdCard = userData.roomMateIdCard;
+            this.guarantorType = userData.guarantorType;
+            this.guarantorName = userData.guarantorName;
+            this.guarantorCountry = userData.guarantorCountry;
+            this.guarantorAdress = userData.guarantorAdress;
+            this.guarantorRelationship = userData.guarantorRelationship;
+            this.guarantorTel1 = userData.guarantorTel1;
+            this.guarantorTel2 = userData.guarantorTel2;
+            this.guarantorCompanyName = userData.guarantorCompanyName;
+            this.guarantorCompanyTel = userData.guarantorCompanyTel;
+            this.guarantorCompanyAddress = userData.guarantorCompanyAddress;
+            this.guarantorIdCardFront = userData.guarantorIdCardFront;
+            this.guarantorIdCardBack = userData.guarantorIdCardBack;
+            this.guarantorContract = userData.guarantorContract;
+            this.guarantorBirthday = userData.guarantorBirthday;
+            this.emergencyName = userData.emergencyName;
+            this.emergencyCountry = userData.emergencyCountry;
+            this.emergencyBirthday = userData.emergencyBirthday;
+            this.emergencyRelationship = userData.emergencyRelationship;
+            this.emergencyTel1 = userData.emergencyTel1;
+            this.emergencyTel2 = userData.emergencyTel2;
+            this.emergencyAdress = userData.emergencyAdress;
+            this.comfirmPerson = userData.comfirmPerson;
+            this.approvalPerson = userData.approvalPerson;
+            this.createdDate = userData.createdDate;
+            if(companyOfuser){
+              this.searchedCompanyName = companyOfuser.companyName;
+              this.searchedCompany = companyOfuser;
+              switch (this.guaranteeType) {
+                case "긴급연락처":
+                  this.guaranteeFeePercentage = this.searchedCompany.fee1;
+                  break;
+                case "연대보증인":
+                  this.guaranteeFeePercentage = this.searchedCompany.fee2;
+                  break;
+                case "기타":
+                  this.guaranteeFeePercentage = this.searchedCompany.fee3;
+                  break;
+              
+                default:
+                  break;
+              }
+            }
+          }else{
+              this.clearDatas()
+          }
       },
       immediate: true
     },
@@ -1271,8 +1371,10 @@ export default {
       this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
     },
     moveDelinquentPage(){
+      // this.handleChangeDelinquentList("");
+      // this.clearDatas();
       this.$store.dispatch(T.CHANGE_TAB_INDEX,3);
-      this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
+      this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID,"");
     },
     alertMsg({type="info",msg=""}) {
       switch (type) {
@@ -1367,6 +1469,7 @@ export default {
       this.propertyManagermentCompanyFeePercentage = 0;
       this.searchedCompanyName = "";
       this.companyId = "";
+      this.userSearchKeyword = "";
       this.nonPayMonthly = "",  //월세 미납분
       this.delinquentFee = "",  //수수료
       this.charges = "",  //청구액
@@ -1607,7 +1710,7 @@ export default {
       if(this.userTypeDataSource.length == 1){
         let filteredUser = {};
         filteredUser = this.userList.filter(item=>item.contractorName == value);
-        console.log(filteredUser)
+        console.log(this.searchedUser)
         if(filteredUser.length > 0){
           this.searchedUserName = filteredUser[0].contractorName;
           this.searchedUser = filteredUser[0];

@@ -54,6 +54,7 @@ export const actions = {
           ...doc.data()
         })
       });
+      console.log(delinquentList)
       commit(T.GET_DELINQUENT_LIST, delinquentList);
       if(cb){
         console.log(cb)
@@ -66,10 +67,15 @@ export const actions = {
     console.log(companySearchKeyword)
     commit(T.SEARCH_COMPANY, {companySearchType,companySearchKeyword});
   },
-  [T.SEARCH_USER]({ commit }, {userSearchType="회사명",userSearchKeyword=""}) {
+  [T.SEARCH_USER]({ commit }, {userSearchType="멘션명",userSearchKeyword=""}) {
     console.log(`store action [T.SEARCH_USER] `);
     console.log(userSearchKeyword)
     commit(T.SEARCH_USER, {userSearchType,userSearchKeyword});
+  },
+  [T.SEARCH_DELINQUENT]({ commit }, {delinquentSearchType="멘션명",delinquentSearchKeyword=""}) {
+    console.log(`store action [T.SEARCH_DELINQUENT] `);
+    console.log(delinquentSearchKeyword)
+    commit(T.SEARCH_DELINQUENT, {delinquentSearchType,delinquentSearchKeyword});
   },
   [T.CHANGE_TAB_INDEX]({ commit },tabIndex) {
     console.log(`store action [T.CHANGE_TAB_INDEX] `);
@@ -100,6 +106,11 @@ export const actions = {
     console.log(`store action [T.DELETE_USER] `);
     console.log(deleteId)
     commit(T.DELETE_USER, deleteId);
+  },
+  [T.DELETE_DELINQUENT]({ commit }, deleteId) {
+    console.log(`store action [T.DELETE_DELINQUENT] `);
+    console.log(deleteId)
+    commit(T.DELETE_DELINQUENT, deleteId);
   },
   [T.CHECK_ADMIN_PASSWORD]({ commit }, password) {
     console.log(`store action [T.CHECK_ADMIN_PASSWORD] `);
