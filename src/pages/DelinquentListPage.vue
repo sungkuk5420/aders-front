@@ -19,6 +19,9 @@
       <a-button type="primary" @click="moveAddDelinquentPage">연체자 등록</a-button>
     </div>
     <div class="content">
+      <div class="row" style="margin-bottom:10px;">
+        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
+      </div>
       <DelinquentTable/>
     </div>
   </div>
@@ -40,6 +43,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      delinquentList:"getAllDelinquentList",
     })
   },
   watch: {
@@ -47,6 +51,89 @@ export default {
   mounted() {
   },
   methods: {
+    exportExcel(){
+      // SheetをWorkbookに追加する
+      // 参照：https://github.com/SheetJS/js-xlsx/issues/163
+      function sheet_to_workbook(sheet/*:Worksheet*/, opts)/*:Workbook*/ {
+        var n = opts && opts.sheet ? opts.sheet : "Sheet1";
+        var sheets = {}; sheets[n] = sheet;
+        return { SheetNames: [n], Sheets: sheets };
+      }
+
+      // ArrayをWorkbookに変換する
+      // 参照：https://github.com/SheetJS/js-xlsx/issues/163
+      function aoa_to_workbook(data/*:Array<Array<any> >*/, opts)/*:Workbook*/ {
+        return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
+      }
+
+      // stringをArrayBufferに変換する
+      // 参照：https://stackoverflow.com/questions/34993292/how-to-save-xlsx-data-to-file-as-a-blob
+      function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+          return buf;
+        }
+
+      // 書き込み時のオプションは以下を参照
+      // https://github.com/SheetJS/js-xlsx/blob/master/README.md#writing-options
+      var write_opts = {
+        type: 'binary'
+      };
+
+      // ArrayをWorkbookに変換する
+      let excelDatas = [];
+      excelDatas.push([
+        "구분", // index
+        "월세 미납분", // nonPayMonthly
+        // "승인일", // key2
+        "대리점", // company.companyName
+        // "대리점 계약번호", // key3
+        // "승인번호", // key4
+        // "계약자(영문)", // key5
+        "계약자", // user.contractorName
+        "멘션명", // user.propertyName
+        "방번호", // user.roomNumber
+        "연락처", // user.contractorTel
+        "청구액", // charges
+        "월세", // user.rent
+        "수수료", // fees
+        "체납발생", // arrears
+        "담당자", // user.comfirmPerson
+        "은행명", // company.bankName
+        "지점명", // company.branchOfficeName
+        "계좌번호", // company.bankAccountNumber
+        "비고", // company.notes
+        "긴급연락처", // user.emergencyTel
+      ])
+      for (let i = 0; i < this.delinquentList.length; i++) {
+        const element = this.delinquentList[i];
+        excelDatas.push([
+          element.index,
+          element.nonPayMonthly,
+          element.company.companyName,
+          element.user.contractorName,
+          element.user.propertyName,
+          element.user.roomNumber,
+          element.user.contractorTel,
+          element.charges,
+          element.user.rent,
+          element.fees,
+          element.arrears,
+          element.user.comfirmPerson,
+          element.company.bankName,
+          element.company.branchOfficeName,
+          element.company.bankAccountNumber,
+          element.company.notes,
+          element.user.emergencyTel1,
+        ])
+      }
+      var wb = aoa_to_workbook(excelDatas);
+      var wb_out = XLSX.write(wb, write_opts);
+
+      var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
+      saveAs(blob, '연체자 목록.xlsx');
+    },
     onSearch(){
       console.log("search click");
       const delinquentSearchType = this.delinquentSearchType;

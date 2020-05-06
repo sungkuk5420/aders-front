@@ -11,7 +11,7 @@
         <div class="form-row">
           <div class="form-cell">
             <a-form-item
-              label="등록 선택"
+              label="등록 구분"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >

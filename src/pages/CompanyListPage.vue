@@ -18,6 +18,9 @@
       <a-button type="primary" @click="moveAddCompanyPage">대리점 등록</a-button>
     </div>
     <div class="content">
+      <div class="row" style="margin-bottom:10px;">
+        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
+      </div>
       <CompanyTable/>
     </div>
   </div>
@@ -48,6 +51,107 @@ export default {
   mounted() {
   },
   methods: {
+    exportExcel(){
+      // SheetをWorkbookに追加する
+      // 参照：https://github.com/SheetJS/js-xlsx/issues/163
+      function sheet_to_workbook(sheet/*:Worksheet*/, opts)/*:Workbook*/ {
+        var n = opts && opts.sheet ? opts.sheet : "Sheet1";
+        var sheets = {}; sheets[n] = sheet;
+        return { SheetNames: [n], Sheets: sheets };
+      }
+
+      // ArrayをWorkbookに変換する
+      // 参照：https://github.com/SheetJS/js-xlsx/issues/163
+      function aoa_to_workbook(data/*:Array<Array<any> >*/, opts)/*:Workbook*/ {
+        return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
+      }
+
+      // stringをArrayBufferに変換する
+      // 参照：https://stackoverflow.com/questions/34993292/how-to-save-xlsx-data-to-file-as-a-blob
+      function s2ab(s) {
+        var buf = new ArrayBuffer(s.length);
+        var view = new Uint8Array(buf);
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
+          return buf;
+        }
+
+      // 書き込み時のオプションは以下を参照
+      // https://github.com/SheetJS/js-xlsx/blob/master/README.md#writing-options
+      var write_opts = {
+        type: 'binary'
+      };
+
+      // ArrayをWorkbookに変換する
+      let excelDatas = [];
+      excelDatas.push([
+        "구분", //index
+        "등록 구분", //companyType
+        "회사 명", //companyName
+        "회사 주소", //companyAdress
+        "회사 대표자", //companyOnwer
+        "회사 대표자 성별", //companyOnwerSex
+        "대표자 전화번호", //companyOnwerTel
+        "시스템관리자", //systemManager
+        "시스템관리자 이메일", //systemManagerEmail
+        "FAX", //fax
+        "비고", //notes
+        "등록날짜", //joinDate
+        "보유물건 수", //buildingCount
+        "종업원 수", //employeeCount
+        "상품 종류", //productType
+        "보증 수수료 긴급연락처", //fee1
+        "보증 수수료 연대보증인", //fee2
+        "보증 수수료 기타", //fee3
+        "갱신료", //novationFee
+        "대리점 수수료", //propertyManagermentCompanyFee
+        "은행명", //bankName
+        "수취인명", //recipientName
+        "카나", //recipientNameKana
+        "계좌번호", //bankAccountNumber
+        "송금타입", //remitType
+        "지점명", //branchOfficeName
+        "확인담당자", //comfirmPerson
+        "상관승인자", //approvalPerson
+      ])
+      for (let i = 0; i < this.companyList.length; i++) {
+        const element = this.companyList[i];
+        excelDatas.push([
+          element.index,
+          element.companyType,
+          element.companyName,
+          element.companyAdress,
+          element.companyOnwer,
+          element.companyOnwerSex,
+          element.companyOnwerTel,
+          element.systemManager,
+          element.systemManagerEmail,
+          element.fax,
+          element.notes,
+          element.joinDate,
+          element.buildingCount,
+          element.employeeCount,
+          element.productType,
+          element.fee1,
+          element.fee2,
+          element.fee3,
+          element.novationFee,
+          element.propertyManagermentCompanyFee,
+          element.bankName,
+          element.recipientName,
+          element.recipientNameKana,
+          element.bankAccountNumber,
+          element.remitType,
+          element.branchOfficeName,
+          element.comfirmPerson,
+          element.approvalPerson,
+        ])
+      }
+      var wb = aoa_to_workbook(excelDatas);
+      var wb_out = XLSX.write(wb, write_opts);
+
+      var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
+      saveAs(blob, '대리점 목록.xlsx');
+    },
     onSearch(){
       console.log("search click");
       const companySearchType = this.companySearchType;
