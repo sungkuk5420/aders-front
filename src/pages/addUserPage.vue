@@ -56,20 +56,27 @@
                   <a-input v-model="contractorName"/>
                 </a-form-item>
                 <a-form-item
-                  label="성별"
+                  label="이름(영문)"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-radio-group v-model="contractorSex" >
-                    <a-radio-button value="남">
-                      남
-                    </a-radio-button>
-                    <a-radio-button value="여">
-                      여
-                    </a-radio-button>
-                  </a-radio-group>
+                  <a-input v-model="contractorNameEnglish"/>
                 </a-form-item>
               </div>
+            </a-form-item>
+            <a-form-item
+              label="성별"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-radio-group v-model="contractorSex" >
+                <a-radio-button value="남">
+                  남
+                </a-radio-button>
+                <a-radio-button value="여">
+                  여
+                </a-radio-button>
+              </a-radio-group>
             </a-form-item>
             <a-form-item
               label="국적"
@@ -390,6 +397,23 @@
                   </b>
                 </a-form-item>
               </div>
+            </a-form-item>
+            
+            <a-form-item
+            class="read-only-form-data"
+              label="추심구분"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+            <div class="overlay" style="height:50px;"></div>
+              <a-radio-group v-model="searchedCompany.debtCollectionType" >
+                <a-radio-button value="보고형">
+                  보고형
+                </a-radio-button>
+                <a-radio-button value="수금대행형">
+                  수금대행형
+                </a-radio-button>
+              </a-radio-group>
             </a-form-item>
             <a-form-item 
               label="멘션명"
@@ -887,6 +911,7 @@ export default {
       dateFormat: 'YYYY-MM-DD',
       contractorType: "개인", // 등록선택
       contractorName: "", // 계약자이름
+      contractorNameEnglish: "", // 계약자이름 영문
       contractorCountry: "", // 계약자국적
       contractorJobType: "학생", // 계약자 분류
       contractorAdress: "", // 계약자 주소
@@ -952,10 +977,10 @@ export default {
       emergencyAdress: "", // 긴급연락처 주소
       comfirmPerson: "", // 확인담당자
       approvalPerson: "", // 상관승인자
-      createdDate: Date.now(), // 작성시간
       //test data
       // contractorType: "개인", // 등록선택
       // contractorName: "계약자이름", // 계약자이름
+      // contractorNameEnglish: "계약자이름 영문", // 계약자이름
       // contractorCountry: "계약자국적", // 계약자국적
       // contractorJobType: "학생", // 계약자 분류
       // contractorAdress: "계약자 주소", // 계약자 주소
@@ -1022,10 +1047,11 @@ export default {
       // emergencyAdress: "긴급연락처 주소", // 긴급연락처 주소
       // comfirmPerson: "확인담당자", // 확인담당자
       // approvalPerson: "상관승인자", // 상관승인자
-      // createdDate: Date.now(), // 작성시간
       //
       searchedCompanyName: "", // 회사 검색 이름
-      searchedCompany: null, // 회사 검색 오브젝트
+      searchedCompany: {
+        debtCollectionType:"보고형"
+      }, // 회사 검색 오브젝트
       guaranteeFeePercentage:0, // 심사 수수료 퍼센트
       propertyManagermentCompanyFeePercentage: "", // 대리점 수수료 퍼센트
       propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
@@ -1039,6 +1065,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      userMaxIndex:"getUserMaxIndex",
       companyList:"getAllCompanyList",
       userDataForUpdate:"getUserDataForUpdate"
     }),
@@ -1076,6 +1103,7 @@ export default {
             console.log(companyOfuser)
             this.contractorType = userData.contractorType;
             this.contractorName = userData.contractorName;
+            this.contractorNameEnglish = userData.contractorNameEnglish;
             this.contractorCountry = userData.contractorCountry;
             this.contractorJobType = userData.contractorJobType;
             this.contractorAdress = userData.contractorAdress;
@@ -1212,6 +1240,7 @@ export default {
     clearDatas(){
       this.contractorType = "개인";
       this.contractorName = "";
+      this.contractorNameEnglish = "";
       this.contractorCountry = "";
       this.contractorJobType = "학생";
       this.contractorAdress = "";
@@ -1278,9 +1307,10 @@ export default {
       this.emergencyAdress = "";
       this.comfirmPerson = "";
       this.approvalPerson = "";
-      this.createdDate = "";
       
-      this.searchedCompany = null;
+      this.searchedCompany = {
+        debtCollectionType:"보고형"
+      };
       this.guaranteeFeePercentage = 0;
       this.propertyManagermentCompanyFeePercentage = 0;
       this.searchedCompanyName = "";
@@ -1290,6 +1320,7 @@ export default {
     getUserInputValues(){
       const contractorType = this.contractorType;
       const contractorName = this.contractorName;
+      const contractorNameEnglish = this.contractorNameEnglish;
       const contractorCountry = this.contractorCountry;
       const contractorJobType = this.contractorJobType;
       const contractorAdress = this.contractorAdress;
@@ -1355,10 +1386,10 @@ export default {
       const emergencyAdress = this.emergencyAdress;
       const comfirmPerson = this.comfirmPerson;
       const approvalPerson = this.approvalPerson;
-      const createdDate = this.createdDate;
       return {
         contractorType,
         contractorName,
+        contractorNameEnglish,
         contractorCountry,
         contractorJobType,
         contractorAdress,
@@ -1424,7 +1455,6 @@ export default {
         emergencyAdress,
         comfirmPerson,
         approvalPerson,
-        createdDate
       }
     },
     handleChangeEmail(value) {
@@ -1565,8 +1595,11 @@ export default {
       this.loading = true;
       const thisObj = this;
       const userValues = this.getUserInputValues();
+
       this.db.collection("users").add({
-        ...userValues
+        ...userValues,
+        createdDate:Date.now(),
+        approvalNumber:this.userMaxIndex
       })
       .then(function(docRef) {
         thisObj.$store.dispatch(T.GET_USER_LIST,{

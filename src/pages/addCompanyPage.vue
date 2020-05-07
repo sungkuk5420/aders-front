@@ -203,6 +203,21 @@
                 </a-form-item>
               </div>
             </a-form-item>
+            
+            <a-form-item
+              label="채권추심"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-radio-group v-model="debtCollectionType" >
+                <a-radio-button value="보고형">
+                  보고형
+                </a-radio-button>
+                <a-radio-button value="수금대행형">
+                  수금대행형
+                </a-radio-button>
+              </a-radio-group>
+            </a-form-item>
           </div>
         </div>
         <div class="form-row">
@@ -392,6 +407,7 @@ export default {
       fee3: 0, // 보증 수수료 기타
       novationFee:0, // 갱신료
       propertyManagermentCompanyFee:0, // 대리점 수수료
+      debtCollectionType:"보고형", // 채권 추심 종류
       bankName: "", // 은행명
       recipientName: "", // 수취인명
       recipientNameKana: "", // 카나
@@ -420,6 +436,7 @@ export default {
       // fee3: 0, // 보증 수수료 기타
       // novationFee:0, // 갱신료
       // propertyManagermentCompanyFee:0, // 대리점 수수료
+      // debtCollectionType:"", // 대리점 수수료
       // bankName: "은행명", // 은행명
       // recipientName: "수취인명", // 수취인명
       // recipientNameKana: "카나", // 카나
@@ -440,6 +457,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      companyMaxIndex:"getCompanyMaxIndex",
       companyDataForUpdate:"getCompanyDataForUpdate"
     }),
     formItemLayout() {
@@ -483,6 +501,7 @@ export default {
               this.fee3 = companyData.fee3;
               this.novationFee = companyData.novationFee;
               this.propertyManagermentCompanyFee = companyData.propertyManagermentCompanyFee;
+              this.debtCollectionType = companyData.debtCollectionType;
               this.bankName = companyData.bankName;
               this.recipientName = companyData.recipientName;
               this.recipientNameKana = companyData.recipientNameKana;
@@ -562,6 +581,7 @@ export default {
       const fee3 = this.fee3;
       const novationFee = this.novationFee;
       const propertyManagermentCompanyFee = this.propertyManagermentCompanyFee;
+      const debtCollectionType = this.debtCollectionType;
       const bankName = this.bankName;
       const recipientName = this.recipientName;
       const recipientNameKana = this.recipientNameKana;
@@ -570,7 +590,7 @@ export default {
       const branchOfficeName = this.branchOfficeName;
       const comfirmPerson = this.comfirmPerson;
       const approvalPerson = this.approvalPerson;
-      const createdDate = this.createdDate;
+      const createdDate = Date.now();
       return {
         companyType,
         companyName,
@@ -591,6 +611,7 @@ export default {
         fee3,
         novationFee,
         propertyManagermentCompanyFee,
+        debtCollectionType,
         bankName,
         recipientName,
         recipientNameKana,
@@ -607,7 +628,8 @@ export default {
       const thisObj = this;
       const companyValues = this.getCompanyInputValues();
       this.db.collection("companys").add({
-        ...companyValues
+        ...companyValues,
+        approvalNumber:this.companyMaxIndex
       })
       .then(function(docRef) {
         thisObj.getCompanyList(()=>{
@@ -667,6 +689,7 @@ export default {
       this.fee3 = 0;
       this.novationFee = 0;
       this.propertyManagermentCompanyFee = 0;
+      this.debtCollectionType = "보고형";
       this.bankName = "";
       this.recipientName = "";
       this.recipientNameKana = "";

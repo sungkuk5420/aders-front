@@ -38,7 +38,7 @@
           <div class="content-div">
             <div class="components-input-demo-presuffix">
               <span class="label">비밀 번호</span>
-              <a-input placeholder="비밀 번호" v-model="password" ref="userNameInput">
+              <a-input type="password" placeholder="비밀 번호" v-model="password" ref="userNameInput">
                 <a-icon slot="prefix" type="lock"/>
               </a-input>
             </div>

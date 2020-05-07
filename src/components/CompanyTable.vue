@@ -22,7 +22,10 @@
 <script>
 const columns = [
   { title: '구분', dataIndex: 'index', key: 'index'},
+  { title: '계약번호', dataIndex: 'approvalNumber', key: 'approvalNumber'},
+  { title: '승인일', dataIndex: 'createdDate', key: 'createdDate'},
   { title: '대리점 구분', dataIndex: 'companyType', key: 'companyType'},
+  { title: '추심구분', dataIndex: 'debtCollectionType', key: 'debtCollectionType'},
   { title: '회사명', dataIndex: 'companyName', key: 'companyName'},
   { title: '회사주소', dataIndex: 'companyAdress', key: 'companyAdress'},
   { title: '대표자', dataIndex: 'companyOnwer', key: 'companyOnwer'},

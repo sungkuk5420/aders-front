@@ -88,20 +88,27 @@
                   <a-input v-model="contractorName"/>
                 </a-form-item>
                 <a-form-item
-                  label="성별"
+                  label="이름(영문)"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-radio-group v-model="contractorSex" >
-                    <a-radio-button value="남">
-                      남
-                    </a-radio-button>
-                    <a-radio-button value="여">
-                      여
-                    </a-radio-button>
-                  </a-radio-group>
+                  <a-input v-model="contractorNameEnglish"/>
                 </a-form-item>
               </div>
+            </a-form-item>
+            <a-form-item
+              label="성별"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <a-radio-group v-model="contractorSex" >
+                <a-radio-button value="남">
+                  남
+                </a-radio-button>
+                <a-radio-button value="여">
+                  여
+                </a-radio-button>
+              </a-radio-group>
             </a-form-item>
             <a-form-item
               label="국적"
@@ -422,6 +429,23 @@
                   </b>
                 </a-form-item>
               </div>
+            </a-form-item>
+
+            <a-form-item
+            class="read-only-form-data"
+              label="추심구분"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+            <div class="overlay" style="height:50px;"></div>
+              <a-radio-group v-model="searchedCompany.debtCollectionType" >
+                <a-radio-button value="보고형">
+                  보고형
+                </a-radio-button>
+                <a-radio-button value="수금대행형">
+                  수금대행형
+                </a-radio-button>
+              </a-radio-group>
             </a-form-item>
             <a-form-item 
               label="멘션명"
@@ -1009,6 +1033,7 @@ export default {
       dateFormat: 'YYYY-MM-DD',
       contractorType: "개인", // 등록선택
       contractorName: "", // 계약자이름
+      contractorNameEnglish: "", // 계약자이름
       contractorCountry: "", // 계약자국적
       contractorJobType: "학생", // 계약자 분류
       contractorAdress: "", // 계약자 주소
@@ -1149,6 +1174,7 @@ export default {
             console.log(companyOfuser)
             this.contractorType = userData.contractorType;
             this.contractorName = userData.contractorName;
+            this.contractorNameEnglish = userData.contractorNameEnglish;
             this.contractorCountry = userData.contractorCountry;
             this.contractorJobType = userData.contractorJobType;
             this.contractorAdress = userData.contractorAdress;
@@ -1249,6 +1275,7 @@ export default {
             let companyOfuser = this.companyList.filter(item=>item.id == companyId)[0];
             this.contractorType = userData.contractorType;
             this.contractorName = userData.contractorName;
+            this.contractorNameEnglish = userData.contractorNameEnglish;
             this.contractorCountry = userData.contractorCountry;
             this.contractorJobType = userData.contractorJobType;
             this.contractorAdress = userData.contractorAdress;
@@ -1371,8 +1398,7 @@ export default {
       this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
     },
     moveDelinquentPage(){
-      // this.handleChangeDelinquentList("");
-      // this.clearDatas();
+      this.handleChangeDelinquentList("");
       this.$store.dispatch(T.CHANGE_TAB_INDEX,3);
       this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID,"");
     },
@@ -1394,6 +1420,7 @@ export default {
     clearDatas(){
       this.contractorType = "개인";
       this.contractorName = "";
+      this.contractorNameEnglish = "";
       this.contractorCountry = "";
       this.contractorJobType = "학생";
       this.contractorAdress = "";
@@ -1494,6 +1521,7 @@ export default {
     getUserInputValues(){
       const contractorType = this.contractorType;
       const contractorName = this.contractorName;
+      const contractorNameEnglish = this.contractorNameEnglish;
       const contractorCountry = this.contractorCountry;
       const contractorJobType = this.contractorJobType;
       const contractorAdress = this.contractorAdress;
@@ -1563,6 +1591,7 @@ export default {
       return {
         contractorType,
         contractorName,
+        contractorNameEnglish,
         contractorCountry,
         contractorJobType,
         contractorAdress,
@@ -1700,7 +1729,6 @@ export default {
       return dataList;
     },
     handleChangeDelinquentList(value) {
-      console.log(this.userTypeDataSource)
       const dataList = this.updateUserListDataSource(this.userList);
       this.userTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
       this.searchedUser = {
@@ -1710,7 +1738,6 @@ export default {
       if(this.userTypeDataSource.length == 1){
         let filteredUser = {};
         filteredUser = this.userList.filter(item=>item.contractorName == value);
-        console.log(this.searchedUser)
         if(filteredUser.length > 0){
           this.searchedUserName = filteredUser[0].contractorName;
           this.searchedUser = filteredUser[0];

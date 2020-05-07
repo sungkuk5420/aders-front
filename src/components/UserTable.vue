@@ -23,12 +23,12 @@
 <script>
 const columns = [
   { title: '구분', dataIndex: 'index', key: 'index'},
-  { title: '승인일', dataIndex: 'key1', key: 'key1'},
+  { title: '승인일', dataIndex: 'createdDate', key: 'createdDate'},
   { title: '대리점', dataIndex: 'company.companyName', key: 'company.companyName'},
-  { title: '대리점 계약번호', dataIndex: 'key3', key: 'key3'},
+  { title: '대리점 계약번호', dataIndex: 'company.approvalNumber', key: 'key3'},
   { title: '대리점 수수료', dataIndex: 'propertyManagermentCompanyFeePercentage', key: 'propertyManagermentCompanyFeePercentage' },
-  { title: '승인번호', dataIndex: 'key5', key: 'key5'},
-  { title: '계약자명 (영문)', dataIndex: 'key6', key: 'key6'},
+  { title: '승인번호', dataIndex: 'approvalNumber', key: 'approvalNumber'},
+  { title: '계약자명 (영문)', dataIndex: 'contractorNameEnglish', key: 'contractorNameEnglish'},
   { title: '계약자명', dataIndex: 'contractorName', key: 'contractorName'},
   { title: '멘션명', dataIndex: 'propertyName', key: 'propertyName'},
   { title: '방번호', dataIndex: 'roomNumber', key: 'roomNumber'},

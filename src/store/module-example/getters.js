@@ -1,3 +1,11 @@
+import moment from 'moment';
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
 export const getters = {
   getCompanyList(state) {
     console.log(state.companyList)
@@ -24,6 +32,8 @@ export const getters = {
       return {
         index,
         ...company,
+        createdDate:moment(company.createdDate).format("YYYY-MM-DD"),
+        approvalNumber:pad(company.approvalNumber,4)
       }
     });
   },
@@ -31,6 +41,7 @@ export const getters = {
     return state.companyList;
   },
   getAllUserList(state) {
+    console.log(state.userList)
     return state.userList;
   },
   getAllDelinquentList(state) {
@@ -120,13 +131,14 @@ export const getters = {
       }
       return filtedCompanys;
     }).sort((a,b)=>{
-      return a.createdDate - b.createdDate;
+      return moment(b.createdDate) - moment(a.createdDate);
     }).map((user,i) =>{
       let index = i+1;
       const companyId = user.companyId
       let companyOfuser = state.companyList.filter(item=>item.id == companyId)[0];
       if(!companyOfuser){
         companyOfuser = {
+          approvalNumber:"",
           companyName:"",
           bankName:"",
           branchOfficeName:"",
@@ -137,7 +149,10 @@ export const getters = {
       return {
         index,
         ...user,
+        createdDate:moment(user.createdDate).format("YYYY-MM-DD"),
+        approvalNumber:pad(user.approvalNumber,4),
         company:{
+          approvalNumber:pad(companyOfuser.approvalNumber,4),
           companyName:companyOfuser.companyName,
           bankName:companyOfuser.bankName,
           branchOfficeName:companyOfuser.branchOfficeName,
@@ -185,5 +200,25 @@ export const getters = {
   },
   getIsUnLogin (state) {
     return state.isUnLogin
+  },
+  getUserMaxIndex (state) {
+    let maxIndex = 0;
+    for (let i = 0; i < state.userList.length; i++) {
+      const element = state.userList[i];
+      if(element.approvalNumber >= maxIndex){
+        maxIndex = element.approvalNumber
+      }
+    }
+    return maxIndex + 1;
+  },
+  getCompanyMaxIndex (state) {
+    let maxIndex = 0;
+    for (let i = 0; i < state.companyList.length; i++) {
+      const element = state.companyList[i];
+      if(element.approvalNumber >= maxIndex){
+        maxIndex = element.approvalNumber
+      }
+    }
+    return maxIndex + 1;
   },
 };

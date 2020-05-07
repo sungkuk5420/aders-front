@@ -1,6 +1,6 @@
 export default {
   db:null,
-  adminPassword:1234,
+  adminPassword:31013,
   updateCompanyId:"",
   updateUserId:"",
   updateDelinquentId:"",
