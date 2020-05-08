@@ -1490,7 +1490,10 @@ export default {
     handleChangeCompanyList(value) {
       const dataList = this.updateCompanyListDataSource(this.companyList);
       this.companyTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
-      this.searchedCompany = null;
+      
+      this.searchedCompany = {
+        debtCollectionType:"보고형"
+      };
       if(this.companyTypeDataSource.length == 1){
         let filteredCompany = {};
         if(this.propertyManagermentCompanySearchType == "회사명"){

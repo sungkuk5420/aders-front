@@ -19,6 +19,14 @@
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
+        <a-select v-model="debtCollectionType">
+          <a-select-option value="보고형">
+            보고형
+          </a-select-option>
+          <a-select-option value="수금대행형">
+            수금대행형
+          </a-select-option>
+        </a-select>
         <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
       </div>
       <CompanyTable/>
@@ -38,7 +46,8 @@ export default {
     return {
       companySearchType:"회사명",
       companySearchKeyword:"",
-      searchLoading:false
+      searchLoading:false,
+      debtCollectionType:"보고형"
     };
   },
   computed: {

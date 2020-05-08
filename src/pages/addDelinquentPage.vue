@@ -1105,7 +1105,9 @@ export default {
       charges: "",//청구액
       arrears: "",//체납발생
       searchedCompanyName: "", // 회사 검색 이름
-      searchedCompany: null, // 회사 검색 오브젝트
+      searchedCompany: {
+        debtCollectionType:"보고형"
+      }, // 회사 검색 오브젝트
       searchedUserName: "", // 연체자 검색 이름
       searchedUser: { // 연체자 검색 오브젝트
         blackList: false,
@@ -1491,7 +1493,9 @@ export default {
       this.searchedUserName = "";
       this.userId = "";
       
-      this.searchedCompany = null;
+      this.searchedCompany = {
+        debtCollectionType:"보고형"
+      };
       this.guaranteeFeePercentage = 0;
       this.propertyManagermentCompanyFeePercentage = 0;
       this.searchedCompanyName = "";
@@ -1693,7 +1697,10 @@ export default {
     handleChangeCompanyList(value) {
       const dataList = this.updateCompanyListDataSource(this.companyList);
       this.companyTypeDataSource = dataList.filter(item=>item.indexOf(value)!=-1)
-      this.searchedCompany = null;
+      
+      this.searchedCompany = {
+        debtCollectionType:"보고형"
+      };
       if(this.companyTypeDataSource.length == 1){
         let filteredCompany = {};
         if(this.propertyManagermentCompanySearchType == "회사명"){
