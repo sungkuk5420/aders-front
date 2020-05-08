@@ -18,6 +18,14 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
+                <a-radio-group @change="onChangeSearchUserType" v-model="userSearchType" class="ant-col-10" style="max-width:180px;">
+                  <a-radio-button value="입주자명">
+                    입주자명
+                  </a-radio-button>
+                  <a-radio-button value="승인번호">
+                    승인번호
+                  </a-radio-button>
+                </a-radio-group>
                 <a-auto-complete
                   v-model="userSearchKeyword"
                   :dataSource="userTypeDataSource"
@@ -1118,6 +1126,7 @@ export default {
       propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
       propertyManagermentCompanySearchKeyword: "", // 회사 검색 키워드
       userSearchKeyword: "", // 회사 검색 키워드
+      userSearchType: "입주자명", // 회사 검색 키워드
       formLayout: 'horizontal',
       emailDataSource: [],
       roomTypeDataSource: [],
@@ -1501,6 +1510,7 @@ export default {
       this.searchedCompanyName = "";
       this.companyId = "";
       this.userSearchKeyword = "";
+      this.userSearchType = "입주자명";
       this.nonPayMonthly = "",  //월세 미납분
       this.delinquentFee = "",  //수수료
       this.charges = "",  //청구액
@@ -1685,6 +1695,9 @@ export default {
     onChangeSearchCompanyType(){
       this.handleChangeCompanyList(this.propertyManagermentCompanySearchKeyword)
     },
+    onChangeSearchUserType(){
+      this.handleChangeDelinquentList(this.userSearchKeyword)
+    },
     pad(n, width, z) {
       z = z || '0';
       n = n + '';
@@ -1737,7 +1750,11 @@ export default {
     },
     updateUserListDataSource(userList){
       let dataList = [];
-      dataList = userList.map(item=>item.contractorName);
+      if(this.userSearchType == "입주자명"){
+        dataList = userList.map(item=>item.contractorName);
+      }else if(this.userSearchType == "승인번호"){
+        dataList = userList.map(item=>this.pad(item.approvalNumber,4));
+      }
       return dataList;
     },
     handleChangeDelinquentList(value) {
@@ -1749,7 +1766,11 @@ export default {
       };
       if(this.userTypeDataSource.length == 1){
         let filteredUser = {};
-        filteredUser = this.userList.filter(item=>item.contractorName == value);
+        if(this.userSearchType == "입주자명"){
+          filteredUser = this.userList.filter(item=>item.contractorName == value);
+        }else if(this.userSearchType == "승인번호"){
+          filteredUser = this.userList.filter(item=>item.approvalNumber == value);
+        }
         if(filteredUser.length > 0){
           this.searchedUserName = filteredUser[0].contractorName;
           this.searchedUser = filteredUser[0];
@@ -1757,11 +1778,9 @@ export default {
           this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,this.searchedUser.id);
         }else{
           this.searchedUserName = "검색된 계약자가 없습니다.";
-          this.clearDatas()
         }
       }else if(this.userTypeDataSource.length == 0){
         this.searchedUserName = "검색된 계약자가 없습니다.";
-        this.clearDatas()
       }else{
         if(value != ""){
           this.searchedUserName = "검색된 계약자가 2개 이상입니다.";
@@ -1770,7 +1789,6 @@ export default {
           this.propertyManagermentUserFeePercentage = 0;
           this.searchedUserName = "";
           this.userId = "";
-          this.clearDatas()
         }
       }
       // this.onChangePaymentPercent()
