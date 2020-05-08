@@ -357,8 +357,8 @@
                 <a-radio-button value="회사명">
                   회사명
                 </a-radio-button>
-                <a-radio-button value="대표자명">
-                  대표자명
+                <a-radio-button value="계약번호">
+                  계약번호
                 </a-radio-button>
               </a-radio-group>
               <a-auto-complete
@@ -1685,12 +1685,17 @@ export default {
     onChangeSearchCompanyType(){
       this.handleChangeCompanyList(this.propertyManagermentCompanySearchKeyword)
     },
+    pad(n, width, z) {
+      z = z || '0';
+      n = n + '';
+      return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    },
     updateCompanyListDataSource(companyList){
       let dataList = [];
       if(this.propertyManagermentCompanySearchType == "회사명"){
         dataList = companyList.map(item=>item.companyName);
-      }else if(this.propertyManagermentCompanySearchType == "대표자명"){
-        dataList = companyList.map(item=>item.companyOnwer);
+      }else if(this.propertyManagermentCompanySearchType == "계약번호"){
+        dataList = companyList.map(item=>this.pad(item.approvalNumber,4));
       }
       return dataList;
     },
@@ -1705,8 +1710,8 @@ export default {
         let filteredCompany = {};
         if(this.propertyManagermentCompanySearchType == "회사명"){
           filteredCompany = this.companyList.filter(item=>item.companyName == value);
-        }else if(this.propertyManagermentCompanySearchType == "대표자명"){
-          filteredCompany = this.companyList.filter(item=>item.companyOnwer == value);
+        }else if(this.propertyManagermentCompanySearchType == "계약번호"){
+          filteredCompany = this.companyList.filter(item=>item.approvalNumber == value);
         }
         console.log(filteredCompany)
         if(filteredCompany.length > 0){
