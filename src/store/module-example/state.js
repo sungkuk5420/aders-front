@@ -13,6 +13,7 @@ export default {
   companySearchKeyword:"",
   delinquentSearchType:"멘션명",
   delinquentSearchKeyword:"",
+  delinquentFilterType:"보고형",
   tabIndex:1,
   isUnLogin:true,
   successMessage:"",

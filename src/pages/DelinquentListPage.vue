@@ -20,6 +20,14 @@
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
+        <a-select v-model="delinquentFilterType" @change="changeDelinquentFilterType" style="width:130px;">
+          <a-select-option value="보고형">
+            보고형
+          </a-select-option>
+          <a-select-option value="수금대행형">
+            수금대행형
+          </a-select-option>
+        </a-select>
         <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
       </div>
       <DelinquentTable/>
@@ -38,7 +46,8 @@ export default {
     return {
       delinquentSearchType:"멘션명",
       delinquentSearchKeyword:"",
-      searchLoading:false
+      searchLoading:false,
+      delinquentFilterType:"보고형"
     };
   },
   computed: {
@@ -145,6 +154,11 @@ export default {
     },
     alertMsg() {
       this.$message.info("수정기능 개발중");
+    },
+    changeDelinquentFilterType(){
+      this.$store.dispatch(T.CHANGE_DELINQUENT_FILTER_TYPE,this.delinquentFilterType);
+      
+      this.$message.success(`${this.delinquentFilterType}만 보기`);
     }
   }
 };

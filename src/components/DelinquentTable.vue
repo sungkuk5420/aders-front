@@ -1,8 +1,9 @@
 <template>
-  <a-table :columns="columns" :dataSource="delinquentList" :scroll="windowSize" expandRowByClick @change="handleTableChange">
+  <a-table :columns="columns" :dataSource="delinquentList" :scroll="windowSize" expandRowByClick :class="delinquentFilterType === '보고형'?'filter-1':'filter-2'">
     <!-- <a slot="action" slot-scope="text" href="javascript:;">Delete</a> -->
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
       <p style="margin: 0">{{ record.notes }}</p>
+      {{delinquentFilterType}}
       <a-button type="primary" @click="function(){
         detail(record.id)
       }">상세보기</a-button>
@@ -24,11 +25,11 @@
 const columns = [
   { title: '구분', dataIndex: 'index', key: 'index'},
   { title: '월세 미납분', dataIndex: 'nonPayMonthly', key: 'nonPayMonthly'},
-  { title: '승인일', dataIndex: 'key2', key: 'key2'},
+  { title: '승인일', dataIndex: 'createdDate', key: 'createdDate'},
   { title: '대리점', dataIndex: 'company.companyName', key: 'company.companyName'},
-  { title: '대리점 계약번호', dataIndex: 'key3', key: 'key3'},
-  { title: '승인번호', dataIndex: 'key4', key: 'key4'},
-  { title: '계약자(영문)', dataIndex: 'key5', key: 'key5'},
+  { title: '대리점 계약번호', dataIndex: 'company.approvalNumber', key: 'company.approvalNumber'},
+  { title: '승인번호', dataIndex: 'user.approvalNumber', key: 'user.approvalNumber'},
+  { title: '계약자(영문)', dataIndex: 'user.contractorNameEnglish', key: 'user.contractorNameEnglish'},
   { title: '계약자', dataIndex: 'user.contractorName', key: 'user.contractorName'},
   { title: '멘션명', dataIndex: 'user.propertyName', key: 'user.propertyName'},
   { title: '방번호', dataIndex: 'user.roomNumber', key: 'user.roomNumber'},
@@ -63,7 +64,19 @@ export default {
   computed: {
     ...mapGetters({
       delinquentList:"getAllDelinquentList",
+      delinquentFilterType:"getDelinquentFilterType",
     })
+  },
+  watch:{
+    delinquentFilterType:{
+      handler(type) {
+          if (type) {
+            console.log("필터변경!! typetypetypetype" + type)
+            // this.handleTableChange()
+          }
+      },
+      immediate: true
+    }
   },
   mounted(){
     this.db = firebase.firestore();
@@ -107,19 +120,6 @@ export default {
     cancel(){
       this.alertMsg({type:"error",msg:"취소"})
     },
-    handleTableChange(pagination, filters, sorter) {
-      console.log(pagination);
-      const pager = { ...this.pagination };
-      pager.current = pagination.current;
-      this.pagination = pager;
-      this.fetch({
-        results: pagination.pageSize,
-        page: pagination.current,
-        sortField: sorter.field,
-        sortOrder: sorter.order,
-        ...filters,
-      });
-    },
   }
 };
 </script>
@@ -128,6 +128,35 @@ export default {
   overflow-x: auto;
   tr{
     td{
+    }
+  }
+}
+.ant-table-wrapper.filter-1{
+  table{
+    tr{
+      td,
+      th{
+        &:nth-child(6),
+        &:nth-child(13),
+        &:nth-child(15),
+        &:nth-child(18),
+        &:nth-child(19),
+        &:nth-child(20){
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+.ant-table-wrapper.filter-2{
+  table{
+    tr{
+      td,
+      th{
+        &:nth-child(16){
+          display: none !important;
+        }
+      }
     }
   }
 }

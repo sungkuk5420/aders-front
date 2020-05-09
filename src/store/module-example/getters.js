@@ -46,12 +46,13 @@ export const getters = {
   },
   getAllDelinquentList(state) {
     return state.delinquentList.map((delinquent,i) =>{
-      let index = i+1;
       const companyId = delinquent.companyId
       let companyOfDelinquent = state.companyList.filter(item=>item.id == companyId)[0];
       if(!companyOfDelinquent){
         companyOfDelinquent = {
           companyName:"",
+          approvalNumber:"",
+          debtCollectionType:"",
           bankName:"",
           branchOfficeName:"",
           bankAccountNumber:"",
@@ -63,7 +64,9 @@ export const getters = {
       let userOfDelinquent = state.userList.filter(item=>item.id == userId)[0];
       if(!userOfDelinquent){
         userOfDelinquent = {
+          approvalNumber:"",
           contractorName:"",
+          contractorNameEnglish:"",
           propertyName:"",
           roomNumber:"",
           contractorTel:"",
@@ -74,17 +77,21 @@ export const getters = {
       }
 
       return {
-        index,
         ...delinquent,
+        createdDate:moment(delinquent.createdDate).format("YYYY-MM-DD"),
         company:{
           companyName:companyOfDelinquent.companyName,
+          approvalNumber:companyOfDelinquent.approvalNumber,
+          debtCollectionType:companyOfDelinquent.debtCollectionType,
           bankName:companyOfDelinquent.bankName,
           branchOfficeName:companyOfDelinquent.branchOfficeName,
           bankAccountNumber:companyOfDelinquent.bankAccountNumber,
           notes:companyOfDelinquent.notes
         },
         user:{
+          approvalNumber:userOfDelinquent.approvalNumber,
           contractorName:userOfDelinquent.contractorName,
+          contractorNameEnglish:userOfDelinquent.contractorNameEnglish,
           propertyName:userOfDelinquent.propertyName,
           roomNumber:userOfDelinquent.roomNumber,
           contractorTel:userOfDelinquent.contractorTel,
@@ -92,6 +99,14 @@ export const getters = {
           comfirmPerson:userOfDelinquent.comfirmPerson,
           emergencyTel1:userOfDelinquent.emergencyTel1
         }
+      }
+    }).filter(delinquent=>{// 검색
+      return delinquent.company.debtCollectionType == state.delinquentFilterType;
+    }).map((delinquent,i) =>{
+      let index = i+1;
+      return {
+        index,
+        ...delinquent
       }
     }).filter(delinquent=>{// 검색
       let filtedCompanys = [];
@@ -200,6 +215,9 @@ export const getters = {
   },
   getIsUnLogin (state) {
     return state.isUnLogin
+  },
+  getDelinquentFilterType (state) {
+    return state.delinquentFilterType
   },
   getUserMaxIndex (state) {
     let maxIndex = 0;

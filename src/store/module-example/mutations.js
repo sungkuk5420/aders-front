@@ -46,6 +46,11 @@ export const mutations = {
     console.log(updateDelinquentId)
     state.updateDelinquentId = updateDelinquentId;
   },
+  [T.CHANGE_DELINQUENT_FILTER_TYPE](state, delinquentFilterType) {
+    console.log(`mutation [T.CHANGE_DELINQUENT_FILTER_TYPE]`)
+    console.log(delinquentFilterType)
+    state.delinquentFilterType = delinquentFilterType;
+  },
   [T.CHECK_ADMIN_PASSWORD](state, password) {
     console.log(`mutation [T.CHECK_ADMIN_PASSWORD]`)
     console.log(password)

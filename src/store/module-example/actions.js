@@ -125,6 +125,10 @@ export const actions = {
     console.log(`store action [T.CHANGE_ERROR_MESSAGE] text = ${text}`)
     commit(T.CHANGE_ERROR_MESSAGE, text)
   },
+  [T.CHANGE_DELINQUENT_FILTER_TYPE] ({ commit }, delinquentFilterType) {
+    console.log(`store action [T.CHANGE_DELINQUENT_FILTER_TYPE] delinquentFilterType = ${delinquentFilterType}`)
+    commit(T.CHANGE_DELINQUENT_FILTER_TYPE, delinquentFilterType)
+  },
   [T.CHECK_UPDATE_PASSWORD]({ commit }, params) {
     // console.log(`store action [T.CHECK_UPDATE_PASSWORD] `);
     ajaxActions.checkPassword(
