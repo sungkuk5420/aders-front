@@ -1,5 +1,12 @@
 <template>
   <div class="delinquent-list-page">
+    <div class="notification row">
+      <div class="notification__label">연체 미납자 명단 알람</div>
+      <a-list item-layout="horizontal" :data-source="data">
+        <a-list-item slot="renderItem" slot-scope="item, index">{{ item.title }}</a-list-item>
+      </a-list>
+    </div>
+
     <div class="search-wrapper">
       <a-select v-model="delinquentSearchType" @change="onSearch">
         <a-select-option value="멘션명">멘션명</a-select-option>
@@ -9,24 +16,24 @@
       <a-input-search
         placeholder="키워드 입력"
         size="large"
-        v-model="delinquentSearchKeyword" 
+        v-model="delinquentSearchKeyword"
         @search="onSearch"
         @change="onSearch"
       >
-      <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
+        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
       </a-input-search>
       <a-button type="primary">상세검색</a-button>
       <a-button type="primary" @click="moveAddDelinquentPage">연체자 등록</a-button>
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
-        <a-select v-model="delinquentFilterType" @change="changeDelinquentFilterType" style="width:130px;">
-          <a-select-option value="보고형">
-            보고형
-          </a-select-option>
-          <a-select-option value="수금대행형">
-            수금대행형
-          </a-select-option>
+        <a-select
+          v-model="delinquentFilterType"
+          @change="changeDelinquentFilterType"
+          style="width:130px;"
+        >
+          <a-select-option value="보고형">보고형</a-select-option>
+          <a-select-option value="수금대행형">수금대행형</a-select-option>
         </a-select>
         <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
       </div>
@@ -37,41 +44,62 @@
 <script>
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
-import DelinquentTable from "../components/DelinquentTable.vue"
+import DelinquentTable from "../components/DelinquentTable.vue";
+const data = [
+  {
+    title:
+      "- [NEW] 2020.01.01 라시누텐노지초미나미 801호 / LEE JIHYUNG / 갱신료 / 15,000円-23일 경과"
+  },
+  {
+    title:
+      "- [NEW] 2020.01.01 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 월세 / 15,000円-23일 경과"
+  },
+  {
+    title:
+      "- [장기 연체자] 2020.01.11 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 월세 / 15,000円-23일 경과"
+  },
+  {
+    title:
+      "- [승인 보류 심사] 2020.01.11 멜로디하임유히가오카 703호 / LEE HARU / 관리회사 에누케이"
+  }
+];
 export default {
   components: {
     DelinquentTable
   },
   data() {
     return {
-      delinquentSearchType:"멘션명",
-      delinquentSearchKeyword:"",
-      searchLoading:false,
-      delinquentFilterType:"보고형"
+      delinquentSearchType: "멘션명",
+      delinquentSearchKeyword: "",
+      searchLoading: false,
+      delinquentFilterType: "보고형",
+      data
     };
   },
   computed: {
     ...mapGetters({
-      delinquentList:"getAllDelinquentList",
+      delinquentList: "getAllDelinquentList"
     })
   },
-  watch: {
-  },
-  mounted() {
-  },
+  watch: {},
+  mounted() {},
   methods: {
-    exportExcel(){
+    exportExcel() {
       // SheetをWorkbookに追加する
       // 参照：https://github.com/SheetJS/js-xlsx/issues/163
-      function sheet_to_workbook(sheet/*:Worksheet*/, opts)/*:Workbook*/ {
+      function sheet_to_workbook(sheet /*:Worksheet*/, opts) /*:Workbook*/ {
         var n = opts && opts.sheet ? opts.sheet : "Sheet1";
-        var sheets = {}; sheets[n] = sheet;
+        var sheets = {};
+        sheets[n] = sheet;
         return { SheetNames: [n], Sheets: sheets };
       }
 
       // ArrayをWorkbookに変換する
       // 参照：https://github.com/SheetJS/js-xlsx/issues/163
-      function aoa_to_workbook(data/*:Array<Array<any> >*/, opts)/*:Workbook*/ {
+      function aoa_to_workbook(
+        data /*:Array<Array<any> >*/,
+        opts
+      ) /*:Workbook*/ {
         return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
       }
 
@@ -80,14 +108,14 @@ export default {
       function s2ab(s) {
         var buf = new ArrayBuffer(s.length);
         var view = new Uint8Array(buf);
-        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-          return buf;
-        }
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+        return buf;
+      }
 
       // 書き込み時のオプションは以下を参照
       // https://github.com/SheetJS/js-xlsx/blob/master/README.md#writing-options
       var write_opts = {
-        type: 'binary'
+        type: "binary"
       };
 
       // ArrayをWorkbookに変換する
@@ -113,8 +141,8 @@ export default {
         "지점명", // company.branchOfficeName
         "계좌번호", // company.bankAccountNumber
         "비고", // company.notes
-        "긴급연락처", // user.emergencyTel
-      ])
+        "긴급연락처" // user.emergencyTel
+      ]);
       for (let i = 0; i < this.delinquentList.length; i++) {
         const element = this.delinquentList[i];
         excelDatas.push([
@@ -134,30 +162,36 @@ export default {
           element.company.branchOfficeName,
           element.company.bankAccountNumber,
           element.company.notes,
-          element.user.emergencyTel1,
-        ])
+          element.user.emergencyTel1
+        ]);
       }
       var wb = aoa_to_workbook(excelDatas);
       var wb_out = XLSX.write(wb, write_opts);
 
-      var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
-      saveAs(blob, '연체자 목록.xlsx');
+      var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
+      saveAs(blob, "연체자 목록.xlsx");
     },
-    onSearch(){
+    onSearch() {
       console.log("search click");
       const delinquentSearchType = this.delinquentSearchType;
       const delinquentSearchKeyword = this.delinquentSearchKeyword;
-      this.$store.dispatch(T.SEARCH_DELINQUENT,{delinquentSearchType,delinquentSearchKeyword});
+      this.$store.dispatch(T.SEARCH_DELINQUENT, {
+        delinquentSearchType,
+        delinquentSearchKeyword
+      });
     },
     moveAddDelinquentPage() {
-      this.$store.dispatch(T.CHANGE_TAB_INDEX,30);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX, 30);
     },
     alertMsg() {
       this.$message.info("수정기능 개발중");
     },
-    changeDelinquentFilterType(){
-      this.$store.dispatch(T.CHANGE_DELINQUENT_FILTER_TYPE,this.delinquentFilterType);
-      
+    changeDelinquentFilterType() {
+      this.$store.dispatch(
+        T.CHANGE_DELINQUENT_FILTER_TYPE,
+        this.delinquentFilterType
+      );
+
       this.$message.success(`${this.delinquentFilterType}만 보기`);
     }
   }
@@ -165,39 +199,82 @@ export default {
 </script>
 
 <style lang="scss">
-.delinquent-list-page{
+.delinquent-list-page {
   display: flex;
   flex-direction: column;
-  height: 100% ;
-  .content{
-    flex:1;
+  height: 100%;
+  .content {
+    flex: 1;
     height: calc(100% - 50px);
     overflow: auto;
-    .ant-table-wrapper{
+    .ant-table-wrapper {
+    }
+  }
+  .notification {
+    padding-bottom: 20px;
+    &__label {
+      background: #1890ff;
+      padding: 20px 30px;
+      width: 180px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      line-height: 2.2;
+      color: white;
+      position: relative;
+      box-sizing: border-box;
+      border: 1px solid #ddd;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 20px solid transparent;
+        border-left-color: #1890ff;
+        border-right: 0;
+        margin-top: -20px;
+        margin-right: -20px;
+        z-index: 1;
+      }
+    }
+    .ant-list {
+      flex: 1;
+      background: white;
+      margin-bottom: 0;
+      max-height: 150px;
+      overflow: auto;
+      border: 1px solid #ddd;
+      .ant-list-item {
+        padding: 8px 8px 8px 32px;
+        border: 0;
+      }
     }
   }
 }
-.search-wrapper{
+.search-wrapper {
   display: flex;
   height: 50px;
-  .ant-input-group-wrapper{
+  .ant-input-group-wrapper {
     display: inline-flex;
     width: auto;
     flex: 1;
-    padding: 0 0 0 10px ;
-    .ant-btn{
+    padding: 0 0 0 10px;
+    .ant-btn {
       margin: 0;
     }
   }
-  .ant-select-selection--single{
+  .ant-select-selection--single {
     flex: 1;
     width: 130px;
-    height:40px;
-    .ant-select-selection__rendered{
+    height: 40px;
+    .ant-select-selection__rendered {
       line-height: 40px;
     }
   }
-  .ant-btn{
+  .ant-btn {
     margin-left: 10px;
     height: 40px;
   }
