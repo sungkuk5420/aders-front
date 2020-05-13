@@ -1,8 +1,8 @@
 <template>
   <a-layout id="components-layout-demo-fixed">
     <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-      <div class="logo" >
-        <img src="~assets/logo.png" alt />
+      <div class="logo">
+        <img src="~assets/logo.png" alt>
       </div>
       <a-menu
         theme="dark"
@@ -10,29 +10,24 @@
         :defaultSelectedKeys="['1']"
         :style="{ lineHeight: '64px' }"
       >
-        <a-menu-item key="1" @click='changeTabIndex(1)'>입주자 목록</a-menu-item>
-        <a-menu-item key="3" @click='changeTabIndex(2)'>대리점 목록</a-menu-item>
-        <a-menu-item key="4" @click='changeTabIndex(3)'>연체자 목록</a-menu-item>
-        <a-menu-item key="5" @click='changeTabIndex(4)'>지불용지 출력</a-menu-item>
-        <a-menu-item key="6" @click='changeTabIndex(5)'>수익분석</a-menu-item>
+        <a-menu-item key="1" @click="changeTabIndex(1)">입주자 목록</a-menu-item>
+        <a-menu-item key="3" @click="changeTabIndex(2)">대리점 목록</a-menu-item>
+        <a-menu-item key="4" @click="changeTabIndex(3)">연체자 목록</a-menu-item>
+        <a-menu-item key="5" @click="changeTabIndex(4)">지불용지 출력</a-menu-item>
+        <a-menu-item key="6" @click="changeTabIndex(5)">수익분석</a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
       <UserListPage v-if="!isUnLogin" v-show="tabIndex ==1"/>
       <addUserPage v-if="!isUnLogin" v-show="tabIndex ==10"/>
-      <CompanyListPage v-if="!isUnLogin" v-show="tabIndex ==2" />
-      <addCompanyPage v-if="!isUnLogin" v-show="tabIndex == 20" />
-      <DelinquentListPage v-if="!isUnLogin" v-show="tabIndex ==3" />
-      <addDelinquentPage v-if="!isUnLogin" v-show="tabIndex ==30" />
+      <CompanyListPage v-if="!isUnLogin" v-show="tabIndex ==2"/>
+      <addCompanyPage v-if="!isUnLogin" v-show="tabIndex == 20"/>
+      <DelinquentListPage v-if="!isUnLogin" v-show="tabIndex ==3"/>
+      <addDelinquentPage v-if="!isUnLogin" v-show="tabIndex ==30"/>
       <a-modal title="관리자 비밀번호" v-model="isUnLogin">
         <template slot="footer">
           <a-button key="back" @click="handleCancel">취소</a-button>
-          <a-button
-            key="submit"
-            type="primary"
-            :loading="loading"
-            @click="checkAdminPassword"
-          >확인</a-button>
+          <a-button key="submit" type="primary" :loading="loading" @click="checkAdminPassword">확인</a-button>
         </template>
         <div class="row-div popup">
           <div class="content-div">
@@ -69,95 +64,95 @@ export default {
   },
   data() {
     return {
-      loading :false,
-      password :""
+      loading: false,
+      password: ""
     };
   },
   computed: {
     ...mapGetters({
-      tabIndex:"getTabIndex",
+      tabIndex: "getTabIndex",
       isUnLogin: "getIsUnLogin",
       changeSuccessMessage: "changeSuccessMessage",
       changeErrorMessage: "changeErrorMessage"
     })
   },
   watch: {
-    changeSuccessMessage (text) {
-      this.loading = false
-      if(text !== ""){
-        this.$message.success(text)
-        this.$store.dispatch(T.CHANGE_SUCCESS_MESSAGE, "")
-        if(text == "로그인 성공"){
-          this.getCompanyList()
+    changeSuccessMessage(text) {
+      this.loading = false;
+      if (text !== "") {
+        this.$message.success(text);
+        this.$store.dispatch(T.CHANGE_SUCCESS_MESSAGE, "");
+        if (text == "로그인 성공") {
+          this.getCompanyList();
         }
       }
     },
-    changeErrorMessage (text) {
-      this.loading = false
-      if(text !== ""){
-        this.$message.error(text)
-        this.$store.dispatch(T.CHANGE_ERROR_MESSAGE, "")
+    changeErrorMessage(text) {
+      this.loading = false;
+      if (text !== "") {
+        this.$message.error(text);
+        this.$store.dispatch(T.CHANGE_ERROR_MESSAGE, "");
       }
     }
   },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     checkAdminPassword(password) {
-      var password = this.password
-      if(!this.loading){
-        this.loading = true
+      var password = this.password;
+      if (!this.loading) {
+        this.loading = true;
         setTimeout(() => {
-          this.$store.dispatch(T.CHECK_ADMIN_PASSWORD,password)
+          this.$store.dispatch(T.CHECK_ADMIN_PASSWORD, password);
         }, 500);
       }
     },
     handleCancel() {
       document.getElementsByClassName("ant-modal-close")[0].click();
     },
-    getUserList(){
+    getUserList() {
       const thisObj = this;
-      this.$store.dispatch(T.GET_USER_LIST,{
-        cb:()=>{
+      this.$store.dispatch(T.GET_USER_LIST, {
+        cb: () => {
           thisObj.getDelinquentList();
-          }
+        }
       });
     },
-    getDelinquentList(){
-      this.$store.dispatch(T.GET_DELINQUENT_LIST,{});
+    getDelinquentList() {
+      this.$store.dispatch(T.GET_DELINQUENT_LIST, {});
     },
-    getCompanyList(){
+    getCompanyList() {
       const thisObj = this;
-      this.$store.dispatch(T.GET_COMPANY_LIST,{
-        cb:()=>{
+      this.$store.dispatch(T.GET_COMPANY_LIST, {
+        cb: () => {
           thisObj.getUserList();
-          }
+        }
       });
     },
-    changeTabIndex(index){
+    changeTabIndex(index) {
       switch (index) {
         case 1:
-          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
-          this.$store.dispatch(T.CHANGE_UPDATE_USER_ID,"");
+          this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
+          this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
           break;
         case 2:
-          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
-          this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID,"");
+          this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
+          this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID, "");
           break;
         case 3:
-          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
-          this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID,"");
+          this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
+          this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
+          this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID, "");
           break;
         case 20:
-          this.$store.dispatch(T.CHANGE_TAB_INDEX,index);
+          this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
           break;
-      
+
         default:
-          this.alertMsg({type:"info",msg:"Comming soon"})
+          this.alertMsg({ type: "info", msg: "Comming soon" });
           break;
       }
     },
-    alertMsg({type="info",msg=""}) {
+    alertMsg({ type = "info", msg = "" }) {
       switch (type) {
         case "info":
           this.$message.info(msg);
@@ -172,21 +167,20 @@ export default {
           break;
       }
     },
-    notification({title="",content=""}) {
+    notification({ title = "", content = "" }) {
       this.$notification.open({
         message: title,
-        description:
-          content,
+        description: content,
         duration: 3,
         style: { top: "50px" }
       });
-    },
+    }
   }
 };
 </script>
 
 <style lang="scss">
-*{
+* {
   font-family: "Noto Sans CJK KR";
 }
 #components-layout-demo-fixed .logo {
@@ -194,19 +188,19 @@ export default {
   height: 31px;
   float: left;
   padding: 0;
-  img{
+  img {
     margin-left: -20px;
     width: 100%;
     height: auto;
   }
 }
-.ant-layout{
-    height: 100%;
+.ant-layout {
+  height: 100%;
 }
-.ant-layout-header{
-  padding:0 10px ;
+.ant-layout-header {
+  padding: 0 10px;
 }
-.ant-layout-content{
+.ant-layout-content {
   padding: 10px;
   margin: 0;
 }
