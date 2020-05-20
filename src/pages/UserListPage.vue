@@ -2,18 +2,18 @@
   <div class="user-list-page">
     <div class="search-wrapper">
       <a-select v-model="userSearchType" @change="onSearch">
+        <a-select-option value="입주자명">입주자명</a-select-option>
+        <a-select-option value="승인번호">승인번호</a-select-option>
         <a-select-option value="멘션명">멘션명</a-select-option>
-        <a-select-option value="계약자명">계약자명</a-select-option>
-        <a-select-option value="담당자명">담당자명</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"
         size="large"
-        v-model="userSearchKeyword" 
+        v-model="userSearchKeyword"
         @search="onSearch"
         @change="onSearch"
       >
-      <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
+        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
       </a-input-search>
       <a-button type="primary">상세검색</a-button>
       <a-button type="primary" @click="moveAddUserPage">입주자 등록</a-button>
@@ -29,41 +29,43 @@
 <script>
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
-import UserTable from "../components/UserTable.vue"
+import UserTable from "../components/UserTable.vue";
 export default {
   components: {
     UserTable
   },
   data() {
     return {
-      userSearchType:"멘션명",
-      userSearchKeyword:"",
-      searchLoading:false
+      userSearchType: "입주자명",
+      userSearchKeyword: "",
+      searchLoading: false
     };
   },
   computed: {
     ...mapGetters({
-      userList:"getAllUserList",
+      userList: "getAllUserList"
     })
   },
-  watch: {
-  },
-  mounted() {
-  },
+  watch: {},
+  mounted() {},
   methods: {
-    exportExcel(){
-      console.log("export!")
+    exportExcel() {
+      console.log("export!");
       // SheetをWorkbookに追加する
       // 参照：https://github.com/SheetJS/js-xlsx/issues/163
-      function sheet_to_workbook(sheet/*:Worksheet*/, opts)/*:Workbook*/ {
+      function sheet_to_workbook(sheet /*:Worksheet*/, opts) /*:Workbook*/ {
         var n = opts && opts.sheet ? opts.sheet : "Sheet1";
-        var sheets = {}; sheets[n] = sheet;
+        var sheets = {};
+        sheets[n] = sheet;
         return { SheetNames: [n], Sheets: sheets };
       }
 
       // ArrayをWorkbookに変換する
       // 参照：https://github.com/SheetJS/js-xlsx/issues/163
-      function aoa_to_workbook(data/*:Array<Array<any> >*/, opts)/*:Workbook*/ {
+      function aoa_to_workbook(
+        data /*:Array<Array<any> >*/,
+        opts
+      ) /*:Workbook*/ {
         return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
       }
 
@@ -72,14 +74,14 @@ export default {
       function s2ab(s) {
         var buf = new ArrayBuffer(s.length);
         var view = new Uint8Array(buf);
-        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-          return buf;
-        }
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+        return buf;
+      }
 
       // 書き込み時のオプションは以下を参照
       // https://github.com/SheetJS/js-xlsx/blob/master/README.md#writing-options
       var write_opts = {
-        type: 'binary'
+        type: "binary"
       };
 
       // ArrayをWorkbookに変換する
@@ -87,30 +89,30 @@ export default {
       excelDatas.push([
         "구분", //index
         "등록선택", //contractorType
-        "계약자이름", //contractorName
-        "계약자국적", //contractorCountry
-        "계약자 분류", //contractorJobType
-        "계약자 주소", //contractorAdress
-        "계약자 전화번호", //contractorTel
+        "입주자이름", //contractorName
+        "입주자국적", //contractorCountry
+        "입주자 분류", //contractorJobType
+        "입주자 주소", //contractorAdress
+        "입주자 전화번호", //contractorTel
         "입주예정일", //moveIntoDate
-        "계약자 성별", //contractorSex
-        "계약자 생년월일", //contractorBirthday
-        "계약자 이메일", //contractorEmail
-        "계약자 sms", //contractorSms
-        "계약자 재류자격", //contractorResidenceQualification
-        "계약자 학교명", //contractorSchoolName
-        "계약자 학교 TEL", //contractorSchoolTel
-        "계약자 학교주소", //contractorSchoolAddress
-        "계약자 회사이름", //contractorCompanyName
-        "계약자 직장 전화번호", //contractorCompanyTel
-        "계약자 직장주소", //contractorCompanyAddress
-        "계약자 근속연수", //contractorLengthOfService
-        "계약자 급여", //contractorSalary 
+        "입주자 성별", //contractorSex
+        "입주자 생년월일", //contractorBirthday
+        "입주자 이메일", //contractorEmail
+        "입주자 sms", //contractorSms
+        "입주자 재류자격", //contractorResidenceQualification
+        "입주자 학교명", //contractorSchoolName
+        "입주자 학교 TEL", //contractorSchoolTel
+        "입주자 학교주소", //contractorSchoolAddress
+        "입주자 회사이름", //contractorCompanyName
+        "입주자 직장 전화번호", //contractorCompanyTel
+        "입주자 직장주소", //contractorCompanyAddress
+        "입주자 근속연수", //contractorLengthOfService
+        "입주자 급여", //contractorSalary
         "기타 이름", //contractorOtherName
         "기타 전화번호", //contractorOtherTel
         "기타 주소", //contractorOtherAddress
         "기타내용", //contractorOtherContent
-        // "증빙서류", //contractorOtherFile 
+        // "증빙서류", //contractorOtherFile
         "보증형태", //guaranteeType
         "심사 수수료", //guaranteeFee
         "멘션명 ", //propertyName
@@ -138,9 +140,9 @@ export default {
         "보증인 회사명", //guarantorCompanyName
         "보증인 회사 전화번호", //guarantorCompanyTel
         "보증인 회사 주소", //guarantorCompanyAddress
-        // "보증인 신분증 앞", //guarantorIdCardFront:"", 
-        // "보증인 신분증 뒤", //guarantorIdCardBack:"", 
-        // "보증인 계약서", //guarantorContract:"", 
+        // "보증인 신분증 앞", //guarantorIdCardFront:"",
+        // "보증인 신분증 뒤", //guarantorIdCardBack:"",
+        // "보증인 계약서", //guarantorContract:"",
         "보증인 생년월일", //guarantorBirthday
         "긴급연락처 이름", //emergencyName
         "긴급연락처 국적", //emergencyCountry
@@ -150,8 +152,8 @@ export default {
         "긴급연락처TEL-2", //emergencyTel2
         "긴급연락처 주소", //emergencyAdress
         "확인담당자", //comfirmPerson
-        "상관승인자", //approvalPerson
-      ])
+        "상관승인자" //approvalPerson
+      ]);
       for (let i = 0; i < this.userList.length; i++) {
         const element = this.userList[i];
         excelDatas.push([
@@ -175,7 +177,7 @@ export default {
           element.contractorCompanyTel,
           element.contractorCompanyAddress,
           element.contractorLengthOfService,
-          element.contractorSalary ,
+          element.contractorSalary,
           element.contractorOtherName,
           element.contractorOtherTel,
           element.contractorOtherAddress,
@@ -215,23 +217,26 @@ export default {
           element.emergencyTel2,
           element.emergencyAdress,
           element.comfirmPerson,
-          element.approvalPerson,
-        ])
+          element.approvalPerson
+        ]);
       }
       var wb = aoa_to_workbook(excelDatas);
       var wb_out = XLSX.write(wb, write_opts);
 
-      var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
-      saveAs(blob, '입주자 목록.xlsx');
+      var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
+      saveAs(blob, "입주자 목록.xlsx");
     },
-    onSearch(){
+    onSearch() {
       console.log("search click");
       const userSearchType = this.userSearchType;
       const userSearchKeyword = this.userSearchKeyword;
-      this.$store.dispatch(T.SEARCH_USER,{userSearchType,userSearchKeyword});
+      this.$store.dispatch(T.SEARCH_USER, {
+        userSearchType,
+        userSearchKeyword
+      });
     },
     moveAddUserPage() {
-      this.$store.dispatch(T.CHANGE_TAB_INDEX,10);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX, 10);
     },
     alertMsg() {
       this.$message.info("수정기능 개발중");
@@ -241,39 +246,39 @@ export default {
 </script>
 
 <style lang="scss">
-.user-list-page{
+.user-list-page {
   display: flex;
   flex-direction: column;
-  height: 100% ;
-  .content{
-    flex:1;
+  height: 100%;
+  .content {
+    flex: 1;
     height: calc(100% - 50px);
     overflow: auto;
-    .ant-table-wrapper{
+    .ant-table-wrapper {
     }
   }
 }
-.search-wrapper{
+.search-wrapper {
   display: flex;
   height: 50px;
-  .ant-input-group-wrapper{
+  .ant-input-group-wrapper {
     display: inline-flex;
     width: auto;
     flex: 1;
-    padding: 0 0 0 10px ;
-    .ant-btn{
+    padding: 0 0 0 10px;
+    .ant-btn {
       margin: 0;
     }
   }
-  .ant-select-selection--single{
+  .ant-select-selection--single {
     flex: 1;
     width: 130px;
-    height:40px;
-    .ant-select-selection__rendered{
+    height: 40px;
+    .ant-select-selection__rendered {
       line-height: 40px;
     }
   }
-  .ant-btn{
+  .ant-btn {
     margin-left: 10px;
     height: 40px;
   }

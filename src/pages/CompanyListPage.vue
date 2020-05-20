@@ -2,18 +2,18 @@
   <div class="company-list-page">
     <div class="search-wrapper">
       <a-select v-model="companySearchType" @change="onSearch">
-        <a-select-option value="회사명">회사명</a-select-option>
+        <a-select-option value="대리점명">대리점명</a-select-option>
+        <a-select-option value="계약번호">계약번호</a-select-option>
         <a-select-option value="대표자명">대표자명</a-select-option>
-        <a-select-option value="대리점 구분">대리점 구분</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"
         size="large"
-        v-model="companySearchKeyword" 
+        v-model="companySearchKeyword"
         @search="onSearch"
         @change="onSearch"
       >
-      <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading" >검색</a-button>
+        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
       </a-input-search>
       <a-button type="primary" @click="moveAddCompanyPage">대리점 등록</a-button>
     </div>
@@ -28,41 +28,43 @@
 <script>
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
-import CompanyTable from "../components/CompanyTable.vue"
+import CompanyTable from "../components/CompanyTable.vue";
 export default {
-  props:[],
+  props: [],
   components: {
     CompanyTable
   },
   data() {
     return {
-      companySearchType:"회사명",
-      companySearchKeyword:"",
-      searchLoading:false,
+      companySearchType: "대리점명",
+      companySearchKeyword: "",
+      searchLoading: false
     };
   },
   computed: {
     ...mapGetters({
-      companyList:"getCompanyList"
+      companyList: "getCompanyList"
     })
   },
-  watch: {
-  },
-  mounted() {
-  },
+  watch: {},
+  mounted() {},
   methods: {
-    exportExcel(){
+    exportExcel() {
       // SheetをWorkbookに追加する
       // 参照：https://github.com/SheetJS/js-xlsx/issues/163
-      function sheet_to_workbook(sheet/*:Worksheet*/, opts)/*:Workbook*/ {
+      function sheet_to_workbook(sheet /*:Worksheet*/, opts) /*:Workbook*/ {
         var n = opts && opts.sheet ? opts.sheet : "Sheet1";
-        var sheets = {}; sheets[n] = sheet;
+        var sheets = {};
+        sheets[n] = sheet;
         return { SheetNames: [n], Sheets: sheets };
       }
 
       // ArrayをWorkbookに変換する
       // 参照：https://github.com/SheetJS/js-xlsx/issues/163
-      function aoa_to_workbook(data/*:Array<Array<any> >*/, opts)/*:Workbook*/ {
+      function aoa_to_workbook(
+        data /*:Array<Array<any> >*/,
+        opts
+      ) /*:Workbook*/ {
         return sheet_to_workbook(XLSX.utils.aoa_to_sheet(data, opts), opts);
       }
 
@@ -71,14 +73,14 @@ export default {
       function s2ab(s) {
         var buf = new ArrayBuffer(s.length);
         var view = new Uint8Array(buf);
-        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xFF;
-          return buf;
-        }
+        for (var i = 0; i != s.length; ++i) view[i] = s.charCodeAt(i) & 0xff;
+        return buf;
+      }
 
       // 書き込み時のオプションは以下を参照
       // https://github.com/SheetJS/js-xlsx/blob/master/README.md#writing-options
       var write_opts = {
-        type: 'binary'
+        type: "binary"
       };
 
       // ArrayをWorkbookに変換する
@@ -111,8 +113,8 @@ export default {
         "송금타입", //remitType
         "지점명", //branchOfficeName
         "확인담당자", //comfirmPerson
-        "상관승인자", //approvalPerson
-      ])
+        "상관승인자" //approvalPerson
+      ]);
       for (let i = 0; i < this.companyList.length; i++) {
         const element = this.companyList[i];
         excelDatas.push([
@@ -143,23 +145,26 @@ export default {
           element.remitType,
           element.branchOfficeName,
           element.comfirmPerson,
-          element.approvalPerson,
-        ])
+          element.approvalPerson
+        ]);
       }
       var wb = aoa_to_workbook(excelDatas);
       var wb_out = XLSX.write(wb, write_opts);
 
-      var blob = new Blob([s2ab(wb_out)], { type: 'application/octet-stream' });
-      saveAs(blob, '대리점 목록.xlsx');
+      var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
+      saveAs(blob, "대리점 목록.xlsx");
     },
-    onSearch(){
+    onSearch() {
       console.log("search click");
       const companySearchType = this.companySearchType;
       const companySearchKeyword = this.companySearchKeyword;
-      this.$store.dispatch(T.SEARCH_COMPANY,{companySearchType,companySearchKeyword});
+      this.$store.dispatch(T.SEARCH_COMPANY, {
+        companySearchType,
+        companySearchKeyword
+      });
     },
     moveAddCompanyPage() {
-      this.$store.dispatch(T.CHANGE_TAB_INDEX,20);
+      this.$store.dispatch(T.CHANGE_TAB_INDEX, 20);
     },
     alertMsg() {
       this.$message.info("수정기능 개발중");
@@ -169,39 +174,39 @@ export default {
 </script>
 
 <style lang="scss">
-.company-list-page{
+.company-list-page {
   display: flex;
   flex-direction: column;
-  height: 100% ;
-  .content{
-    flex:1;
+  height: 100%;
+  .content {
+    flex: 1;
     height: calc(100% - 50px);
     overflow: auto;
-    .ant-table-wrapper{
+    .ant-table-wrapper {
     }
   }
 }
-.search-wrapper{
+.search-wrapper {
   display: flex;
   height: 50px;
-  .ant-input-group-wrapper{
+  .ant-input-group-wrapper {
     display: inline-flex;
     width: auto;
     flex: 1;
-    padding: 0 0 0 10px ;
-    .ant-btn{
+    padding: 0 0 0 10px;
+    .ant-btn {
       margin: 0;
     }
   }
-  .ant-select-selection--single{
+  .ant-select-selection--single {
     flex: 1;
     width: 130px;
-    height:40px;
-    .ant-select-selection__rendered{
+    height: 40px;
+    .ant-select-selection__rendered {
       line-height: 40px;
     }
   }
-  .ant-btn{
+  .ant-btn {
     margin-left: 10px;
     height: 40px;
   }

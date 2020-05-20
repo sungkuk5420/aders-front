@@ -13,17 +13,22 @@ export const getters = {
       .filter(company => {
         let filtedCompanys = [];
         switch (state.companySearchType) {
-          case "회사명":
+          case "대리점명":
             filtedCompanys =
               company.companyName.indexOf(state.companySearchKeyword) != -1;
+            break;
+          case "계약번호":
+            if (state.companySearchKeyword != "") {
+              filtedCompanys =
+                company.approvalNumber == state.companySearchKeyword;
+            } else {
+              filtedCompanys = true;
+            }
+
             break;
           case "대표자명":
             filtedCompanys =
               company.companyOnwer.indexOf(state.companySearchKeyword) != -1;
-            break;
-          case "대리점 구분":
-            filtedCompanys =
-              company.companyType.indexOf(state.companySearchKeyword) != -1;
             break;
           default:
             break;
@@ -162,17 +167,20 @@ export const getters = {
         // 검색
         let filtedCompanys = [];
         switch (state.userSearchType) {
-          case "멘션명":
-            filtedCompanys =
-              user.propertyName.indexOf(state.userSearchKeyword) != -1;
-            break;
-          case "계약자명":
+          case "입주자명":
             filtedCompanys =
               user.contractorName.indexOf(state.userSearchKeyword) != -1;
             break;
-          case "담당자명":
+          case "승인번호":
+            if (state.userSearchKeyword != "") {
+              filtedCompanys = user.approvalNumber == state.userSearchKeyword;
+            } else {
+              filtedCompanys = true;
+            }
+            break;
+          case "멘션명":
             filtedCompanys =
-              user.comfirmPerson.indexOf(state.userSearchKeyword) != -1;
+              user.propertyName.indexOf(state.userSearchKeyword) != -1;
             break;
           default:
             break;
