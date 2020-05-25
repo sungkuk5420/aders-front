@@ -1,18 +1,12 @@
 <template>
   <div class="user-list-page">
     <div class="search-wrapper">
-      <a-select v-model="userSearchType" @change="onSearch">
+      <a-select defaultValue="입주자명">
         <a-select-option value="입주자명">입주자명</a-select-option>
         <a-select-option value="승인번호">승인번호</a-select-option>
         <a-select-option value="멘션명">멘션명</a-select-option>
       </a-select>
-      <a-input-search
-        placeholder="키워드 입력"
-        size="large"
-        v-model="userSearchKeyword"
-        @search="onSearch"
-        @change="onSearch"
-      >
+      <a-input-search placeholder="키워드 입력" size="large">
         <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
       </a-input-search>
       <a-button type="primary">상세검색</a-button>
