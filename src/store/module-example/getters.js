@@ -222,6 +222,67 @@ export const getters = {
         };
       });
   },
+  getAllBlackList(state) {
+    return state.blackList
+      .filter(user => {
+        // 검색
+        let filtedCompanys = [];
+        switch (state.userSearchType) {
+          case "입주자명":
+            filtedCompanys =
+              user.contractorName.indexOf(state.userSearchKeyword) != -1;
+            break;
+          case "승인번호":
+            if (state.userSearchKeyword != "") {
+              filtedCompanys = user.approvalNumber == state.userSearchKeyword;
+            } else {
+              filtedCompanys = true;
+            }
+            break;
+          case "멘션명":
+            filtedCompanys =
+              user.propertyName.indexOf(state.userSearchKeyword) != -1;
+            break;
+          default:
+            break;
+        }
+        return filtedCompanys;
+      })
+      .sort((a, b) => {
+        return moment(b.createdDate) - moment(a.createdDate);
+      })
+      .map((user, i) => {
+        let index = i + 1;
+        const companyId = user.companyId;
+        let companyOfuser = state.companyList.filter(
+          item => item.id == companyId
+        )[0];
+        if (!companyOfuser) {
+          companyOfuser = {
+            approvalNumber: "",
+            companyName: "",
+            bankName: "",
+            branchOfficeName: "",
+            bankAccountNumber: "",
+            notes: ""
+          };
+        }
+        return {
+          index,
+          ...user,
+          createdDate: moment(user.createdDate).format("YYYY-MM-DD"),
+          approvalNumber: pad(user.approvalNumber, 4),
+          company: {
+            approvalNumber: pad(companyOfuser.approvalNumber, 4),
+            companyName: companyOfuser.companyName,
+            bankName: companyOfuser.bankName,
+            branchOfficeName: companyOfuser.branchOfficeName,
+            bankAccountNumber: companyOfuser.bankAccountNumber,
+            notes: companyOfuser.notes
+          }
+        };
+      });
+  },
   changeSuccessMessage(state) {
     return state.successMessage;
   },

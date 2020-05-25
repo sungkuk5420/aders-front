@@ -6,6 +6,7 @@ export default {
   updateDelinquentId: "",
   companyList: [],
   userList: [],
+  blackList: [],
   delinquentList: [],
   userSearchType: "입주자명",
   userSearchKeyword: "",
@@ -14,8 +15,8 @@ export default {
   delinquentSearchType: "멘션명",
   delinquentSearchKeyword: "",
   delinquentFilterType: "보고형",
-  isUnLogin: true,
   tabIndex: 0,
+  isUnLogin: true,
   successMessage: "",
   errorMessage: ""
 };

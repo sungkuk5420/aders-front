@@ -27,6 +27,7 @@
       <addCompanyPage v-if="!isUnLogin" v-show="tabIndex == 20"/>
       <DelinquentListPage v-if="!isUnLogin" v-show="tabIndex ==3"/>
       <addDelinquentPage v-if="!isUnLogin" v-show="tabIndex ==30"/>
+      <BlackListPage v-if="!isUnLogin" v-show="tabIndex ==4"/>
       <a-modal title="관리자 비밀번호" v-model="isUnLogin">
         <template slot="footer">
           <a-button key="back" @click="handleCancel">취소</a-button>
@@ -52,6 +53,7 @@ import { T } from "../store/module-example/types";
 
 import MainPage from "../pages/MainPage.vue";
 import UserListPage from "../pages/UserListPage.vue";
+import BlackListPage from "../pages/BlackListPage.vue";
 import addUserPage from "../pages/addUserPage.vue";
 import addCompanyPage from "../pages/addCompanyPage.vue";
 import addDelinquentPage from "../pages/addDelinquentPage.vue";
@@ -61,6 +63,7 @@ export default {
   components: {
     MainPage,
     UserListPage,
+    BlackListPage,
     addUserPage,
     addCompanyPage,
     addDelinquentPage,
@@ -116,6 +119,7 @@ export default {
     },
     getUserList() {
       const thisObj = this;
+      this.$store.dispatch(T.GET_BLACK_LIST, {});
       this.$store.dispatch(T.GET_USER_LIST, {
         cb: () => {
           thisObj.getDelinquentList();
@@ -150,6 +154,9 @@ export default {
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
           this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
           this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID, "");
+          break;
+        case 4:
+          this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
           break;
         case 20:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
