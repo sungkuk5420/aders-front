@@ -1,23 +1,26 @@
 <template>
   <a-layout id="components-layout-demo-fixed">
     <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' }">
-      <div class="logo">
+      <div class="logo" @click="changeTabIndex(0)">
         <img src="~assets/logo.png" alt>
       </div>
       <a-menu
         theme="dark"
         mode="horizontal"
-        :defaultSelectedKeys="['1']"
+        :defaultSelectedKeys="['0']"
         :style="{ lineHeight: '64px' }"
       >
+        <a-menu-item key="0" @click="changeTabIndex(0)">메인 화면</a-menu-item>
         <a-menu-item key="1" @click="changeTabIndex(1)">입주자 목록</a-menu-item>
-        <a-menu-item key="3" @click="changeTabIndex(2)">대리점 목록</a-menu-item>
-        <a-menu-item key="4" @click="changeTabIndex(3)">연체자 목록</a-menu-item>
-        <a-menu-item key="5" @click="changeTabIndex(4)">지불용지 출력</a-menu-item>
-        <a-menu-item key="6" @click="changeTabIndex(5)">수익분석</a-menu-item>
+        <a-menu-item key="2" @click="changeTabIndex(2)">대리점 목록</a-menu-item>
+        <a-menu-item key="3" @click="changeTabIndex(3)">연체자 목록</a-menu-item>
+        <a-menu-item key="4" @click="changeTabIndex(4)">블랙리스트 목록</a-menu-item>
+        <a-menu-item key="5" @click="changeTabIndex(5)">지불용지 출력</a-menu-item>
+        <a-menu-item key="6" @click="changeTabIndex(6)">수익분석</a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
+      <MainPage v-if="!isUnLogin" v-show="tabIndex ==0"/>
       <UserListPage v-if="!isUnLogin" v-show="tabIndex ==1"/>
       <addUserPage v-if="!isUnLogin" v-show="tabIndex ==10"/>
       <CompanyListPage v-if="!isUnLogin" v-show="tabIndex ==2"/>
@@ -47,6 +50,7 @@
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
 
+import MainPage from "../pages/MainPage.vue";
 import UserListPage from "../pages/UserListPage.vue";
 import addUserPage from "../pages/addUserPage.vue";
 import addCompanyPage from "../pages/addCompanyPage.vue";
@@ -55,6 +59,7 @@ import CompanyListPage from "../pages/CompanyListPage.vue";
 import DelinquentListPage from "../pages/DelinquentListPage.vue";
 export default {
   components: {
+    MainPage,
     UserListPage,
     addUserPage,
     addCompanyPage,
@@ -130,6 +135,9 @@ export default {
     },
     changeTabIndex(index) {
       switch (index) {
+        case 0:
+          this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
+          break;
         case 1:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
           this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
@@ -188,6 +196,7 @@ export default {
   height: 31px;
   float: left;
   padding: 0;
+  cursor: pointer;
   img {
     margin-left: -20px;
     width: 100%;

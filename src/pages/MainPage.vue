@@ -1,37 +1,13 @@
 <template>
   <div class="delinquent-list-page">
-    <div class="search-wrapper">
-      <a-select v-model="delinquentSearchType" @change="onSearch">
-        <a-select-option value="멘션명">멘션명</a-select-option>
-        <a-select-option value="계약자명">계약자명</a-select-option>
-        <a-select-option value="담당자명">담당자명</a-select-option>
-      </a-select>
-      <a-input-search
-        placeholder="키워드 입력"
-        size="large"
-        v-model="delinquentSearchKeyword"
-        @search="onSearch"
-        @change="onSearch"
-      >
-        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
-      </a-input-search>
-      <a-button type="primary">상세검색</a-button>
-      <a-button type="primary" @click="moveAddDelinquentPage">연체자 등록</a-button>
+    <div class="notification row">
+      <div class="notification__label">연체 미납자 명단 알람</div>
+      <a-list item-layout="horizontal" :data-source="data">
+        <a-list-item slot="renderItem" slot-scope="item, index">{{ item.title }}</a-list-item>
+      </a-list>
     </div>
-    <div class="content">
-      <div class="row" style="margin-bottom:10px;">
-        <a-select
-          v-model="delinquentFilterType"
-          @change="changeDelinquentFilterType"
-          style="width:130px;"
-        >
-          <a-select-option value="보고형">보고형</a-select-option>
-          <a-select-option value="수금대행형">수금대행형</a-select-option>
-        </a-select>
-        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
-      </div>
-      <DelinquentTable/>
-    </div>
+
+    <div class="content"></div>
   </div>
 </template>
 <script>
