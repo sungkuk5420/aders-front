@@ -141,22 +141,28 @@ export default {
       switch (index) {
         case 0:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
+          this.$store.dispatch(T.IS_READ_ONLY_UPDATE_USER_DETAIL, false);
           break;
         case 1:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
           this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
+          this.$store.dispatch(T.IS_READ_ONLY_UPDATE_USER_DETAIL, false);
           break;
         case 2:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
           this.$store.dispatch(T.CHANGE_UPDATE_COMPNAY_ID, "");
+          this.$store.dispatch(T.IS_READ_ONLY_UPDATE_USER_DETAIL, false);
           break;
         case 3:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
           this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
           this.$store.dispatch(T.CHANGE_UPDATE_DELINQUENT_ID, "");
+          this.$store.dispatch(T.IS_READ_ONLY_UPDATE_USER_DETAIL, false);
           break;
         case 4:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);
+          this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
+          this.$store.dispatch(T.IS_READ_ONLY_UPDATE_USER_DETAIL, false);
           break;
         case 20:
           this.$store.dispatch(T.CHANGE_TAB_INDEX, index);

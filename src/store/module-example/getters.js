@@ -336,6 +336,9 @@ export const getters = {
   getDelinquentFilterType(state) {
     return state.delinquentFilterType;
   },
+  getIsReadOnlyUpdateUserDetail(state) {
+    return state.isReadOnlyUpdateUserDetail;
+  },
   getUserMaxIndex(state) {
     let maxIndex = 0;
     for (let i = 0; i < state.userList.length; i++) {

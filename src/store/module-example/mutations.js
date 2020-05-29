@@ -77,6 +77,10 @@ export const mutations = {
     // console.log(`mutation [T.DELETE_USER] ${result}`);
     state.userList = state.userList.filter(item => item.id != deleteId);
   },
+  [T.DELETE_BLACK_LIST](state, deleteId) {
+    // console.log(`mutation [T.DELETE_BLACK_LIST] ${result}`);
+    state.blackList = state.blackList.filter(item => item.id != deleteId);
+  },
   [T.DELETE_DELINQUENT](state, deleteId) {
     // console.log(`mutation [T.DELETE_DELINQUENT] ${result}`);
     state.delinquentList = state.delinquentList.filter(
@@ -107,5 +111,12 @@ export const mutations = {
   [T.CHANGE_ERROR_MESSAGE](state, string) {
     console.log("mutation [T.CHANGE_ERROR_MESSAGE] string = ", string);
     state.errorMessage = string;
+  },
+  [T.IS_READ_ONLY_UPDATE_USER_DETAIL](state, isReadOnlyUpdateUserDetail) {
+    console.log(
+      "mutation [T.IS_READ_ONLY_UPDATE_USER_DETAIL] isReadOnlyUpdateUserDetail = ",
+      isReadOnlyUpdateUserDetail
+    );
+    state.isReadOnlyUpdateUserDetail = isReadOnlyUpdateUserDetail;
   }
 };

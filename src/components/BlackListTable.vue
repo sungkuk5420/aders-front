@@ -9,13 +9,12 @@
     <!-- <a slot="action" slot-scope="text" href="javascript:;">Delete</a> -->
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
       <p style="margin: 0">{{ record.notes }}</p>
-      <a-button type="primary">상세보기</a-button>
-      <a-button type="default">블랙리스트 해제</a-button>
-      <!-- <a-button type="primary" @click="function(){
+      <!-- <a-button type="primary">상세보기</a-button> -->
+      <a-button type="primary" @click="function(){
         detail(record.id)
       }">상세보기</a-button>
       <a-popconfirm
-        title="정말로 이 입주자를 삭제하시겠습니까?"
+        title="정말로 블랙리스트를 삭제하시겠습니까?"
         @confirm="function(){
           confirm(record.id)
         }"
@@ -23,8 +22,9 @@
         okText="삭제"
         cancelText="취소"
       >
-        <a-button type="default">삭제</a-button>
-      </a-popconfirm>-->
+        <a-button type="default">블랙리스트 해제</a-button>
+        <!-- <a-button type="default">블랙리스트 해제</a-button> -->
+      </a-popconfirm>
     </div>
   </a-table>
 </template>
@@ -32,21 +32,21 @@
 const columns = [
   { title: "구분", dataIndex: "index", key: "index" },
   { title: "승인일", dataIndex: "createdDate", key: "createdDate" },
-  // {
-  //   title: "대리점",
-  //   dataIndex: "company.companyName",
-  //   key: "company.companyName"
-  // },
-  // {
-  //   title: "대리점 계약번호",
-  //   dataIndex: "company.approvalNumber",
-  //   key: "key3"
-  // },
-  // {
-  //   title: "대리점 수수료",
-  //   dataIndex: "propertyManagermentCompanyFeePercentage",
-  //   key: "propertyManagermentCompanyFeePercentage"
-  // },
+  {
+    title: "대리점",
+    dataIndex: "company.companyName",
+    key: "company.companyName"
+  },
+  {
+    title: "대리점 계약번호",
+    dataIndex: "company.approvalNumber",
+    key: "key3"
+  },
+  {
+    title: "대리점 수수료",
+    dataIndex: "propertyManagermentCompanyFeePercentage",
+    key: "propertyManagermentCompanyFeePercentage"
+  },
   { title: "승인번호", dataIndex: "approvalNumber", key: "approvalNumber" },
   {
     title: "입주자명 (영문)",
@@ -54,25 +54,25 @@ const columns = [
     key: "contractorNameEnglish"
   },
   { title: "입주자명", dataIndex: "contractorName", key: "contractorName" },
-  // { title: "멘션명", dataIndex: "propertyName", key: "propertyName" },
-  // { title: "방번호", dataIndex: "roomNumber", key: "roomNumber" },
+  { title: "멘션명", dataIndex: "propertyName", key: "propertyName" },
+  { title: "방번호", dataIndex: "roomNumber", key: "roomNumber" },
   { title: "연락처", dataIndex: "contractorTel", key: "contractorTel" },
-  // { title: "월세", dataIndex: "rent", key: "rent" },
-  // { title: "심사금액", dataIndex: "key12", key: "key12" },
-  // { title: "심사율", dataIndex: "key13", key: "key13" },
-  // { title: "갱신료", dataIndex: "key14", key: "key14" },
+  { title: "월세", dataIndex: "rent", key: "rent" },
+  { title: "심사금액", dataIndex: "key12", key: "key12" },
+  { title: "심사율", dataIndex: "key13", key: "key13" },
+  { title: "갱신료", dataIndex: "key14", key: "key14" },
   { title: "담당자", dataIndex: "comfirmPerson", key: "comfirmPerson" },
-  // { title: "은행명", dataIndex: "company.bankName", key: "company.bankName" },
-  // {
-  //   title: "지점명",
-  //   dataIndex: "company.branchOfficeName",
-  //   key: "company.branchOfficeName"
-  // },
-  // {
-  //   title: "계좌번호",
-  //   dataIndex: "company.bankAccountNumber",
-  //   key: "company.bankAccountNumber"
-  // },
+  { title: "은행명", dataIndex: "company.bankName", key: "company.bankName" },
+  {
+    title: "지점명",
+    dataIndex: "company.branchOfficeName",
+    key: "company.branchOfficeName"
+  },
+  {
+    title: "계좌번호",
+    dataIndex: "company.bankAccountNumber",
+    key: "company.bankAccountNumber"
+  },
   { title: "비고", dataIndex: "company.notes", key: "company.notes" },
   {
     title: "연대보증인연락처",
@@ -122,6 +122,7 @@ export default {
     },
     detail(id) {
       this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, id);
+      this.$store.dispatch(T.IS_READ_ONLY_UPDATE_USER_DETAIL, true);
       this.$store.dispatch(T.CHANGE_TAB_INDEX, 10);
     },
     confirm(id) {
@@ -129,14 +130,16 @@ export default {
       this.db
         .collection("users")
         .doc(id)
-        .delete()
+        .update({
+          blackList: false
+        })
         .then(function() {
-          thisObj.$store.dispatch(T.DELETE_USER, id);
-          thisObj.alertMsg({ type: "success", msg: "삭제 완료" });
+          thisObj.$store.dispatch(T.DELETE_BLACK_LIST, id);
+          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 해제 완료" });
         })
         .catch(function(error) {
           console.log(error);
-          thisObj.alertMsg({ type: "error", msg: "삭제 실패" });
+          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 해제 실패" });
         });
     },
     cancel() {

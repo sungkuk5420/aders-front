@@ -3,6 +3,7 @@ export default {
   adminPassword: 31013,
   updateCompanyId: "",
   updateUserId: "",
+  isReadOnlyUpdateUserDetail: false,
   updateDelinquentId: "",
   companyList: [],
   userList: [],

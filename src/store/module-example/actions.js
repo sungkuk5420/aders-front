@@ -148,6 +148,11 @@ export const actions = {
     console.log(deleteId);
     commit(T.DELETE_USER, deleteId);
   },
+  [T.DELETE_BLACK_LIST]({ commit }, deleteId) {
+    console.log(`store action [T.DELETE_BLACK_LIST] `);
+    console.log(deleteId);
+    commit(T.DELETE_BLACK_LIST, deleteId);
+  },
   [T.DELETE_DELINQUENT]({ commit }, deleteId) {
     console.log(`store action [T.DELETE_DELINQUENT] `);
     console.log(deleteId);
@@ -204,5 +209,11 @@ export const actions = {
         // console.log(`action / UPDATE_TEAM_CARD / error`, res);
       }
     );
+  },
+  [T.IS_READ_ONLY_UPDATE_USER_DETAIL]({ commit }, isReadOnlyUpdateUserDetail) {
+    console.log(
+      `store action [T.IS_READ_ONLY_UPDATE_USER_DETAIL] isReadOnlyUpdateUserDetail = ${isReadOnlyUpdateUserDetail}`
+    );
+    commit(T.IS_READ_ONLY_UPDATE_USER_DETAIL, isReadOnlyUpdateUserDetail);
   }
 };
