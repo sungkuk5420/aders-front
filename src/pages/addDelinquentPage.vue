@@ -1982,6 +1982,7 @@ export default {
           blackList: true
         })
         .then(function(docRef) {
+          thsiObj.$sotre.dispatch(T.GET_BLACK_LIST);
           thisObj.searchedUser.blackList = true;
           thisObj.alertMsg({ type: "success", msg: "블랙 리스트 추가 완료" });
           thisObj.loading = false;
