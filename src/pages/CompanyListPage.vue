@@ -101,9 +101,9 @@ export default {
         "보유물건 수", //buildingCount
         "종업원 수", //employeeCount
         "상품 종류", //productType
-        "보증 수수료 긴급연락처", //fee1
-        "보증 수수료 연대보증인", //fee2
-        "보증 수수료 기타", //fee3
+        "보증 심사료 긴급연락처", //fee1
+        "보증 심사료 연대보증인", //fee2
+        "보증 심사료 기타", //fee3
         "갱신료", //novationFee
         "대리점 수수료", //propertyManagermentCompanyFee
         "은행명", //bankName

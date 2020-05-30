@@ -369,7 +369,7 @@
                   </b>
                 </a-form-item>
                 <a-form-item
-                  label="보증 수수료"
+                  label="보증 심사료"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -867,7 +867,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="청구액"
+              label="청구금액"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -1095,7 +1095,7 @@ export default {
       approvalPerson: "", // 상관승인자
       nonPayMonthly: "", //월세 미납분
       delinquentFee: "", //수수료
-      charges: "", //청구액
+      charges: "", //청구금액
       arrears: "", //체납발생
       paymentDate: "", //체납발생
       searchedCompanyName: "", // 회사 검색 이름
@@ -1561,7 +1561,7 @@ export default {
       this.userSearchType = "입주자명";
       this.nonPayMonthly = ""; //월세 미납분
       this.delinquentFee = ""; //수수료
-      this.charges = ""; //청구액
+      this.charges = ""; //청구금액
       this.arrears = ""; //체납발생
       this.paymentDate = ""; //체납발생
 
@@ -1950,7 +1950,7 @@ export default {
           companyId: this.delinquentDataForUpdate.companyId,
           nonPayMonthly: this.nonPayMonthly, //월세 미납분
           delinquentFee: this.delinquentFee, //수수료
-          charges: this.charges, //청구액
+          charges: this.charges, //청구금액
           arrears: this.arrears, //체납발생
           paymentDate: this.paymentDate //납부날짜
         })
@@ -2070,7 +2070,7 @@ export default {
           companyId: this.searchedUser.companyId,
           nonPayMonthly: this.nonPayMonthly, //월세 미납분
           delinquentFee: this.delinquentFee, //수수료
-          charges: this.charges, //청구액
+          charges: this.charges, //청구금액
           arrears: this.arrears, //체납발생
           paymentDate: this.paymentDate, //납부날짜
           comfirmPerson: this.comfirmPerson, //확인담당자

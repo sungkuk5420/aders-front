@@ -72,6 +72,7 @@ export default {
   },
   data() {
     return {
+      isUnLogin: false,
       loading: false,
       password: ""
     };
@@ -79,7 +80,7 @@ export default {
   computed: {
     ...mapGetters({
       tabIndex: "getTabIndex",
-      isUnLogin: "getIsUnLogin",
+      // isUnLogin: "getIsUnLogin",
       changeSuccessMessage: "changeSuccessMessage",
       changeErrorMessage: "changeErrorMessage"
     })
@@ -103,7 +104,9 @@ export default {
       }
     }
   },
-  mounted() {},
+  mounted() {
+    this.getCompanyList();
+  },
   methods: {
     checkAdminPassword(password) {
       var password = this.password;

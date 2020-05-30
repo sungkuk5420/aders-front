@@ -175,7 +175,7 @@
               </a-select>
             </a-form-item>
             <a-form-item 
-              label="보증 수수료"
+              label="보증 심사료"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol">
               <a-input-number :max="999" v-model="fee1" :formatter="value => `긴급연락처 ${value}%`" style="width:140px; margin-right:10px;"/>
@@ -402,9 +402,9 @@ export default {
       buildingCount: 0, // 보유물건 수
       employeeCount: 0, // 종업원 수
       productType: 0, // 상품 종류
-      fee1: 0, // 보증 수수료 긴급연락처
-      fee2: 0, // 보증 수수료 연대보증인
-      fee3: 0, // 보증 수수료 기타
+      fee1: 0, // 보증 심사료 긴급연락처
+      fee2: 0, // 보증 심사료 연대보증인
+      fee3: 0, // 보증 심사료 기타
       novationFee:0, // 갱신료
       propertyManagermentCompanyFee:0, // 대리점 수수료
       debtCollectionType:"보고형", // 채권 추심 종류
@@ -431,9 +431,9 @@ export default {
       // buildingCount: 0, // 보유물건 수
       // employeeCount: 0, // 종업원 수
       // productType: 0, // 상품 종류
-      // fee1: 0, // 보증 수수료 긴급연락처
-      // fee2: 0, // 보증 수수료 연대보증인
-      // fee3: 0, // 보증 수수료 기타
+      // fee1: 0, // 보증 심사료 긴급연락처
+      // fee2: 0, // 보증 심사료 연대보증인
+      // fee3: 0, // 보증 심사료 기타
       // novationFee:0, // 갱신료
       // propertyManagermentCompanyFee:0, // 대리점 수수료
       // debtCollectionType:"", // 대리점 수수료

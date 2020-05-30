@@ -5,6 +5,7 @@
         <a-select-option value="입주자명">입주자명</a-select-option>
         <a-select-option value="승인번호">승인번호</a-select-option>
         <a-select-option value="멘션명">멘션명</a-select-option>
+        <a-select-option value="승인날짜">승인날짜</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"

@@ -152,6 +152,12 @@ export const getters = {
                 state.delinquentSearchKeyword
               ) != -1;
             break;
+          case "승인날짜":
+            filtedCompanys =
+              moment(delinquent.createdDate)
+                .format("YYYY-MM-DD")
+                .indexOf(state.delinquentSearchKeyword) != -1;
+            break;
           default:
             break;
         }
@@ -181,6 +187,12 @@ export const getters = {
           case "멘션명":
             filtedCompanys =
               user.propertyName.indexOf(state.userSearchKeyword) != -1;
+            break;
+          case "승인날짜":
+            filtedCompanys =
+              moment(user.createdDate)
+                .format("YYYY-MM-DD")
+                .indexOf(state.userSearchKeyword) != -1;
             break;
           default:
             break;

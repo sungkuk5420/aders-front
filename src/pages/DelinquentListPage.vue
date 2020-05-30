@@ -5,6 +5,7 @@
         <a-select-option value="멘션명">멘션명</a-select-option>
         <a-select-option value="계약자명">계약자명</a-select-option>
         <a-select-option value="담당자명">담당자명</a-select-option>
+        <a-select-option value="승인날짜">승인날짜</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"
@@ -125,7 +126,7 @@ export default {
         "멘션명", // user.propertyName
         "방번호", // user.roomNumber
         "연락처", // user.contractorTel
-        "청구액", // charges
+        "청구금액", // charges
         "월세", // user.rent
         "수수료", // delinquentFee
         "체납발생", // arrears

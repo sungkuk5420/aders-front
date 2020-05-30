@@ -26,12 +26,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-date-picker
-                    :value="moveIntoDate!=''?moment(moveIntoDate, dateFormat):''"
-                    :format="dateFormat"
-                    @change="onChangeMoveIntoDate"
-                    style="width: 100%;"
-                  />
+                  <a-input v-model="moveIntoDate"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -77,12 +72,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-date-picker
-                    :value="contractorBirthday!=''?moment(contractorBirthday, dateFormat):''"
-                    :format="dateFormat"
-                    @change="onChangeContractorBirthday"
-                    style="width: 100%;"
-                  />
+                  <a-input v-model="contractorBirthday"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -130,10 +120,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-select v-model="contractorResidenceQualification">
-                    <a-select-option value="배우자 비자">배우자 비자</a-select-option>
-                    <a-select-option value="기술인문비자">기술인문비자</a-select-option>
-                  </a-select>
+                  <a-input v-model="contractorResidenceQualification"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -326,7 +313,7 @@
                   </b>
                 </a-form-item>
                 <a-form-item
-                  label="보증 수수료"
+                  label="보증 심사료"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -504,7 +491,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-date-picker @change="onChangeRoomMateBirthday"/>
+                  <a-input v-model="roomMateBirthday"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -598,12 +585,7 @@
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
-                  <a-date-picker
-                    :value="guarantorBirthday!=''?moment(guarantorBirthday, dateFormat):''"
-                    :format="dateFormat"
-                    @change="onChangeGuarantorBirthday"
-                    style="width:100%;"
-                  />
+                  <a-input v-model="guarantorBirthday"/>
                 </a-form-item>
                 <a-form-item
                   label="관계"
@@ -737,12 +719,7 @@
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
-                  <a-date-picker
-                    :value="emergencyBirthday!=''?moment(emergencyBirthday, dateFormat):''"
-                    :format="dateFormat"
-                    @change="onChangeEmergencyBirthday"
-                    style="width:100%;"
-                  />
+                  <a-input v-model="emergencyBirthday"/>
                 </a-form-item>
                 <a-form-item
                   label="관계"
@@ -1552,7 +1529,7 @@ export default {
           100
       );
       this.totalPayment = parseInt(
-        this.rent + this.managementCost + this.otherCosts + this.guaranteeFee
+        this.rent + this.managementCost + this.otherCosts
       );
     },
     onChangePaymentPercent() {

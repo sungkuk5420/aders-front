@@ -101,7 +101,7 @@ export default {
         "멘션명", // user.propertyName
         "방번호", // user.roomNumber
         "연락처", // user.contractorTel
-        "청구액", // charges
+        "청구금액", // charges
         "월세", // user.rent
         "수수료", // delinquentFee
         "체납발생", // arrears
