@@ -90,8 +90,8 @@ export default {
       excelDatas.push([
         "구분", //index
         "등록선택", //contractorType
-        "입주자이름", //contractorName
-        "입주자국적", //contractorCountry
+        "입주자 이름", //contractorName
+        "입주자 국적", //contractorCountry
         "입주자 분류", //contractorJobType
         "입주자 주소", //contractorAdress
         "입주자 전화번호", //contractorTel
@@ -136,8 +136,8 @@ export default {
         "보증인 국적", //guarantorCountry
         "보증인 주소", //guarantorAdress
         "보증인 관계", //guarantorRelationship
-        "보증인TEL-1", //guarantorTel1
-        "보증인TEL-2", //guarantorTel2
+        "보증인 TEL-1", //guarantorTel1
+        "보증인 TEL-2", //guarantorTel2
         "보증인 회사명", //guarantorCompanyName
         "보증인 회사 전화번호", //guarantorCompanyTel
         "보증인 회사 주소", //guarantorCompanyAddress

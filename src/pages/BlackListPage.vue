@@ -1,19 +1,25 @@
 <template>
   <div class="user-list-page">
     <div class="search-wrapper">
-      <a-select defaultValue="입주자명">
+      <a-select v-model="blackListSearchType" @change="onSearch">
         <a-select-option value="입주자명">입주자명</a-select-option>
         <a-select-option value="승인번호">승인번호</a-select-option>
         <a-select-option value="멘션명">멘션명</a-select-option>
       </a-select>
-      <a-input-search placeholder="키워드 입력" size="large">
+      <a-input-search
+        placeholder="키워드 입력"
+        size="large"
+        v-model="blackListSearchKeyword"
+        @search="onSearch"
+        @change="onSearch"
+      >
         <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
       </a-input-search>
       <a-button type="primary">상세검색</a-button>
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
-        <!-- <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button> -->
+        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
       </div>
       <BlackListTable/>
     </div>
@@ -29,8 +35,8 @@ export default {
   },
   data() {
     return {
-      userSearchType: "입주자명",
-      userSearchKeyword: "",
+      blackListSearchType: "입주자명",
+      blackListSearchKeyword: "",
       searchLoading: false
     };
   },
@@ -82,8 +88,8 @@ export default {
       excelDatas.push([
         "구분", //index
         "등록선택", //contractorType
-        "입주자이름", //contractorName
-        "입주자국적", //contractorCountry
+        "입주자 이름", //contractorName
+        "입주자 국적", //contractorCountry
         "입주자 분류", //contractorJobType
         "입주자 주소", //contractorAdress
         "입주자 전화번호", //contractorTel
@@ -128,8 +134,8 @@ export default {
         "보증인 국적", //guarantorCountry
         "보증인 주소", //guarantorAdress
         "보증인 관계", //guarantorRelationship
-        "보증인TEL-1", //guarantorTel1
-        "보증인TEL-2", //guarantorTel2
+        "보증인 TEL-1", //guarantorTel1
+        "보증인 TEL-2", //guarantorTel2
         "보증인 회사명", //guarantorCompanyName
         "보증인 회사 전화번호", //guarantorCompanyTel
         "보증인 회사 주소", //guarantorCompanyAddress
@@ -217,15 +223,15 @@ export default {
       var wb_out = XLSX.write(wb, write_opts);
 
       var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
-      saveAs(blob, "입주자 목록.xlsx");
+      saveAs(blob, "블랙리스트 목록.xlsx");
     },
     onSearch() {
       console.log("search click");
-      const userSearchType = this.userSearchType;
-      const userSearchKeyword = this.userSearchKeyword;
-      this.$store.dispatch(T.SEARCH_USER, {
-        userSearchType,
-        userSearchKeyword
+      const blackListSearchType = this.blackListSearchType;
+      const blackListSearchKeyword = this.blackListSearchKeyword;
+      this.$store.dispatch(T.SEARCH_BLACK_LIST, {
+        blackListSearchType,
+        blackListSearchKeyword
       });
     },
     moveAddUserPage() {

@@ -27,6 +27,16 @@ export const mutations = {
     state.userSearchType = userSearchType;
     state.userSearchKeyword = userSearchKeyword;
   },
+  [T.SEARCH_BLACK_LIST](
+    state,
+    { blackListSearchType, blackListSearchKeyword }
+  ) {
+    console.log(`mutation [T.SEARCH_BLACK_LIST]`);
+    console.log(blackListSearchType);
+    console.log(blackListSearchKeyword);
+    state.blackListSearchType = blackListSearchType;
+    state.blackListSearchKeyword = blackListSearchKeyword;
+  },
   [T.SEARCH_DELINQUENT](
     state,
     { delinquentSearchType, delinquentSearchKeyword }

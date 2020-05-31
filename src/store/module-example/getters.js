@@ -239,21 +239,22 @@ export const getters = {
       .filter(user => {
         // 검색
         let filtedCompanys = [];
-        switch (state.userSearchType) {
+        switch (state.blackListSearchType) {
           case "입주자명":
             filtedCompanys =
-              user.contractorName.indexOf(state.userSearchKeyword) != -1;
+              user.contractorName.indexOf(state.blackListSearchKeyword) != -1;
             break;
           case "승인번호":
-            if (state.userSearchKeyword != "") {
-              filtedCompanys = user.approvalNumber == state.userSearchKeyword;
+            if (state.blackListSearchKeyword != "") {
+              filtedCompanys =
+                user.approvalNumber == state.blackListSearchKeyword;
             } else {
               filtedCompanys = true;
             }
             break;
           case "멘션명":
             filtedCompanys =
-              user.propertyName.indexOf(state.userSearchKeyword) != -1;
+              user.propertyName.indexOf(state.blackListSearchKeyword) != -1;
             break;
           default:
             break;

@@ -16,6 +16,8 @@ export default {
   delinquentSearchType: "멘션명",
   delinquentSearchKeyword: "",
   delinquentFilterType: "보고형",
+  blackListSearchType: "멘션명",
+  blackListSearchKeyword: "",
   tabIndex: 0,
   isUnLogin: true,
   successMessage: "",

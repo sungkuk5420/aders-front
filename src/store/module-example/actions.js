@@ -107,6 +107,17 @@ export const actions = {
     console.log(userSearchKeyword);
     commit(T.SEARCH_USER, { userSearchType, userSearchKeyword });
   },
+  [T.SEARCH_BLACK_LIST](
+    { commit },
+    { blackListSearchType = "멘션명", blackListSearchKeyword = "" }
+  ) {
+    console.log(`store action [T.SEARCH_BLACK_LIST] `);
+    console.log(blackListSearchKeyword);
+    commit(T.SEARCH_BLACK_LIST, {
+      blackListSearchType,
+      blackListSearchKeyword
+    });
+  },
   [T.SEARCH_DELINQUENT](
     { commit },
     { delinquentSearchType = "멘션명", delinquentSearchKeyword = "" }
