@@ -77,9 +77,9 @@ module.exports = function(ctx) {
       // workboxPluginMode: 'InjectManifest',
       // workboxOptions: {}, // only for NON InjectManifest
       manifest: {
-        name: "노마드해커톤",
-        short_name: "노마드해커톤",
-        description: "2020 노마드코더 해커톤 팀 리스트",
+        name: "aders",
+        short_name: "aders",
+        description: "aders",
         display: "standalone",
         orientation: "portrait",
         background_color: "#ffffff",

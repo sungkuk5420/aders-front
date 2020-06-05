@@ -8,22 +8,28 @@
   >
     <!-- <a slot="action" slot-scope="text" href="javascript:;">Delete</a> -->
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
-      <p style="margin: 0">{{ record.notes }}</p>
-      {{delinquentFilterType}}
-      <a-button type="primary" @click="function(){
+      <!-- <p style="margin: 0">{{ record.notes }}</p> -->
+      <div class="col">
+        <div class="row">
+          <a-button type="primary" @click="function(){
         detail(record.id)
       }">상세보기</a-button>
-      <a-popconfirm
-        title="정말로 이 연체 기록을 삭제하시겠습니까?"
-        @confirm="function(){
+        </div>
+        <div class="row">
+          <DelinquentCallHistoryTable :delinquentId="record.id"/>
+        </div>
+        <a-popconfirm
+          title="정말로 이 연체 기록을 삭제하시겠습니까?"
+          @confirm="function(){
           confirm(record.id)
         }"
-        @cancel="cancel"
-        okText="삭제"
-        cancelText="취소"
-      >
-        <a-button type="default">삭제</a-button>
-      </a-popconfirm>
+          @cancel="cancel"
+          okText="삭제"
+          cancelText="취소"
+        >
+          <a-button type="default">삭제</a-button>
+        </a-popconfirm>
+      </div>
     </div>
   </a-table>
 </template>
@@ -92,16 +98,12 @@ const columns = [
     key: "user.emergencyTel1"
   }
 ];
-const object = {
-  //월세 미납분
-  //수수료
-  //청구금액
-  //체납발생
-};
 
+import DelinquentCallHistoryTable from "./DelinquentCallHistoryTable.vue";
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
 export default {
+  components: { DelinquentCallHistoryTable },
   data() {
     return {
       columns,

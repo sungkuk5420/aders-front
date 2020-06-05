@@ -8,21 +8,28 @@
   >
     <!-- <a slot="action" slot-scope="text" href="javascript:;">Delete</a> -->
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
-      <p style="margin: 0">{{ record.notes }}</p>
-      <a-button type="primary" @click="function(){
-        detail(record.id)
-      }">상세보기</a-button>
-      <a-popconfirm
-        title="정말로 이 입주자를 삭제하시겠습니까?"
-        @confirm="function(){
+      <!-- <p style="margin: 0">{{ record.notes }}</p> -->
+      <div class="col">
+        <div class="row">
+          <a-button type="primary" @click="function(){
+          detail(record.id)
+        }">상세보기</a-button>
+        </div>
+        <div class="row">
+          <UserCallHistoryTable :userId="record.id"/>
+        </div>
+        <a-popconfirm
+          title="정말로 이 입주자를 삭제하시겠습니까?"
+          @confirm="function(){
           confirm(record.id)
         }"
-        @cancel="cancel"
-        okText="삭제"
-        cancelText="취소"
-      >
-        <a-button type="default">삭제</a-button>
-      </a-popconfirm>
+          @cancel="cancel"
+          okText="삭제"
+          cancelText="취소"
+        >
+          <a-button type="default">삭제</a-button>
+        </a-popconfirm>
+      </div>
     </div>
   </a-table>
 </template>
@@ -81,9 +88,11 @@ const columns = [
   // { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
 ];
 
+import UserCallHistoryTable from "./UserCallHistoryTable.vue";
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
 export default {
+  components: { UserCallHistoryTable },
   data() {
     return {
       columns,

@@ -7,21 +7,28 @@
     @change="handleTableChange"
   >
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
-      <p style="margin: 0">{{ record.notes }}</p>
-      <a-button type="primary" @click="function(){
+      <!-- <p style="margin: 0">{{ record.notes }}</p> -->
+      <div class="col">
+        <div class="row">
+          <a-button type="primary" @click="function(){
         detail(record.id)
       }">상세보기</a-button>
-      <a-popconfirm
-        title="정말로 이 대리점을 삭제하시겠습니까?"
-        @confirm="function(){
+        </div>
+        <div class="row">
+          <CompanyCallHistoryTable :campanyId="record.id"/>
+        </div>
+        <a-popconfirm
+          title="정말로 이 대리점을 삭제하시겠습니까?"
+          @confirm="function(){
           confirm(record.id)
         }"
-        @cancel="cancel"
-        okText="삭제"
-        cancelText="취소"
-      >
-        <a-button type="default">삭제</a-button>
-      </a-popconfirm>
+          @cancel="cancel"
+          okText="삭제"
+          cancelText="취소"
+        >
+          <a-button type="default">삭제</a-button>
+        </a-popconfirm>
+      </div>
     </div>
   </a-table>
 </template>
@@ -60,9 +67,11 @@ const columns = [
     key: "propertyManagermentCompanyFee"
   }
 ];
+import CompanyCallHistoryTable from "./CompanyCallHistoryTable.vue";
 import { mapGetters } from "vuex";
 import { T } from "../store/module-example/types";
 export default {
+  components: { CompanyCallHistoryTable },
   data() {
     return {
       db: "", // firebase
