@@ -5,7 +5,7 @@
         <a-select-option value="멘션명">멘션명</a-select-option>
         <a-select-option value="계약자명">계약자명</a-select-option>
         <a-select-option value="담당자명">담당자명</a-select-option>
-        <a-select-option value="승인날짜">승인날짜</a-select-option>
+        <a-select-option value="월세 미납분">월세 미납분</a-select-option>
       </a-select>
       <a-input-search
         placeholder="키워드 입력"

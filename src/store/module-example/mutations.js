@@ -41,7 +41,7 @@ export const mutations = {
     state,
     { delinquentSearchType, delinquentSearchKeyword }
   ) {
-    console.log(`mutation [T.SEARCH_USER]`);
+    console.log(`mutation [T.SEARCH_DELINQUENT]`);
     console.log(delinquentSearchType);
     console.log(delinquentSearchKeyword);
     state.delinquentSearchType = delinquentSearchType;

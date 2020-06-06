@@ -189,7 +189,6 @@ export default {
       td,
       th {
         &:nth-child(6),
-        &:nth-child(14),
         &:nth-child(15),
         &:nth-child(18),
         &:nth-child(19),

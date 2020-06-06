@@ -246,14 +246,14 @@
             >
               <a-input v-model="contractorOtherContent"/>
             </a-form-item>
-            <a-form-item
+            <!-- <a-form-item
               label="증빙서류"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='기타'"
             >
               <ImageUpload :imageData="contractorOtherFile" :imageCbFunc="contractorOtherFileFunc"></ImageUpload>
-            </a-form-item>
+            </a-form-item>-->
           </div>
           <div class="form-cell">
             <a-form-item
@@ -515,13 +515,13 @@
                       />
                     </div>
                   </a-form-item>
-                  <a-form-item
+                  <!-- <a-form-item
                     label="신분증"
                     :label-col="formItemLayout.labelCol2"
                     :wrapper-col="formItemLayout.wrapperCol"
                   >
                     <ImageUpload :imageData="roomMateIdCard" :imageCbFunc="roomMateIdCardFunc"></ImageUpload>
-                  </a-form-item>
+                  </a-form-item>-->
                 </div>
               </div>
             </div>
@@ -648,7 +648,7 @@
             </a-form-item>
           </div>
           <div class="form-cell">
-            <a-form-item
+            <!-- <a-form-item
               label="신분증(앞)"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
@@ -678,7 +678,7 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <ImageUpload :imageData="guarantorContract" :imageCbFunc="guarantorContractFunc"></ImageUpload>
-            </a-form-item>
+            </a-form-item>-->
           </div>
         </VueSlideUpDown>
         <VueSlideUpDown
@@ -758,6 +758,62 @@
           </div>
           <div class="form-cell"></div>
         </VueSlideUpDown>
+
+        <div class="form-row">
+          <h2>첨부파일</h2>
+        </div>
+        <div class="form-row">
+          <div class="form-cell">
+            <a-form-item
+              label="자국 신분증"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <div class="form-row">
+                <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
+                  <ImageUpload
+                    :imageData="guarantorIdCardFront"
+                    :imageCbFunc="guarantorIdCardFrontFunc"
+                  ></ImageUpload>
+                </a-form-item>
+                <a-form-item
+                  label="일본신분증"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
+                >
+                  <ImageUpload
+                    :imageData="guarantorIdCardBack"
+                    :imageCbFunc="guarantorIdCardBackFunc"
+                  ></ImageUpload>
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
+          <div class="form-cell">
+            <a-form-item
+              label="여권신분증"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <div class="form-row">
+                <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
+                  <ImageUpload :imageData="guarantorContract" :imageCbFunc="guarantorContractFunc"></ImageUpload>
+                </a-form-item>
+                <a-form-item
+                  label
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
+                >
+                  <!-- <ImageUpload
+                    :imageData="guarantorIdCardBack"
+                    :imageCbFunc="guarantorIdCardBackFunc"
+                  ></ImageUpload>-->
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
+        </div>
+
         <div class="form-row" :class="isReadOnlyUpdateUserDetail?'read-only-form-data':''">
           <div v-if="isReadOnlyUpdateUserDetail" class="overlay"></div>
           <div class="form-cell"></div>
@@ -1157,6 +1213,7 @@ export default {
     },
     moment,
     moveUserListPage() {
+      this.clearDatas();
       this.$store.dispatch(T.CHANGE_TAB_INDEX, 1);
       this.$store.dispatch(T.CHANGE_UPDATE_USER_ID, "");
     },

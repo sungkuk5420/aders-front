@@ -58,9 +58,17 @@ const columns = [
   { title: "방번호", dataIndex: "roomNumber", key: "roomNumber" },
   { title: "연락처", dataIndex: "contractorTel", key: "contractorTel" },
   { title: "월세", dataIndex: "rent", key: "rent" },
-  { title: "심사금액", dataIndex: "key12", key: "key12" },
-  { title: "심사율", dataIndex: "key13", key: "key13" },
-  { title: "갱신료", dataIndex: "key14", key: "key14" },
+  { title: "심사금액", dataIndex: "guaranteeFee", key: "guaranteeFee" },
+  {
+    title: "심사율",
+    dataIndex: "guaranteeFeePercentage",
+    key: "guaranteeFeePercentage"
+  },
+  {
+    title: "갱신료",
+    dataIndex: "company.novationFee",
+    key: "company.novationFee"
+  },
   { title: "담당자", dataIndex: "comfirmPerson", key: "comfirmPerson" },
   { title: "은행명", dataIndex: "company.bankName", key: "company.bankName" },
   {

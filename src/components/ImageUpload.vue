@@ -8,9 +8,9 @@
     :beforeUpload="beforeUpload"
     @change="handleChange"
   >
-    <img v-if="imageUrl" :src="imageUrl" alt="avatar" />
+    <img v-if="imageUrl" :src="imageUrl" alt="avatar">
     <div v-else>
-      <a-icon :type="loading ? 'loading' : 'plus'" />
+      <a-icon :type="loading ? 'loading' : 'plus'"/>
       <div class="ant-upload-text">Upload</div>
     </div>
   </a-upload>
@@ -18,68 +18,68 @@
 <script>
 function getBase64(img, callback) {
   const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result));
+  reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
 }
 export default {
-  props:["imageCbFunc","imageData"],
+  props: ["imageCbFunc", "imageData"],
   data() {
     return {
       loading: false,
-      imageUrl: '',
+      imageUrl: ""
     };
   },
-  watch:{
-    imageData:{
+  watch: {
+    imageData: {
       handler(imageData) {
-          if (imageData) {
-            this.imageUrl = imageData
-          }
+        if (imageData !== undefined) {
+          this.imageUrl = imageData;
+        }
       },
       immediate: true
     }
   },
-  mounted(){
-  },
+  mounted() {},
   methods: {
-    clearImageData(){
+    clearImageData() {
       this.imageUrl = "";
     },
     handleChange(info) {
-      if (info.file.status === 'uploading') {
+      if (info.file.status === "uploading") {
         this.loading = true;
         return;
       }
-      if (info.file.status === 'done') {
+      if (info.file.status === "done") {
         // Get this url from response in real world.
         getBase64(info.file.originFileObj, imageUrl => {
           this.imageUrl = imageUrl;
           this.loading = false;
-          if(this.imageCbFunc){
+          if (this.imageCbFunc) {
             this.imageCbFunc(this.imageUrl);
           }
         });
       }
     },
     beforeUpload(file) {
-      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+      const isJpgOrPng =
+        file.type === "image/jpeg" || file.type === "image/png";
       if (!isJpgOrPng) {
-        this.$message.error('You can only upload JPG file!');
+        this.$message.error("You can only upload JPG file!");
       }
       const isLt2M = file.size / 1024 / 1024 < 2;
       if (!isLt2M) {
-        this.$message.error('Image must smaller than 2MB!');
+        this.$message.error("Image must smaller than 2MB!");
       }
       return isJpgOrPng && isLt2M;
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="scss">
 .avatar-uploader > .ant-upload {
   width: 128px;
   height: 128px;
-  img{
+  img {
     max-width: 150px;
     max-height: 150px;
   }

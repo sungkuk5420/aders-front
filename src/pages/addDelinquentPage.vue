@@ -572,7 +572,7 @@
                       />
                     </div>
                   </a-form-item>
-                  <a-form-item
+                  <!-- <a-form-item
                     label="신분증"
                     :label-col="formItemLayout.labelCol2"
                     :wrapper-col="formItemLayout.wrapperCol"
@@ -582,7 +582,7 @@
                       :imageData="roomMateIdCard"
                       :imageCbFunc="roomMateIdCardFunc"
                     ></ImageUpload>
-                  </a-form-item>
+                  </a-form-item>-->
                 </div>
               </div>
             </div>
@@ -714,7 +714,7 @@
             </a-form-item>
           </div>
           <div class="form-cell">
-            <a-form-item
+            <!-- <a-form-item
               label="신분증(앞)"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
@@ -750,7 +750,7 @@
                 :imageData="guarantorContract"
                 :imageCbFunc="guarantorContractFunc"
               ></ImageUpload>
-            </a-form-item>
+            </a-form-item>-->
           </div>
         </VueSlideUpDown>
         <VueSlideUpDown
@@ -834,6 +834,61 @@
           </div>
           <div class="form-cell"></div>
         </VueSlideUpDown>
+        <div class="form-row">
+          <h2>첨부파일</h2>
+        </div>
+        <div class="form-row read-only-form-data">
+          <div class="overlay"></div>
+          <div class="form-cell">
+            <a-form-item
+              label="자국 신분증"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <div class="form-row">
+                <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
+                  <ImageUpload
+                    :imageData="guarantorIdCardFront"
+                    :imageCbFunc="guarantorIdCardFrontFunc"
+                  ></ImageUpload>
+                </a-form-item>
+                <a-form-item
+                  label="일본신분증"
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
+                >
+                  <ImageUpload
+                    :imageData="guarantorIdCardBack"
+                    :imageCbFunc="guarantorIdCardBackFunc"
+                  ></ImageUpload>
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
+          <div class="form-cell">
+            <a-form-item
+              label="여권신분증"
+              :label-col="formItemLayout.labelCol"
+              :wrapper-col="formItemLayout.wrapperCol"
+            >
+              <div class="form-row">
+                <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
+                  <ImageUpload :imageData="guarantorContract" :imageCbFunc="guarantorContractFunc"></ImageUpload>
+                </a-form-item>
+                <a-form-item
+                  label
+                  :label-col="formItemLayout.labelCol2"
+                  :wrapper-col="formItemLayout.wrapperCol"
+                >
+                  <!-- <ImageUpload
+                    :imageData="guarantorIdCardBack"
+                    :imageCbFunc="guarantorIdCardBackFunc"
+                  ></ImageUpload>-->
+                </a-form-item>
+              </div>
+            </a-form-item>
+          </div>
+        </div>
         <div class="form-row">
           <div class="form-cell">
             <div class="form-row read-only-form-data">
@@ -1288,7 +1343,8 @@ export default {
       this.rent = userData.rent;
       this.managementCost = userData.managementCost;
       this.otherCosts = userData.otherCosts;
-      this.totalPayment = userData.totalPayment;
+      this.totalPayment =
+        userData.rent + userData.managementCost + userData.otherCosts;
       this.roomMate = userData.roomMate;
       this.roomMateHeadCount = userData.roomMateHeadCount;
       this.roomMateName = userData.roomMateName;
@@ -1913,7 +1969,7 @@ export default {
           100
       );
       this.totalPayment = parseInt(
-        this.rent + this.managementCost + this.otherCosts + this.guaranteeFee
+        this.rent + this.managementCost + this.otherCosts
       );
     },
     onChangePaymentPercent() {

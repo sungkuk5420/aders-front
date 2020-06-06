@@ -6,6 +6,24 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
+function getGuaranteeFeePercentage(companyOfuser, guaranteeType) {
+  console.log(companyOfuser);
+  let returnValue = "";
+  switch (guaranteeType) {
+    case "긴급연락처":
+      returnValue = companyOfuser.fee1 + "%";
+      break;
+    case "연대보증인":
+      returnValue = companyOfuser.fee2 + "%";
+      break;
+    case "기타":
+      returnValue = companyOfuser.fee3 + "%";
+      break;
+    default:
+      break;
+  }
+  return returnValue;
+}
 export const getters = {
   getCompanyList(state) {
     console.log(state.companyList);
@@ -133,6 +151,7 @@ export const getters = {
       .filter(delinquent => {
         // 검색
         let filtedCompanys = [];
+        console.log(state.delinquentSearchType);
         switch (state.delinquentSearchType) {
           case "멘션명":
             filtedCompanys =
@@ -152,11 +171,10 @@ export const getters = {
                 state.delinquentSearchKeyword
               ) != -1;
             break;
-          case "승인날짜":
+          case "월세 미납분":
             filtedCompanys =
-              moment(delinquent.createdDate)
-                .format("YYYY-MM-DD")
-                .indexOf(state.delinquentSearchKeyword) != -1;
+              delinquent.nonPayMonthly.indexOf(state.delinquentSearchKeyword) !=
+              -1;
             break;
           default:
             break;
@@ -215,6 +233,7 @@ export const getters = {
             bankName: "",
             branchOfficeName: "",
             bankAccountNumber: "",
+            novationFee: "",
             notes: ""
           };
         }
@@ -223,12 +242,17 @@ export const getters = {
           ...user,
           createdDate: moment(user.createdDate).format("YYYY-MM-DD"),
           approvalNumber: pad(user.approvalNumber, 4),
+          guaranteeFeePercentage: getGuaranteeFeePercentage(
+            companyOfuser,
+            user.guaranteeType
+          ),
           company: {
             approvalNumber: pad(companyOfuser.approvalNumber, 4),
             companyName: companyOfuser.companyName,
             bankName: companyOfuser.bankName,
             branchOfficeName: companyOfuser.branchOfficeName,
             bankAccountNumber: companyOfuser.bankAccountNumber,
+            novationFee: companyOfuser.novationFee,
             notes: companyOfuser.notes
           }
         };
@@ -277,6 +301,7 @@ export const getters = {
             bankName: "",
             branchOfficeName: "",
             bankAccountNumber: "",
+            novationFee: "",
             notes: ""
           };
         }
@@ -285,12 +310,17 @@ export const getters = {
           ...user,
           createdDate: moment(user.createdDate).format("YYYY-MM-DD"),
           approvalNumber: pad(user.approvalNumber, 4),
+          guaranteeFeePercentage: getGuaranteeFeePercentage(
+            companyOfuser,
+            user.guaranteeType
+          ),
           company: {
             approvalNumber: pad(companyOfuser.approvalNumber, 4),
             companyName: companyOfuser.companyName,
             bankName: companyOfuser.bankName,
             branchOfficeName: companyOfuser.branchOfficeName,
             bankAccountNumber: companyOfuser.bankAccountNumber,
+            novationFee: companyOfuser.novationFee,
             notes: companyOfuser.notes
           }
         };
