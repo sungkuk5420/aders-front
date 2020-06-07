@@ -153,7 +153,7 @@ export const getters = {
         let filtedCompanys = [];
         console.log(state.delinquentSearchType);
         switch (state.delinquentSearchType) {
-          case "멘션명":
+          case "メンション名":
             filtedCompanys =
               delinquent.user.propertyName.indexOf(
                 state.delinquentSearchKeyword
@@ -171,7 +171,7 @@ export const getters = {
                 state.delinquentSearchKeyword
               ) != -1;
             break;
-          case "월세 미납분":
+          case "家賃 미납분":
             filtedCompanys =
               delinquent.nonPayMonthly.indexOf(state.delinquentSearchKeyword) !=
               -1;
@@ -191,22 +191,22 @@ export const getters = {
         // 検索
         let filtedCompanys = [];
         switch (state.userSearchType) {
-          case "입주자명":
+          case "入居者名":
             filtedCompanys =
               user.contractorName.indexOf(state.userSearchKeyword) != -1;
             break;
-          case "승인번호":
+          case "承認番号":
             if (state.userSearchKeyword != "") {
               filtedCompanys = user.approvalNumber == state.userSearchKeyword;
             } else {
               filtedCompanys = true;
             }
             break;
-          case "멘션명":
+          case "メンション名":
             filtedCompanys =
               user.propertyName.indexOf(state.userSearchKeyword) != -1;
             break;
-          case "승인날짜":
+          case "承認日":
             filtedCompanys =
               moment(user.createdDate)
                 .format("YYYY-MM-DD")
@@ -264,11 +264,11 @@ export const getters = {
         // 検索
         let filtedCompanys = [];
         switch (state.blackListSearchType) {
-          case "입주자명":
+          case "入居者名":
             filtedCompanys =
               user.contractorName.indexOf(state.blackListSearchKeyword) != -1;
             break;
-          case "승인번호":
+          case "承認番号":
             if (state.blackListSearchKeyword != "") {
               filtedCompanys =
                 user.approvalNumber == state.blackListSearchKeyword;
@@ -276,7 +276,7 @@ export const getters = {
               filtedCompanys = true;
             }
             break;
-          case "멘션명":
+          case "メンション名":
             filtedCompanys =
               user.propertyName.indexOf(state.blackListSearchKeyword) != -1;
             break;

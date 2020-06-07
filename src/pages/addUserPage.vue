@@ -3,26 +3,26 @@
     <div class="content">
       <a-form :layout="formLayout" :form="form" v-bind="formItemLayout" @submit="handleSubmit">
         <div class="form-row">
-          <h2>입주자</h2>
+          <h2>入居者</h2>
         </div>
         <div class="form-row" :class="isReadOnlyUpdateUserDetail?'read-only-form-data':''">
           <div v-if="isReadOnlyUpdateUserDetail" class="overlay"></div>
           <div class="form-cell">
             <a-form-item
-              label="登録 선택"
+              label="登録 選択"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
                   <a-radio-group v-model="contractorType">
-                    <a-radio-button value="개인">개인</a-radio-button>
-                    <a-radio-button value="법인">법인</a-radio-button>
-                    <a-radio-button value="타보증회사">타보증회사</a-radio-button>
+                    <a-radio-button value="個人">個人</a-radio-button>
+                    <a-radio-button value="法人">法人</a-radio-button>
+                    <a-radio-button value="その他の保証会社">その他の保証会社</a-radio-button>
                   </a-radio-group>
                 </a-form-item>
                 <a-form-item
-                  label="입주예정일"
+                  label="入居予定日"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -31,7 +31,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="이름"
+              label="名前"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -40,7 +40,7 @@
                   <a-input v-model="contractorName"/>
                 </a-form-item>
                 <a-form-item
-                  label="이름(영문)"
+                  label="名前(英語)"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -59,7 +59,7 @@
               </a-radio-group>
             </a-form-item>
             <a-form-item
-              label="국적"
+              label="国籍"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -68,7 +68,7 @@
                   <a-input v-model="contractorCountry"/>
                 </a-form-item>
                 <a-form-item
-                  label="생년월일"
+                  label="生年月日"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -77,7 +77,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="주소"
+              label="住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -116,7 +116,7 @@
                   <a-input v-model="contractorSms"/>
                 </a-form-item>
                 <a-form-item
-                  label="재류자격"
+                  label="在留資格"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -125,28 +125,28 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="분류"
+              label="分類"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-radio-group v-model="contractorJobType">
-                <a-radio-button value="학생">학생</a-radio-button>
-                <a-radio-button value="직장인">직장인</a-radio-button>
+                <a-radio-button value="学生">学生</a-radio-button>
+                <a-radio-button value="会社員">会社員</a-radio-button>
                 <a-radio-button value="その他">その他</a-radio-button>
               </a-radio-group>
             </a-form-item>
             <a-form-item
-              label="학교명"
+              label="学校名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='학생'"
+              v-show="contractorJobType=='学生'"
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
                   <a-input v-model="contractorSchoolName"/>
                 </a-form-item>
                 <a-form-item
-                  label="학교TEL"
+                  label="学校TEL"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -155,25 +155,25 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="학교주소"
+              label="学校住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='학생'"
+              v-show="contractorJobType=='学生'"
             >
               <a-input v-model="contractorSchoolAddress"/>
             </a-form-item>
             <a-form-item
-              label="직장명"
+              label="勤め先名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='직장인'"
+              v-show="contractorJobType=='会社員'"
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
                   <a-input v-model="contractorCompanyName"/>
                 </a-form-item>
                 <a-form-item
-                  label="직장주소"
+                  label="会社住所"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -182,17 +182,17 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="직장TEL"
+              label="勤め先TEL"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='직장인'"
+              v-show="contractorJobType=='会社員'"
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
                   <a-input v-model="contractorCompanyTel"/>
                 </a-form-item>
                 <a-form-item
-                  label="근속연수"
+                  label="勤続年数"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -201,7 +201,7 @@
                       <a-input v-model="contractorLengthOfService"/>
                     </a-form-item>
                     <a-form-item
-                      label="급여"
+                      label="給料"
                       :label-col="formItemLayout.labelCol2"
                       :wrapper-col="formItemLayout.wrapperCol"
                     >
@@ -212,7 +212,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="その他 이름"
+              label="その他 名前"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='その他'"
@@ -222,7 +222,7 @@
                   <a-input v-model="contractorOtherName"/>
                 </a-form-item>
                 <a-form-item
-                  label="기타TEL"
+                  label="その他TEL"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -231,7 +231,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="その他 주소"
+              label="その他 住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='その他'"
@@ -239,7 +239,7 @@
               <a-input v-model="contractorOtherAddress"/>
             </a-form-item>
             <a-form-item
-              label="その他 내용"
+              label="その他のメモ"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
               v-show="contractorJobType=='その他'"
@@ -282,7 +282,7 @@
             </a-form-item>
 
             <a-form-item
-              label="보증형태"
+              label="保証種類"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -293,7 +293,7 @@
               </a-radio-group>
             </a-form-item>
             <a-form-item
-              label="검색된 회사"
+              label="検索された会社"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -353,14 +353,14 @@
               </a-radio-group>
             </a-form-item>
             <a-form-item
-              label="멘션명"
+              label="メンション名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input v-model="propertyName"/>
             </a-form-item>
             <a-form-item
-              label="멘션주소"
+              label="メンション住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -368,7 +368,7 @@
             </a-form-item>
 
             <a-form-item
-              label="호실"
+              label="部屋番号"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -392,7 +392,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="월세"
+              label="家賃"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -406,7 +406,7 @@
                   />
                 </a-form-item>
                 <a-form-item
-                  label="관리비"
+                  label="管理費"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -420,7 +420,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="기타비용"
+              label="その他の費用"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -441,7 +441,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="총금액"
+              label="合計金額"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -453,22 +453,22 @@
           </div>
         </div>
         <div class="form-row">
-          <h2>동반 입주자</h2>
+          <h2>同居者</h2>
         </div>
         <div class="form-row" :class="isReadOnlyUpdateUserDetail?'read-only-form-data':''">
           <div v-if="isReadOnlyUpdateUserDetail" class="overlay"></div>
           <div class="form-cell">
             <a-form-item
-              label="동반 입주자"
+              label="同居者"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
-                  <a-switch checkedChildren="유" unCheckedChildren="무" v-model="roomMate"/>
+                  <a-switch checkedChildren="有" unCheckedChildren="無" v-model="roomMate"/>
                 </a-form-item>
                 <a-form-item
-                  label="인원"
+                  label="人数"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                   v-show="roomMate"
@@ -478,7 +478,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="입주자 이름"
+              label="入居者 名前"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -487,7 +487,7 @@
                   <a-input v-model="roomMateName"/>
                 </a-form-item>
                 <a-form-item
-                  label="생년월일"
+                  label="生年月日"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -499,7 +499,7 @@
               <div class="ant-col-4 ant-form-item-label">
                 <div class="form-col">
                   <label title="TEL" class>TEL</label>
-                  <label title="TEL" class>국적</label>
+                  <label title="TEL" class>国籍</label>
                 </div>
               </div>
               <div class="ant-col-18 ant-form-item-control-wrapper">
@@ -535,7 +535,7 @@
           <div v-if="isReadOnlyUpdateUserDetail" class="overlay"></div>
           <div class="form-cell">
             <a-form-item
-              label="보증인"
+              label="保証人"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -556,7 +556,7 @@
           <div v-if="isReadOnlyUpdateUserDetail" class="overlay"></div>
           <div class="form-cell">
             <a-form-item
-              label="이름"
+              label="名前"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -565,7 +565,7 @@
                   <a-input v-model="guarantorName"/>
                 </a-form-item>
                 <a-form-item
-                  label="국적"
+                  label="国籍"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -579,7 +579,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="생년월일"
+              label="生年月日"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -588,7 +588,7 @@
                   <a-input v-model="guarantorBirthday"/>
                 </a-form-item>
                 <a-form-item
-                  label="관계"
+                  label="関係"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -615,14 +615,14 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="주소"
+              label="住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input v-model="guarantorAdress"/>
             </a-form-item>
             <a-form-item
-              label="직장명"
+              label="勤め先名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -631,7 +631,7 @@
                   <a-input v-model="guarantorCompanyName"/>
                 </a-form-item>
                 <a-form-item
-                  label="직장 TEL"
+                  label="会社 TEL"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -640,7 +640,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="직장주소"
+              label="会社住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -690,7 +690,7 @@
           <div v-if="isReadOnlyUpdateUserDetail" class="overlay"></div>
           <div class="form-cell">
             <a-form-item
-              label="이름"
+              label="名前"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -699,7 +699,7 @@
                   <a-input v-model="emergencyName"/>
                 </a-form-item>
                 <a-form-item
-                  label="국적"
+                  label="国籍"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -713,7 +713,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="생년월일"
+              label="生年月日"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -722,7 +722,7 @@
                   <a-input v-model="emergencyBirthday"/>
                 </a-form-item>
                 <a-form-item
-                  label="관계"
+                  label="関係"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -749,7 +749,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="주소"
+              label="住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -760,12 +760,12 @@
         </VueSlideUpDown>
 
         <div class="form-row">
-          <h2>첨부파일</h2>
+          <h2>添付ファイル</h2>
         </div>
         <div class="form-row">
           <div class="form-cell">
             <a-form-item
-              label="자국 신분증"
+              label="自国身分証明書"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -777,7 +777,7 @@
                   ></ImageUpload>
                 </a-form-item>
                 <a-form-item
-                  label="일본신분증"
+                  label="日本身分証明書"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -791,7 +791,7 @@
           </div>
           <div class="form-cell">
             <a-form-item
-              label="여권신분증"
+              label="パスポート"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -868,7 +868,7 @@
                   v-show="isReadOnlyUpdateUserDetail"
                   @click="moveBlackListPage"
                   :loading="loading"
-                >블랙리스트 화면으로</a-button>
+                >ブラックリスト画面に戻る</a-button>
               </div>
             </div>
           </div>
@@ -895,153 +895,153 @@ export default {
       loading: false,
       db: "", // firebase
       dateFormat: "YYYY-MM-DD",
-      contractorType: "개인", // 등록선택
+      contractorType: "個人", // 登録選択
       contractorName: "", // 계약자이름
-      contractorNameEnglish: "", // 계약자이름 영문
+      contractorNameEnglish: "", // 계약자이름 英語
       contractorCountry: "", // 계약자국적
-      contractorJobType: "학생", // 계약자 분류
-      contractorAdress: "", // 계약자 주소
+      contractorJobType: "学生", // 계약자 分類
+      contractorAdress: "", // 계약자 住所
       contractorTel: "", // 계약자 電話番号
-      moveIntoDate: "", // 입주예정일
+      moveIntoDate: "", // 入居予定日
       contractorSex: "男性", // 계약자 性別
-      contractorBirthday: "", // 계약자 생년월일
+      contractorBirthday: "", // 계약자 生年月日
       contractorEmail: "", // 계약자 メール
       contractorSms: "", // 계약자 sms
-      contractorResidenceQualification: "", // 계약자 재류자격
-      contractorSchoolName: "", // 계약자 학교명
-      contractorSchoolTel: "", // 계약자 학교 TEL
-      contractorSchoolAddress: "", // 계약자 학교주소
-      contractorCompanyName: "", // 계약자 회사이름
-      contractorCompanyTel: "", // 계약자 직장 電話番号
-      contractorCompanyAddress: "", // 계약자 직장주소
-      contractorLengthOfService: "", // 계약자 근속연수
-      contractorSalary: "", // 계약자 급여
-      contractorOtherName: "", // その他 이름
+      contractorResidenceQualification: "", // 계약자 在留資格
+      contractorSchoolName: "", // 계약자 学校名
+      contractorSchoolTel: "", // 계약자 学校 TEL
+      contractorSchoolAddress: "", // 계약자 学校住所
+      contractorCompanyName: "", // 계약자 会社名
+      contractorCompanyTel: "", // 계약자 会社 電話番号
+      contractorCompanyAddress: "", // 계약자 会社住所
+      contractorLengthOfService: "", // 계약자 勤続年数
+      contractorSalary: "", // 계약자 給料
+      contractorOtherName: "", // その他 名前
       contractorOtherTel: "", // その他 電話番号
-      contractorOtherAddress: "", // その他 주소
-      contractorOtherContent: "", // 기타내용
+      contractorOtherAddress: "", // その他 住所
+      contractorOtherContent: "", // その他のメモ
       contractorOtherFile: "", // 증빙서류
       companyId: "", // 회사Id
-      guaranteeType: "緊急連絡先", // 보증형태
-      guaranteeFee: 0, // 심사 수수료
-      propertyName: "", // 멘션명
-      propertyAdress: "", // 멘션 주소
-      roomNumber: "", // 호실
-      roomType: "", // 방 타입
-      rent: 0, // 월세
-      managementCost: 0, // 관리비
-      otherCosts: 0, // 기타비용
-      totalPayment: 0, // 총 비용
-      roomMate: false, // 동반 입주자 여부
-      roomMateHeadCount: 1, // 동반 입주자 인수
-      roomMateName: "", // 동반 입주자 이름
-      roomMateBirthday: "", // 동반 입주자 생년월일
-      roomMateTel: "", // 동반 입주자 電話番号
-      roomMateCountry: "", // 동반 입주자 국적
-      roomMateIdCard: "", // 동반 입주자 신분증
-      guarantorType: "連帯保証人", // 보증 타입 연대 보증인 or 緊急連絡先
-      guarantorName: "", // 보증인 이름
-      guarantorCountry: "", // 보증인 국적
-      guarantorAdress: "", // 보증인 주소
-      guarantorRelationship: "", // 보증인 관계
+      guaranteeType: "緊急連絡先", // 保証種類
+      guaranteeFee: 0, // 審査手数料
+      propertyName: "", // メンション名
+      propertyAdress: "", // メンション住所
+      roomNumber: "", // 部屋番号
+      roomType: "", // 部屋のタイプ
+      rent: 0, // 家賃
+      managementCost: 0, // 管理費
+      otherCosts: 0, // その他の費用
+      totalPayment: 0, // 合計金額
+      roomMate: false, // 同居者 여부
+      roomMateHeadCount: 1, // 同居者 人数
+      roomMateName: "", // 同居者 名前
+      roomMateBirthday: "", // 同居者 生年月日
+      roomMateTel: "", // 同居者 電話番号
+      roomMateCountry: "", // 同居者 国籍
+      roomMateIdCard: "", // 同居者 신분증
+      guarantorType: "連帯保証人", // 保証タイプ 連帯保証人 or 緊急連絡先
+      guarantorName: "", // 保証人 名前
+      guarantorCountry: "", // 保証人 国籍
+      guarantorAdress: "", // 保証人 住所
+      guarantorRelationship: "", // 保証人 関係
       guarantorTel1: "", // 보증인TEL-1
       guarantorTel2: "", // 보증인TEL-2
-      guarantorCompanyName: "", // 보증인 会社名
-      guarantorCompanyTel: "", // 보증인 회사 電話番号
-      guarantorCompanyAddress: "", // 보증인 会社住所
-      guarantorIdCardFront: "", // 보증인 신분증 앞
-      guarantorIdCardBack: "", // 보증인 신분증 뒤
-      guarantorContract: "", // 보증인 계약서
-      guarantorBirthday: "", // 보증인 생년월일
+      guarantorCompanyName: "", // 保証人 会社名
+      guarantorCompanyTel: "", // 保証人 会社 電話番号
+      guarantorCompanyAddress: "", // 保証人 会社住所
+      guarantorIdCardFront: "", // 保証人 신분증 앞
+      guarantorIdCardBack: "", // 保証人 신분증 뒤
+      guarantorContract: "", // 保証人 계약서
+      guarantorBirthday: "", // 保証人 生年月日
       //
-      emergencyName: "", // 緊急連絡先 이름
-      emergencyCountry: "", // 緊急連絡先 국적
-      emergencyBirthday: "", // 緊急連絡先 생년월일
-      emergencyRelationship: "", // 緊急連絡先 관계
-      emergencyTel1: "", // 긴급연락처TEL-1
-      emergencyTel2: "", // 긴급연락처TEL-2
-      emergencyAdress: "", // 緊急連絡先 주소
+      emergencyName: "", // 緊急連絡先 名前
+      emergencyCountry: "", // 緊急連絡先 国籍
+      emergencyBirthday: "", // 緊急連絡先 生年月日
+      emergencyRelationship: "", // 緊急連絡先 関係
+      emergencyTel1: "", // 緊急連絡先-1
+      emergencyTel2: "", // 緊急連絡先-2
+      emergencyAdress: "", // 緊急連絡先 住所
       comfirmPerson: "", // 確認担当者
       approvalPerson: "", // 上司承認者
       //test data
-      // contractorType: "개인", // 등록선택
+      // contractorType: "個人", // 登録選択
       // contractorName: "계약자이름", // 계약자이름
-      // contractorNameEnglish: "계약자이름 영문", // 계약자이름
+      // contractorNameEnglish: "계약자이름 英語", // 계약자이름
       // contractorCountry: "계약자국적", // 계약자국적
-      // contractorJobType: "학생", // 계약자 분류
-      // contractorAdress: "계약자 주소", // 계약자 주소
+      // contractorJobType: "学生", // 계약자 分類
+      // contractorAdress: "계약자 住所", // 계약자 住所
       // contractorTel: "계약자 電話番号", // 계약자 電話番号
-      // moveIntoDate: "입주예정일", // 입주예정일
+      // moveIntoDate: "入居予定日", // 入居予定日
       // contractorSex: "男性", // 계약자 性別
-      // contractorBirthday: "계약자 생년월일", // 계약자 생년월일
+      // contractorBirthday: "계약자 生年月日", // 계약자 生年月日
       // contractorEmail: "계약자 メール", // 계약자 メール
       // contractorSms: "계약자 sms", // 계약자 sms
-      // contractorResidenceQualification: "계약자 재류자격", // 계약자 재류자격
-      // contractorSchoolName: "계약자 학교명", // 계약자 학교명
-      // contractorSchoolTel: "계약자 학교 TEL", // 계약자 학교 TEL
-      // contractorSchoolAddress: "계약자 학교주소", // 계약자 학교주소
-      // contractorCompanyName: "계약자 회사이름", // 계약자 회사이름
-      // contractorCompanyTel: "계약자 직장 電話番号", // 계약자 직장 電話番号
-      // contractorCompanyAddress: "계약자 직장주소", // 계약자 직장주소
-      // contractorLengthOfService: "계약자 근속연수", // 계약자 근속연수
-      // contractorSalary : "계약자 급여", // 계약자 급여
-      // contractorOtherName: "その他 이름", // その他 이름
+      // contractorResidenceQualification: "계약자 在留資格", // 계약자 在留資格
+      // contractorSchoolName: "계약자 学校名", // 계약자 学校名
+      // contractorSchoolTel: "계약자 学校 TEL", // 계약자 学校 TEL
+      // contractorSchoolAddress: "계약자 学校住所", // 계약자 学校住所
+      // contractorCompanyName: "계약자 会社名", // 계약자 会社名
+      // contractorCompanyTel: "계약자 会社 電話番号", // 계약자 会社 電話番号
+      // contractorCompanyAddress: "계약자 会社住所", // 계약자 会社住所
+      // contractorLengthOfService: "계약자 勤続年数", // 계약자 勤続年数
+      // contractorSalary : "계약자 給料", // 계약자 給料
+      // contractorOtherName: "その他 名前", // その他 名前
       // contractorOtherTel: "その他 電話番号", // その他 電話番号
-      // contractorOtherAddress: "その他 주소", // その他 주소
-      // contractorOtherContent: "기타내용", // 기타내용
+      // contractorOtherAddress: "その他 住所", // その他 住所
+      // contractorOtherContent: "その他のメモ", // その他のメモ
       // contractorOtherFile : "증빙서류", // 증빙서류
       // companyId: "회사Id", // 회사Id
-      // guaranteeType: "緊急連絡先", // 보증형태
+      // guaranteeType: "緊急連絡先", // 保証種類
       // propertyManagermentCompanyFeePercentage: "代理店手数料 퍼센트", // 代理店手数料 퍼센트
-      // guaranteeFee:0, // 심사 수수료
-      // propertyName: "멘션명 ", // 멘션명
-      // propertyAdress: "멘션 주소", // 멘션 주소
-      // roomNumber: "호실", // 호실
-      // roomType: "방 타입", // 방 타입
-      // rent: 0, // 월세
-      // managementCost: 0, // 관리비
-      // otherCosts: 0, // 기타비용
-      // totalPayment:0, // 총 비용
-      // roomMate: false, // 동반 입주자 여부
-      // roomMateHeadCount: 1, // 동반 입주자 인수
-      // roomMateName: "동반 입주자 이름", // 동반 입주자 이름
-      // roomMateBirthday: "동반 입주자 생년월일", // 동반 입주자 생년월일
-      // roomMateTel: "동반 입주자 電話番号", // 동반 입주자 電話番号
-      // roomMateCountry: "동반 입주자 국적", // 동반 입주자 국적
-      // roomMateIdCard: "동반 입주자 신분증", // 동반 입주자 신분증
-      // guarantorType: "連帯保証人", // 보증 타입 연대 보증인 or 緊急連絡先
-      // guarantorName: "보증인 이름", // 보증인 이름
-      // guarantorCountry: "보증인 국적", // 보증인 국적
-      // guarantorAdress: "보증인 주소", // 보증인 주소
-      // guarantorRelationship: "보증인 관계", // 보증인 관계
+      // guaranteeFee:0, // 審査手数料
+      // propertyName: "メンション名 ", // メンション名
+      // propertyAdress: "メンション住所", // メンション住所
+      // roomNumber: "部屋番号", // 部屋番号
+      // roomType: "部屋のタイプ", // 部屋のタイプ
+      // rent: 0, // 家賃
+      // managementCost: 0, // 管理費
+      // otherCosts: 0, // その他の費用
+      // totalPayment:0, // 合計金額
+      // roomMate: false, // 同居者 여부
+      // roomMateHeadCount: 1, // 同居者 人数
+      // roomMateName: "同居者 名前", // 同居者 名前
+      // roomMateBirthday: "同居者 生年月日", // 同居者 生年月日
+      // roomMateTel: "同居者 電話番号", // 同居者 電話番号
+      // roomMateCountry: "同居者 国籍", // 同居者 国籍
+      // roomMateIdCard: "同居者 신분증", // 同居者 신분증
+      // guarantorType: "連帯保証人", // 保証タイプ 連帯保証人 or 緊急連絡先
+      // guarantorName: "保証人 名前", // 保証人 名前
+      // guarantorCountry: "保証人 国籍", // 保証人 国籍
+      // guarantorAdress: "保証人 住所", // 保証人 住所
+      // guarantorRelationship: "保証人 関係", // 保証人 関係
       // guarantorTel1: "보증인TEL-1", // 보증인TEL-1
       // guarantorTel2: "보증인TEL-2", // 보증인TEL-2
-      // guarantorCompanyName: "보증인 会社名", // 보증인 会社名
-      // guarantorCompanyTel: "보증인 회사 電話番号", // 보증인 회사 電話番号
-      // guarantorCompanyAddress: "보증인 会社住所", // 보증인 会社住所
-      // guarantorIdCardFront:"", // 보증인 신분증 앞
-      // guarantorIdCardBack:"", // 보증인 신분증 뒤
-      // guarantorContract:"", // 보증인 계약서
-      // guarantorBirthday: "보증인 생년월일", // 보증인 생년월일
+      // guarantorCompanyName: "保証人 会社名", // 保証人 会社名
+      // guarantorCompanyTel: "保証人 会社 電話番号", // 保証人 会社 電話番号
+      // guarantorCompanyAddress: "保証人 会社住所", // 保証人 会社住所
+      // guarantorIdCardFront:"", // 保証人 신분증 앞
+      // guarantorIdCardBack:"", // 保証人 신분증 뒤
+      // guarantorContract:"", // 保証人 계약서
+      // guarantorBirthday: "保証人 生年月日", // 保証人 生年月日
       // //
-      // emergencyName: "緊急連絡先 이름", // 緊急連絡先 이름
-      // emergencyCountry: "緊急連絡先 국적", // 緊急連絡先 국적
-      // emergencyBirthday: "緊急連絡先 생년월일", // 緊急連絡先 생년월일
-      // emergencyRelationship: "緊急連絡先 관계", // 緊急連絡先 관계
-      // emergencyTel1: "긴급연락처TEL-1", // 긴급연락처TEL-1
-      // emergencyTel2: "긴급연락처TEL-2", // 긴급연락처TEL-2
-      // emergencyAdress: "緊急連絡先 주소", // 緊急連絡先 주소
+      // emergencyName: "緊急連絡先 名前", // 緊急連絡先 名前
+      // emergencyCountry: "緊急連絡先 国籍", // 緊急連絡先 国籍
+      // emergencyBirthday: "緊急連絡先 生年月日", // 緊急連絡先 生年月日
+      // emergencyRelationship: "緊急連絡先 関係", // 緊急連絡先 関係
+      // emergencyTel1: "緊急連絡先-1", // 緊急連絡先-1
+      // emergencyTel2: "緊急連絡先-2", // 緊急連絡先-2
+      // emergencyAdress: "緊急連絡先 住所", // 緊急連絡先 住所
       // comfirmPerson: "確認担当者", // 確認担当者
       // approvalPerson: "上司承認者", // 上司承認者
       //
-      searchedCompanyName: "", // 회사 検索 이름
+      searchedCompanyName: "", // 会社 検索 名前
       searchedCompany: {
         debtCollectionType: "滞納報告型"
-      }, // 회사 検索 오브젝트
-      guaranteeFeePercentage: 0, // 심사 수수료 퍼센트
+      }, // 会社 検索 오브젝트
+      guaranteeFeePercentage: 0, // 審査手数料 퍼센트
       propertyManagermentCompanyFeePercentage: "", // 代理店手数料 퍼센트
-      propertyManagermentCompanySearchType: "会社名", // 회사 検索 타입
-      propertyManagermentCompanySearchKeyword: "", // 회사 検索 키워드
+      propertyManagermentCompanySearchType: "会社名", // 会社 検索 타입
+      propertyManagermentCompanySearchKeyword: "", // 会社 検索 키워드
       formLayout: "horizontal",
       emailDataSource: [],
       roomTypeDataSource: [],
@@ -1237,11 +1237,11 @@ export default {
       }
     },
     clearDatas() {
-      this.contractorType = "개인";
+      this.contractorType = "個人";
       this.contractorName = "";
       this.contractorNameEnglish = "";
       this.contractorCountry = "";
-      this.contractorJobType = "학생";
+      this.contractorJobType = "学生";
       this.contractorAdress = "";
       this.contractorTel = "";
       this.moveIntoDate = "";
@@ -1541,13 +1541,13 @@ export default {
           this.searchedCompany = filteredCompany[0];
           this.companyId = filteredCompany[0].id;
         } else {
-          this.searchedCompanyName = "검색된 회사가 없습니다.";
+          this.searchedCompanyName = "検索された회사가 없습니다.";
         }
       } else if (this.companyTypeDataSource.length == 0) {
-        this.searchedCompanyName = "검색된 회사가 없습니다.";
+        this.searchedCompanyName = "検索された회사가 없습니다.";
       } else {
         if (value != "") {
-          this.searchedCompanyName = "검색된 회사가 2개 이상입니다.";
+          this.searchedCompanyName = "検索された회사가 2개 이상입니다.";
         } else {
           this.guaranteeFeePercentage = 0;
           this.propertyManagermentCompanyFeePercentage = 0;

@@ -356,11 +356,11 @@ export default {
     return {
       loading: false,
       db: "", // firebase
-      companyType: "不動産", // 등록선택
-      companyName: "", // 회사이름
+      companyType: "不動産", // 登録選択
+      companyName: "", // 会社名
       companyAdress: "", // 会社住所
-      companyOnwer: "", // 회사 代表者
-      companyOnwerSex: "男性", // 회사 代表者 性別
+      companyOnwer: "", // 会社 代表者
+      companyOnwerSex: "男性", // 会社 代表者 性別
       companyOnwerTel: "", // 代表者 電話番号
       systemManager: "", // システム管理者
       systemManagerEmail: "", // システム管理者 メール
@@ -385,11 +385,11 @@ export default {
       comfirmPerson: "", // 確認担当者
       approvalPerson: "", // 上司承認者
       createdDate: Date.now(), // 생성날짜
-      // companyType: "不動産", // 등록선택
-      // companyName: "회사이름", // 회사이름
+      // companyType: "不動産", // 登録選択
+      // companyName: "会社名", // 会社名
       // companyAdress: "会社住所", // 会社住所
-      // companyOnwer: "회사 代表者", // 회사 代表者
-      // companyOnwerSex: "男性", // 회사 代表者 性別
+      // companyOnwer: "会社 代表者", // 会社 代表者
+      // companyOnwerSex: "男性", // 会社 代表者 性別
       // companyOnwerTel: "代表者 電話番号", // 代表者 電話番号
       // systemManager: "システム管理者", // システム管理者
       // systemManagerEmail: "システム管理者 メール", // システム管理者 メール

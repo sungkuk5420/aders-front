@@ -36,9 +36,9 @@
 <script>
 const columns = [
   { title: "区分", dataIndex: "index", key: "index" },
-  { title: "월세 미납분", dataIndex: "nonPayMonthly", key: "nonPayMonthly" },
+  { title: "家賃 미납분", dataIndex: "nonPayMonthly", key: "nonPayMonthly" },
   { title: "지불 완료날짜", dataIndex: "paymentDate", key: "paymentDate" },
-  { title: "승인일", dataIndex: "createdDate", key: "createdDate" },
+  { title: "承認日", dataIndex: "createdDate", key: "createdDate" },
   {
     title: "代理店",
     dataIndex: "company.companyName",
@@ -50,12 +50,12 @@ const columns = [
     key: "company.approvalNumber"
   },
   {
-    title: "입주자 승인번호",
+    title: "入居者 承認番号",
     dataIndex: "user.approvalNumber",
     key: "user.approvalNumber"
   },
   {
-    title: "계약자(영문)",
+    title: "계약자(英語)",
     dataIndex: "user.contractorNameEnglish",
     key: "user.contractorNameEnglish"
   },
@@ -64,19 +64,19 @@ const columns = [
     dataIndex: "user.contractorName",
     key: "user.contractorName"
   },
-  { title: "멘션명", dataIndex: "user.propertyName", key: "user.propertyName" },
-  { title: "방번호", dataIndex: "user.roomNumber", key: "user.roomNumber" },
+  { title: "メンション名", dataIndex: "user.propertyName", key: "user.propertyName" },
+  { title: "部屋番号", dataIndex: "user.roomNumber", key: "user.roomNumber" },
   {
-    title: "연락처",
+    title: "連絡先",
     dataIndex: "user.contractorTel",
     key: "user.contractorTel"
   },
   { title: "청구금액", dataIndex: "charges", key: "charges" },
-  { title: "월세", dataIndex: "user.rent", key: "user.rent" },
+  { title: "家賃", dataIndex: "user.rent", key: "user.rent" },
   { title: "수수료", dataIndex: "delinquentFee", key: "delinquentFee" },
   { title: "체납발생", dataIndex: "arrears", key: "arrears" },
   {
-    title: "담당자",
+    title: "担当者",
     dataIndex: "user.comfirmPerson",
     key: "user.comfirmPerson"
   },

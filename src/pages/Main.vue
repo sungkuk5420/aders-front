@@ -11,10 +11,10 @@
         :style="{ lineHeight: '64px' }"
       >
         <a-menu-item key="0" @click="changeTabIndex(0)">메인 화면</a-menu-item>
-        <a-menu-item key="1" @click="changeTabIndex(1)">입주자 목록</a-menu-item>
+        <a-menu-item key="1" @click="changeTabIndex(1)">入居者 一覧</a-menu-item>
         <a-menu-item key="2" @click="changeTabIndex(2)">代理店一覧</a-menu-item>
-        <a-menu-item key="3" @click="changeTabIndex(3)">연체자 목록</a-menu-item>
-        <a-menu-item key="4" @click="changeTabIndex(4)">블랙리스트 목록</a-menu-item>
+        <a-menu-item key="3" @click="changeTabIndex(3)">연체자 一覧</a-menu-item>
+        <a-menu-item key="4" @click="changeTabIndex(4)">블랙리스트 一覧</a-menu-item>
         <a-menu-item key="5" @click="changeTabIndex(5)">지불용지 출력</a-menu-item>
         <a-menu-item key="6" @click="changeTabIndex(6)">수익분석</a-menu-item>
       </a-menu>

@@ -19,7 +19,7 @@
           <UserCallHistoryTable :userId="record.id"/>
         </div>
         <a-popconfirm
-          title="정말로 이 입주자를 삭제하시겠습니까?"
+          title="本当にこの入居者を削除しますか。"
           @confirm="function(){
           confirm(record.id)
         }"
@@ -36,7 +36,7 @@
 <script>
 const columns = [
   { title: "区分", dataIndex: "index", key: "index" },
-  { title: "승인일", dataIndex: "createdDate", key: "createdDate" },
+  { title: "承認日", dataIndex: "createdDate", key: "createdDate" },
   {
     title: "代理店",
     dataIndex: "company.companyName",
@@ -52,20 +52,20 @@ const columns = [
     dataIndex: "propertyManagermentCompanyFeePercentage",
     key: "propertyManagermentCompanyFeePercentage"
   },
-  { title: "승인번호", dataIndex: "approvalNumber", key: "approvalNumber" },
+  { title: "承認番号", dataIndex: "approvalNumber", key: "approvalNumber" },
   {
-    title: "입주자명 (영문)",
+    title: "入居者名 (英語)",
     dataIndex: "contractorNameEnglish",
     key: "contractorNameEnglish"
   },
-  { title: "입주자명", dataIndex: "contractorName", key: "contractorName" },
-  { title: "멘션명", dataIndex: "propertyName", key: "propertyName" },
-  { title: "방번호", dataIndex: "roomNumber", key: "roomNumber" },
-  { title: "연락처", dataIndex: "contractorTel", key: "contractorTel" },
-  { title: "월세", dataIndex: "rent", key: "rent" },
-  { title: "심사금액", dataIndex: "guaranteeFee", key: "guaranteeFee" },
+  { title: "入居者名", dataIndex: "contractorName", key: "contractorName" },
+  { title: "メンション名", dataIndex: "propertyName", key: "propertyName" },
+  { title: "部屋番号", dataIndex: "roomNumber", key: "roomNumber" },
+  { title: "連絡先", dataIndex: "contractorTel", key: "contractorTel" },
+  { title: "家賃", dataIndex: "rent", key: "rent" },
+  { title: "審査金額", dataIndex: "guaranteeFee", key: "guaranteeFee" },
   {
-    title: "심사율",
+    title: "審査率",
     dataIndex: "guaranteeFeePercentage",
     key: "guaranteeFeePercentage"
   },
@@ -74,7 +74,7 @@ const columns = [
     dataIndex: "company.novationFee",
     key: "company.novationFee"
   },
-  { title: "담당자", dataIndex: "comfirmPerson", key: "comfirmPerson" },
+  { title: "担当者", dataIndex: "comfirmPerson", key: "comfirmPerson" },
   { title: "銀行名", dataIndex: "company.bankName", key: "company.bankName" },
   {
     title: "支店名",
@@ -88,7 +88,7 @@ const columns = [
   },
   { title: "備考", dataIndex: "company.notes", key: "company.notes" },
   {
-    title: "연대보증인연락처",
+    title: "連帯保証人の連絡先",
     dataIndex: "guarantorTel1",
     key: "guarantorTel1"
   },

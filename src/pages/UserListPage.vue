@@ -2,10 +2,10 @@
   <div class="user-list-page">
     <div class="search-wrapper">
       <a-select v-model="userSearchType" @change="onSearch">
-        <a-select-option value="입주자명">입주자명</a-select-option>
-        <a-select-option value="승인번호">승인번호</a-select-option>
-        <a-select-option value="멘션명">멘션명</a-select-option>
-        <a-select-option value="승인날짜">승인날짜</a-select-option>
+        <a-select-option value="入居者名">入居者名</a-select-option>
+        <a-select-option value="承認番号">承認番号</a-select-option>
+        <a-select-option value="メンション名">メンション名</a-select-option>
+        <a-select-option value="承認日">承認日</a-select-option>
       </a-select>
       <a-input-search
         placeholder="キーワード入寮"
@@ -17,7 +17,7 @@
         <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">検索</a-button>
       </a-input-search>
       <a-button type="primary">詳細検索</a-button>
-      <a-button type="primary" @click="moveAddUserPage">입주자 登録</a-button>
+      <a-button type="primary" @click="moveAddUserPage">入居者 登録</a-button>
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      userSearchType: "입주자명",
+      userSearchType: "入居者名",
       userSearchKeyword: "",
       searchLoading: false
     };
@@ -89,69 +89,69 @@ export default {
       let excelDatas = [];
       excelDatas.push([
         "区分", //index
-        "등록선택", //contractorType
-        "입주자 이름", //contractorName
-        "입주자 국적", //contractorCountry
-        "입주자 분류", //contractorJobType
-        "입주자 주소", //contractorAdress
-        "입주자 電話番号", //contractorTel
-        "입주예정일", //moveIntoDate
-        "입주자 性別", //contractorSex
-        "입주자 생년월일", //contractorBirthday
-        "입주자 メール", //contractorEmail
-        "입주자 sms", //contractorSms
-        "입주자 재류자격", //contractorResidenceQualification
-        "입주자 학교명", //contractorSchoolName
-        "입주자 학교 TEL", //contractorSchoolTel
-        "입주자 학교주소", //contractorSchoolAddress
-        "입주자 회사이름", //contractorCompanyName
-        "입주자 직장 電話番号", //contractorCompanyTel
-        "입주자 직장주소", //contractorCompanyAddress
-        "입주자 근속연수", //contractorLengthOfService
-        "입주자 급여", //contractorSalary
-        "その他 이름", //contractorOtherName
+        "登録選択", //contractorType
+        "入居者 名前", //contractorName
+        "入居者 国籍", //contractorCountry
+        "入居者 分類", //contractorJobType
+        "入居者 住所", //contractorAdress
+        "入居者 電話番号", //contractorTel
+        "入居予定日", //moveIntoDate
+        "入居者 性別", //contractorSex
+        "入居者 生年月日", //contractorBirthday
+        "入居者 メール", //contractorEmail
+        "入居者 sms", //contractorSms
+        "入居者 在留資格", //contractorResidenceQualification
+        "入居者 学校名", //contractorSchoolName
+        "入居者 学校 TEL", //contractorSchoolTel
+        "入居者 学校住所", //contractorSchoolAddress
+        "入居者 会社名", //contractorCompanyName
+        "入居者 会社 電話番号", //contractorCompanyTel
+        "入居者 会社住所", //contractorCompanyAddress
+        "入居者 勤続年数", //contractorLengthOfService
+        "入居者 給料", //contractorSalary
+        "その他 名前", //contractorOtherName
         "その他 電話番号", //contractorOtherTel
-        "その他 주소", //contractorOtherAddress
-        "기타내용", //contractorOtherContent
+        "その他 住所", //contractorOtherAddress
+        "その他のメモ", //contractorOtherContent
         // "증빙서류", //contractorOtherFile
-        "보증형태", //guaranteeType
-        "심사 수수료", //guaranteeFee
-        "멘션명 ", //propertyName
-        "멘션 주소", //propertyAdress
-        "호실", //roomNumber
-        "방 타입", //roomType
-        "월세", //rent
-        "관리비", //managementCost
-        "기타비용", //otherCosts
-        "총 비용", //totalPayment
-        "동반 입주자 여부", //roomMate
-        "동반 입주자 인수", //roomMateHeadCount
-        "동반 입주자 이름", //roomMateName
-        "동반 입주자 생년월일", //roomMateBirthday
-        "동반 입주자 電話番号", //roomMateTel
-        "동반 입주자 국적", //roomMateCountry
-        // "동반 입주자 신분증", //roomMateIdCard
-        "보증 타입 연대 보증인 or 緊急連絡先", //guarantorType
-        "보증인 이름", //guarantorName
-        "보증인 국적", //guarantorCountry
-        "보증인 주소", //guarantorAdress
-        "보증인 관계", //guarantorRelationship
-        "보증인 TEL-1", //guarantorTel1
-        "보증인 TEL-2", //guarantorTel2
-        "보증인 会社名", //guarantorCompanyName
-        "보증인 회사 電話番号", //guarantorCompanyTel
-        "보증인 会社住所", //guarantorCompanyAddress
-        // "보증인 신분증 앞", //guarantorIdCardFront:"",
-        // "보증인 신분증 뒤", //guarantorIdCardBack:"",
-        // "보증인 계약서", //guarantorContract:"",
-        "보증인 생년월일", //guarantorBirthday
-        "緊急連絡先 이름", //emergencyName
-        "緊急連絡先 국적", //emergencyCountry
-        "緊急連絡先 생년월일", //emergencyBirthday
-        "緊急連絡先 관계", //emergencyRelationship
-        "긴급연락처TEL-1", //emergencyTel1
-        "긴급연락처TEL-2", //emergencyTel2
-        "緊急連絡先 주소", //emergencyAdress
+        "保証種類", //guaranteeType
+        "審査手数料", //guaranteeFee
+        "メンション名 ", //propertyName
+        "メンション住所", //propertyAdress
+        "部屋番号", //roomNumber
+        "部屋のタイプ", //roomType
+        "家賃", //rent
+        "管理費", //managementCost
+        "その他の費用", //otherCosts
+        "合計金額", //totalPayment
+        "同居者 여부", //roomMate
+        "同居者 人数", //roomMateHeadCount
+        "同居者 名前", //roomMateName
+        "同居者 生年月日", //roomMateBirthday
+        "同居者 電話番号", //roomMateTel
+        "同居者 国籍", //roomMateCountry
+        // "同居者 신분증", //roomMateIdCard
+        "保証タイプ 連帯保証人 or 緊急連絡先", //guarantorType
+        "保証人 名前", //guarantorName
+        "保証人 国籍", //guarantorCountry
+        "保証人 住所", //guarantorAdress
+        "保証人 関係", //guarantorRelationship
+        "保証人 TEL-1", //guarantorTel1
+        "保証人 TEL-2", //guarantorTel2
+        "保証人 会社名", //guarantorCompanyName
+        "保証人 会社 電話番号", //guarantorCompanyTel
+        "保証人 会社住所", //guarantorCompanyAddress
+        // "保証人 신분증 앞", //guarantorIdCardFront:"",
+        // "保証人 신분증 뒤", //guarantorIdCardBack:"",
+        // "保証人 계약서", //guarantorContract:"",
+        "保証人 生年月日", //guarantorBirthday
+        "緊急連絡先 名前", //emergencyName
+        "緊急連絡先 国籍", //emergencyCountry
+        "緊急連絡先 生年月日", //emergencyBirthday
+        "緊急連絡先 関係", //emergencyRelationship
+        "緊急連絡先-1", //emergencyTel1
+        "緊急連絡先-2", //emergencyTel2
+        "緊急連絡先 住所", //emergencyAdress
         "確認担当者", //comfirmPerson
         "上司承認者" //approvalPerson
       ]);
@@ -225,7 +225,7 @@ export default {
       var wb_out = XLSX.write(wb, write_opts);
 
       var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
-      saveAs(blob, "입주자 목록.xlsx");
+      saveAs(blob, "入居者 一覧.xlsx");
     },
     onSearch() {
       console.log("search click");

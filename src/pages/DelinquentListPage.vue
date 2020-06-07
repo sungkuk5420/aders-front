@@ -2,10 +2,10 @@
   <div class="delinquent-list-page">
     <div class="search-wrapper">
       <a-select v-model="delinquentSearchType" @change="onSearch">
-        <a-select-option value="멘션명">멘션명</a-select-option>
+        <a-select-option value="メンション名">メンション名</a-select-option>
         <a-select-option value="계약자명">계약자명</a-select-option>
         <a-select-option value="담당자명">담당자명</a-select-option>
-        <a-select-option value="월세 미납분">월세 미납분</a-select-option>
+        <a-select-option value="家賃 미납분">家賃 미납분</a-select-option>
       </a-select>
       <a-input-search
         placeholder="キーワード入寮"
@@ -46,11 +46,11 @@ const data = [
   },
   {
     title:
-      "- [NEW] 2020.01.01 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 월세 / 15,000円-23일 경과"
+      "- [NEW] 2020.01.01 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 家賃 / 15,000円-23일 경과"
   },
   {
     title:
-      "- [장기 연체자] 2020.01.11 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 월세 / 15,000円-23일 경과"
+      "- [장기 연체자] 2020.01.11 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 家賃 / 15,000円-23일 경과"
   },
   {
     title:
@@ -63,7 +63,7 @@ export default {
   },
   data() {
     return {
-      delinquentSearchType: "멘션명",
+      delinquentSearchType: "メンション名",
       delinquentSearchKeyword: "",
       searchLoading: false,
       delinquentFilterType: "滞納報告型",
@@ -116,21 +116,21 @@ export default {
       let excelDatas = [];
       excelDatas.push([
         "区分", // index
-        "월세 미납분", // nonPayMonthly
-        // "승인일", // key2
+        "家賃 미납분", // nonPayMonthly
+        // "承認日", // key2
         "代理店", // company.companyName
         // "代理店 契約番号", // key3
-        // "승인번호", // key4
-        // "계약자(영문)", // key5
+        // "承認番号", // key4
+        // "계약자(英語)", // key5
         "계약자", // user.contractorName
-        "멘션명", // user.propertyName
-        "방번호", // user.roomNumber
-        "연락처", // user.contractorTel
+        "メンション名", // user.propertyName
+        "部屋番号", // user.roomNumber
+        "連絡先", // user.contractorTel
         "청구금액", // charges
-        "월세", // user.rent
+        "家賃", // user.rent
         "수수료", // delinquentFee
         "체납발생", // arrears
-        "담당자", // user.comfirmPerson
+        "担当者", // user.comfirmPerson
         "銀行名", // company.bankName
         "支店名", // company.branchOfficeName
         "口座番号", // company.bankAccountNumber
@@ -163,7 +163,7 @@ export default {
       var wb_out = XLSX.write(wb, write_opts);
 
       var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
-      saveAs(blob, "연체자 목록.xlsx");
+      saveAs(blob, "연체자 一覧.xlsx");
     },
     onSearch() {
       console.log("search click");

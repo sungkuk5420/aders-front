@@ -101,7 +101,7 @@ export const actions = {
   },
   [T.SEARCH_USER](
     { commit },
-    { userSearchType = "멘션명", userSearchKeyword = "" }
+    { userSearchType = "メンション名", userSearchKeyword = "" }
   ) {
     console.log(`store action [T.SEARCH_USER] `);
     console.log(userSearchKeyword);
@@ -109,7 +109,7 @@ export const actions = {
   },
   [T.SEARCH_BLACK_LIST](
     { commit },
-    { blackListSearchType = "멘션명", blackListSearchKeyword = "" }
+    { blackListSearchType = "メンション名", blackListSearchKeyword = "" }
   ) {
     console.log(`store action [T.SEARCH_BLACK_LIST] `);
     console.log(blackListSearchKeyword);
@@ -120,7 +120,7 @@ export const actions = {
   },
   [T.SEARCH_DELINQUENT](
     { commit },
-    { delinquentSearchType = "멘션명", delinquentSearchKeyword = "" }
+    { delinquentSearchType = "メンション名", delinquentSearchKeyword = "" }
   ) {
     console.log(`store action [T.SEARCH_DELINQUENT] `);
     console.log(delinquentSearchKeyword);
