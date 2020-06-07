@@ -10,13 +10,13 @@ function getGuaranteeFeePercentage(companyOfuser, guaranteeType) {
   console.log(companyOfuser);
   let returnValue = "";
   switch (guaranteeType) {
-    case "긴급연락처":
+    case "緊急連絡先":
       returnValue = companyOfuser.fee1 + "%";
       break;
-    case "연대보증인":
+    case "連帯保証人":
       returnValue = companyOfuser.fee2 + "%";
       break;
-    case "기타":
+    case "その他":
       returnValue = companyOfuser.fee3 + "%";
       break;
     default:
@@ -31,11 +31,11 @@ export const getters = {
       .filter(company => {
         let filtedCompanys = [];
         switch (state.companySearchType) {
-          case "대리점명":
+          case "代理店名":
             filtedCompanys =
               company.companyName.indexOf(state.companySearchKeyword) != -1;
             break;
-          case "계약번호":
+          case "契約番号":
             if (state.companySearchKeyword != "") {
               filtedCompanys =
                 company.approvalNumber == state.companySearchKeyword;
@@ -44,7 +44,7 @@ export const getters = {
             }
 
             break;
-          case "대표자명":
+          case "代表者名":
             filtedCompanys =
               company.companyOnwer.indexOf(state.companySearchKeyword) != -1;
             break;
@@ -136,7 +136,7 @@ export const getters = {
         };
       })
       .filter(delinquent => {
-        // 검색
+        // 検索
         return (
           delinquent.company.debtCollectionType == state.delinquentFilterType
         );
@@ -149,7 +149,7 @@ export const getters = {
         };
       })
       .filter(delinquent => {
-        // 검색
+        // 検索
         let filtedCompanys = [];
         console.log(state.delinquentSearchType);
         switch (state.delinquentSearchType) {
@@ -188,7 +188,7 @@ export const getters = {
   getAllUserList(state) {
     return state.userList
       .filter(user => {
-        // 검색
+        // 検索
         let filtedCompanys = [];
         switch (state.userSearchType) {
           case "입주자명":
@@ -261,7 +261,7 @@ export const getters = {
   getAllBlackList(state) {
     return state.blackList
       .filter(user => {
-        // 검색
+        // 検索
         let filtedCompanys = [];
         switch (state.blackListSearchType) {
           case "입주자명":

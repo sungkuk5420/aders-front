@@ -8,20 +8,20 @@
         <a-select-option value="승인날짜">승인날짜</a-select-option>
       </a-select>
       <a-input-search
-        placeholder="키워드 입력"
+        placeholder="キーワード入寮"
         size="large"
         v-model="userSearchKeyword"
         @search="onSearch"
         @change="onSearch"
       >
-        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
+        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">検索</a-button>
       </a-input-search>
-      <a-button type="primary">상세검색</a-button>
-      <a-button type="primary" @click="moveAddUserPage">입주자 등록</a-button>
+      <a-button type="primary">詳細検索</a-button>
+      <a-button type="primary" @click="moveAddUserPage">입주자 登録</a-button>
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
-        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
+        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel ダウンロード</a-button>
       </div>
       <UserTable/>
     </div>
@@ -88,30 +88,30 @@ export default {
       // ArrayをWorkbookに変換する
       let excelDatas = [];
       excelDatas.push([
-        "구분", //index
+        "区分", //index
         "등록선택", //contractorType
         "입주자 이름", //contractorName
         "입주자 국적", //contractorCountry
         "입주자 분류", //contractorJobType
         "입주자 주소", //contractorAdress
-        "입주자 전화번호", //contractorTel
+        "입주자 電話番号", //contractorTel
         "입주예정일", //moveIntoDate
-        "입주자 성별", //contractorSex
+        "입주자 性別", //contractorSex
         "입주자 생년월일", //contractorBirthday
-        "입주자 이메일", //contractorEmail
+        "입주자 メール", //contractorEmail
         "입주자 sms", //contractorSms
         "입주자 재류자격", //contractorResidenceQualification
         "입주자 학교명", //contractorSchoolName
         "입주자 학교 TEL", //contractorSchoolTel
         "입주자 학교주소", //contractorSchoolAddress
         "입주자 회사이름", //contractorCompanyName
-        "입주자 직장 전화번호", //contractorCompanyTel
+        "입주자 직장 電話番号", //contractorCompanyTel
         "입주자 직장주소", //contractorCompanyAddress
         "입주자 근속연수", //contractorLengthOfService
         "입주자 급여", //contractorSalary
-        "기타 이름", //contractorOtherName
-        "기타 전화번호", //contractorOtherTel
-        "기타 주소", //contractorOtherAddress
+        "その他 이름", //contractorOtherName
+        "その他 電話番号", //contractorOtherTel
+        "その他 주소", //contractorOtherAddress
         "기타내용", //contractorOtherContent
         // "증빙서류", //contractorOtherFile
         "보증형태", //guaranteeType
@@ -128,32 +128,32 @@ export default {
         "동반 입주자 인수", //roomMateHeadCount
         "동반 입주자 이름", //roomMateName
         "동반 입주자 생년월일", //roomMateBirthday
-        "동반 입주자 전화번호", //roomMateTel
+        "동반 입주자 電話番号", //roomMateTel
         "동반 입주자 국적", //roomMateCountry
         // "동반 입주자 신분증", //roomMateIdCard
-        "보증 타입 연대 보증인 or 긴급연락처", //guarantorType
+        "보증 타입 연대 보증인 or 緊急連絡先", //guarantorType
         "보증인 이름", //guarantorName
         "보증인 국적", //guarantorCountry
         "보증인 주소", //guarantorAdress
         "보증인 관계", //guarantorRelationship
         "보증인 TEL-1", //guarantorTel1
         "보증인 TEL-2", //guarantorTel2
-        "보증인 회사명", //guarantorCompanyName
-        "보증인 회사 전화번호", //guarantorCompanyTel
-        "보증인 회사 주소", //guarantorCompanyAddress
+        "보증인 会社名", //guarantorCompanyName
+        "보증인 회사 電話番号", //guarantorCompanyTel
+        "보증인 会社住所", //guarantorCompanyAddress
         // "보증인 신분증 앞", //guarantorIdCardFront:"",
         // "보증인 신분증 뒤", //guarantorIdCardBack:"",
         // "보증인 계약서", //guarantorContract:"",
         "보증인 생년월일", //guarantorBirthday
-        "긴급연락처 이름", //emergencyName
-        "긴급연락처 국적", //emergencyCountry
-        "긴급연락처 생년월일", //emergencyBirthday
-        "긴급연락처 관계", //emergencyRelationship
+        "緊急連絡先 이름", //emergencyName
+        "緊急連絡先 국적", //emergencyCountry
+        "緊急連絡先 생년월일", //emergencyBirthday
+        "緊急連絡先 관계", //emergencyRelationship
         "긴급연락처TEL-1", //emergencyTel1
         "긴급연락처TEL-2", //emergencyTel2
-        "긴급연락처 주소", //emergencyAdress
-        "확인담당자", //comfirmPerson
-        "상관승인자" //approvalPerson
+        "緊急連絡先 주소", //emergencyAdress
+        "確認担当者", //comfirmPerson
+        "上司承認者" //approvalPerson
       ]);
       for (let i = 0; i < this.userList.length; i++) {
         const element = this.userList[i];
@@ -240,7 +240,7 @@ export default {
       this.$store.dispatch(T.CHANGE_TAB_INDEX, 10);
     },
     alertMsg() {
-      this.$message.info("수정기능 개발중");
+      this.$message.info("開発中。。");
     }
   }
 };

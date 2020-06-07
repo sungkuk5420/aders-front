@@ -3,38 +3,38 @@
     <div class="content">
       <a-form :layout="formLayout" :form="form" v-bind="formItemLayout">
         <div class="form-row">
-          <h2>대리점 등록</h2>
+          <h2>代理店 登録</h2>
         </div>
         <div class="form-row">
           <div class="form-cell">
             <a-form-item
-              label="등록 구분"
+              label="登録 区分"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-radio-group v-model="companyType">
-                <a-radio-button value="부동산">부동산</a-radio-button>
-                <a-radio-button value="관리회사">관리회사</a-radio-button>
-                <a-radio-button value="기타">기타</a-radio-button>
+                <a-radio-button value="不動産">不動産</a-radio-button>
+                <a-radio-button value="管理会社">管理会社</a-radio-button>
+                <a-radio-button value="その他">その他</a-radio-button>
               </a-radio-group>
             </a-form-item>
 
             <a-form-item
-              label="회사명"
+              label="会社名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input v-model="companyName"/>
             </a-form-item>
             <a-form-item
-              label="회사주소"
+              label="会社住所"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input v-model="companyAdress"/>
             </a-form-item>
             <a-form-item
-              label="대표자"
+              label="代表者"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -43,19 +43,19 @@
                   <a-input v-model="companyOnwer"/>
                 </a-form-item>
                 <a-form-item
-                  label="성별"
+                  label="性別"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
                   <a-radio-group v-model="companyOnwerSex">
-                    <a-radio-button value="남">남</a-radio-button>
-                    <a-radio-button value="여">여</a-radio-button>
+                    <a-radio-button value="男性">男性</a-radio-button>
+                    <a-radio-button value="女性">女性</a-radio-button>
                   </a-radio-group>
                 </a-form-item>
               </div>
             </a-form-item>
             <a-form-item
-              label="대표자 TEL"
+              label="代表者 TEL"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -64,7 +64,7 @@
                   <a-input v-model="companyOnwerTel"/>
                 </a-form-item>
                 <a-form-item
-                  label="시스템관리자"
+                  label="システム管理者"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
@@ -73,7 +73,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="시스템관리자 Email"
+              label="システム管理者 メール"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -96,7 +96,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="비고"
+              label="備考"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -105,14 +105,14 @@
           </div>
           <div class="form-cell">
             <a-form-item
-              label="등록날짜"
+              label="登録日"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input v-model="joinDate"/>
             </a-form-item>
             <a-form-item
-              label="보유물건 수"
+              label="保有物件数"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -121,7 +121,7 @@
                   <a-input v-model="buildingCount" addonAfter="개"/>
                 </a-form-item>
                 <a-form-item
-                  label="종업원 수"
+                  label="従業員数"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
@@ -130,7 +130,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="상품 종류"
+              label="商品種類"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -142,31 +142,31 @@
               </a-select>
             </a-form-item>
             <a-form-item
-              label="보증 심사료"
+              label="保証審査料"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input-number
                 :max="999"
                 v-model="fee1"
-                :formatter="value => `긴급연락처 ${value}%`"
+                :formatter="value => `緊急連絡先 ${value}%`"
                 style="width:140px; margin-right:10px;"
               />
               <a-input-number
                 :max="999"
                 v-model="fee2"
-                :formatter="value => `연대보증인 ${value}%`"
+                :formatter="value => `連帯保証人 ${value}%`"
                 style="width:140px; margin-right:10px;"
               />
               <a-input-number
                 :max="999"
                 v-model="fee3"
-                :formatter="value => `기타 ${value}%`"
+                :formatter="value => `その他 ${value}%`"
                 style="width:100px;"
               />
             </a-form-item>
             <a-form-item
-              label="갱신료"
+              label="更新料"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -175,7 +175,7 @@
                   <a-input v-model="novationFee"/>
                 </a-form-item>
                 <a-form-item
-                  label="대리점 수수료"
+                  label="代理店手数料"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
@@ -190,31 +190,31 @@
             </a-form-item>
 
             <a-form-item
-              label="채권추심"
+              label="債権回収"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-radio-group v-model="debtCollectionType">
-                <a-radio-button value="보고형">보고형</a-radio-button>
-                <a-radio-button value="수금대행형">수금대행형</a-radio-button>
+                <a-radio-button value="滞納報告型">滞納報告型</a-radio-button>
+                <a-radio-button value="集金代行型">集金代行型</a-radio-button>
               </a-radio-group>
             </a-form-item>
           </div>
         </div>
         <div class="form-row">
-          <h2>등록은행정보</h2>
+          <h2>登録銀行情報</h2>
         </div>
         <div class="form-row">
           <div class="form-cell">
             <a-form-item
-              label="은행명"
+              label="銀行名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-input v-model="bankName"/>
             </a-form-item>
             <a-form-item
-              label="수취인명"
+              label="受取人名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -232,7 +232,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="계좌번호"
+              label="口座番号"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -241,7 +241,7 @@
                   <a-input v-model="bankAccountNumber"/>
                 </a-form-item>
                 <a-form-item
-                  label="송금타입"
+                  label="送金タイプ"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
@@ -250,7 +250,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="지점명"
+              label="支店名"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -295,7 +295,7 @@
           <div class="form-cell"></div>
           <div class="form-cell">
             <a-form-item
-              label="확인 담당자"
+              label="確認担当者"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -304,7 +304,7 @@
                   <a-input v-model="comfirmPerson"/>
                 </a-form-item>
                 <a-form-item
-                  label="상관 승인자"
+                  label="上司承認者"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol2"
                 >
@@ -324,14 +324,14 @@
                   v-show="!companyDataForUpdate"
                   @click="handleSubmit"
                   :loading="loading"
-                >등록</a-button>
+                >登録</a-button>
                 <a-button
                   type="primary"
                   v-show="companyDataForUpdate"
                   @click="handleUpdate"
                   :loading="loading"
-                >수정</a-button>
-                <a-button type="default" @click="cancel" style="margin-left:10px;">취소</a-button>
+                >編集</a-button>
+                <a-button type="default" @click="cancel" style="margin-left:10px;">キャンセル</a-button>
               </div>
             </div>
           </div>
@@ -356,63 +356,63 @@ export default {
     return {
       loading: false,
       db: "", // firebase
-      companyType: "부동산", // 등록선택
+      companyType: "不動産", // 등록선택
       companyName: "", // 회사이름
-      companyAdress: "", // 회사 주소
-      companyOnwer: "", // 회사 대표자
-      companyOnwerSex: "남", // 회사 대표자 성별
-      companyOnwerTel: "", // 대표자 전화번호
-      systemManager: "", // 시스템관리자
-      systemManagerEmail: "", // 시스템관리자 이메일
+      companyAdress: "", // 会社住所
+      companyOnwer: "", // 회사 代表者
+      companyOnwerSex: "男性", // 회사 代表者 性別
+      companyOnwerTel: "", // 代表者 電話番号
+      systemManager: "", // システム管理者
+      systemManagerEmail: "", // システム管理者 メール
       fax: "", // FAX
-      notes: "", // 비고
-      joinDate: "", // 등록날짜
-      buildingCount: 0, // 보유물건 수
-      employeeCount: 0, // 종업원 수
-      productType: 0, // 상품 종류
-      fee1: 0, // 보증 심사료 긴급연락처
-      fee2: 0, // 보증 심사료 연대보증인
-      fee3: 0, // 보증 심사료 기타
-      novationFee: 0, // 갱신료
-      propertyManagermentCompanyFee: 0, // 대리점 수수료
-      debtCollectionType: "보고형", // 채권 추심 종류
-      bankName: "", // 은행명
-      recipientName: "", // 수취인명
-      recipientNameKana: "", // 카나
-      bankAccountNumber: "", // 계좌번호
-      remitType: "", // 송금타입
-      branchOfficeName: "", // 지점명
-      comfirmPerson: "", // 확인담당자
-      approvalPerson: "", // 상관승인자
+      notes: "", // 備考
+      joinDate: "", // 登録日
+      buildingCount: 0, // 保有物件数
+      employeeCount: 0, // 従業員数
+      productType: 0, // 商品種類
+      fee1: 0, // 保証審査料 緊急連絡先
+      fee2: 0, // 保証審査料 連帯保証人
+      fee3: 0, // 保証審査料 その他
+      novationFee: 0, // 更新料
+      propertyManagermentCompanyFee: 0, // 代理店手数料
+      debtCollectionType: "滞納報告型", // 채권 추심 종류
+      bankName: "", // 銀行名
+      recipientName: "", // 受取人名
+      recipientNameKana: "", // カナ
+      bankAccountNumber: "", // 口座番号
+      remitType: "", // 送金タイプ
+      branchOfficeName: "", // 支店名
+      comfirmPerson: "", // 確認担当者
+      approvalPerson: "", // 上司承認者
       createdDate: Date.now(), // 생성날짜
-      // companyType: "부동산", // 등록선택
+      // companyType: "不動産", // 등록선택
       // companyName: "회사이름", // 회사이름
-      // companyAdress: "회사 주소", // 회사 주소
-      // companyOnwer: "회사 대표자", // 회사 대표자
-      // companyOnwerSex: "남", // 회사 대표자 성별
-      // companyOnwerTel: "대표자 전화번호", // 대표자 전화번호
-      // systemManager: "시스템관리자", // 시스템관리자
-      // systemManagerEmail: "시스템관리자 이메일", // 시스템관리자 이메일
+      // companyAdress: "会社住所", // 会社住所
+      // companyOnwer: "회사 代表者", // 회사 代表者
+      // companyOnwerSex: "男性", // 회사 代表者 性別
+      // companyOnwerTel: "代表者 電話番号", // 代表者 電話番号
+      // systemManager: "システム管理者", // システム管理者
+      // systemManagerEmail: "システム管理者 メール", // システム管理者 メール
       // fax: "FAX", // FAX
-      // notes: "비고", // 비고
-      // joinDate: "등록날짜", // 등록날짜
-      // buildingCount: 0, // 보유물건 수
-      // employeeCount: 0, // 종업원 수
-      // productType: 0, // 상품 종류
-      // fee1: 0, // 보증 심사료 긴급연락처
-      // fee2: 0, // 보증 심사료 연대보증인
-      // fee3: 0, // 보증 심사료 기타
-      // novationFee:0, // 갱신료
-      // propertyManagermentCompanyFee:0, // 대리점 수수료
-      // debtCollectionType:"", // 대리점 수수료
-      // bankName: "은행명", // 은행명
-      // recipientName: "수취인명", // 수취인명
-      // recipientNameKana: "카나", // 카나
-      // bankAccountNumber: "계좌번호", // 계좌번호
-      // remitType: "송금타입", // 송금타입
-      // branchOfficeName: "지점명", // 지점명
-      // comfirmPerson: "확인담당자", // 확인담당자
-      // approvalPerson: "상관승인자", // 상관승인자
+      // notes: "備考", // 備考
+      // joinDate: "登録日", // 登録日
+      // buildingCount: 0, // 保有物件数
+      // employeeCount: 0, // 従業員数
+      // productType: 0, // 商品種類
+      // fee1: 0, // 保証審査料 緊急連絡先
+      // fee2: 0, // 保証審査料 連帯保証人
+      // fee3: 0, // 保証審査料 その他
+      // novationFee:0, // 更新料
+      // propertyManagermentCompanyFee:0, // 代理店手数料
+      // debtCollectionType:"", // 代理店手数料
+      // bankName: "銀行名", // 銀行名
+      // recipientName: "受取人名", // 受取人名
+      // recipientNameKana: "カナ", // カナ
+      // bankAccountNumber: "口座番号", // 口座番号
+      // remitType: "送金タイプ", // 送金タイプ
+      // branchOfficeName: "支店名", // 支店名
+      // comfirmPerson: "確認担当者", // 確認担当者
+      // approvalPerson: "上司承認者", // 上司承認者
       formLayout: "horizontal",
       emailDataSource: [],
       formItemLayoutWithOutLabel: {
@@ -606,13 +606,13 @@ export default {
           thisObj.getCompanyList(() => {
             thisObj.clearDatas();
             thisObj.loading = false;
-            thisObj.alertMsg({ type: "success", msg: "등록 완료" });
+            thisObj.alertMsg({ type: "success", msg: "登録 完了" });
             thisObj.moveCompanyListPage();
           });
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "등록 실패" });
+          thisObj.alertMsg({ type: "error", msg: "登録 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -630,13 +630,13 @@ export default {
           thisObj.getCompanyList(() => {
             thisObj.clearDatas();
             thisObj.loading = false;
-            thisObj.alertMsg({ type: "success", msg: "수정 완료" });
+            thisObj.alertMsg({ type: "success", msg: "編集 完了" });
             thisObj.moveCompanyListPage();
           });
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "수정 실패" });
+          thisObj.alertMsg({ type: "error", msg: "編集 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -644,11 +644,11 @@ export default {
       this.moveCompanyListPage();
     },
     clearDatas() {
-      this.companyType = "부동산";
+      this.companyType = "不動産";
       this.companyName = "";
       this.companyAdress = "";
       this.companyOnwer = "";
-      this.companyOnwerSex = "남";
+      this.companyOnwerSex = "男性";
       this.companyOnwerTel = "";
       this.systemManager = "";
       this.systemManagerEmail = "";
@@ -663,7 +663,7 @@ export default {
       this.fee3 = 0;
       this.novationFee = 0;
       this.propertyManagermentCompanyFee = 0;
-      this.debtCollectionType = "보고형";
+      this.debtCollectionType = "滞納報告型";
       this.bankName = "";
       this.recipientName = "";
       this.recipientNameKana = "";

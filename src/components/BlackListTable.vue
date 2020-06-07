@@ -9,18 +9,18 @@
     <!-- <a slot="action" slot-scope="text" href="javascript:;">Delete</a> -->
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
       <p style="margin: 0">{{ record.notes }}</p>
-      <!-- <a-button type="primary">상세보기</a-button> -->
+      <!-- <a-button type="primary">詳細</a-button> -->
       <a-button type="primary" @click="function(){
         detail(record.id)
-      }">상세보기</a-button>
+      }">詳細</a-button>
       <a-popconfirm
         title="정말로 블랙리스트를 삭제하시겠습니까?"
         @confirm="function(){
           confirm(record.id)
         }"
         @cancel="cancel"
-        okText="삭제"
-        cancelText="취소"
+        okText="削除"
+        cancelText="キャンセル"
       >
         <a-button type="default">블랙리스트 해제</a-button>
         <!-- <a-button type="default">블랙리스트 해제</a-button> -->
@@ -30,20 +30,20 @@
 </template>
 <script>
 const columns = [
-  { title: "구분", dataIndex: "index", key: "index" },
+  { title: "区分", dataIndex: "index", key: "index" },
   { title: "승인일", dataIndex: "createdDate", key: "createdDate" },
   {
-    title: "대리점",
+    title: "代理店",
     dataIndex: "company.companyName",
     key: "company.companyName"
   },
   {
-    title: "대리점 계약번호",
+    title: "代理店 契約番号",
     dataIndex: "company.approvalNumber",
     key: "key3"
   },
   {
-    title: "대리점 수수료",
+    title: "代理店手数料",
     dataIndex: "propertyManagermentCompanyFeePercentage",
     key: "propertyManagermentCompanyFeePercentage"
   },
@@ -65,29 +65,29 @@ const columns = [
     key: "guaranteeFeePercentage"
   },
   {
-    title: "갱신료",
+    title: "更新料",
     dataIndex: "company.novationFee",
     key: "company.novationFee"
   },
   { title: "담당자", dataIndex: "comfirmPerson", key: "comfirmPerson" },
-  { title: "은행명", dataIndex: "company.bankName", key: "company.bankName" },
+  { title: "銀行名", dataIndex: "company.bankName", key: "company.bankName" },
   {
-    title: "지점명",
+    title: "支店名",
     dataIndex: "company.branchOfficeName",
     key: "company.branchOfficeName"
   },
   {
-    title: "계좌번호",
+    title: "口座番号",
     dataIndex: "company.bankAccountNumber",
     key: "company.bankAccountNumber"
   },
-  { title: "비고", dataIndex: "company.notes", key: "company.notes" },
+  { title: "備考", dataIndex: "company.notes", key: "company.notes" },
   {
     title: "연대보증인연락처",
     dataIndex: "guarantorTel1",
     key: "guarantorTel1"
   },
-  { title: "긴급연락처", dataIndex: "emergencyTel1", key: "emergencyTel1" }
+  { title: "緊急連絡先", dataIndex: "emergencyTel1", key: "emergencyTel1" }
   // { title: 'Action', dataIndex: '', key: 'x', scopedSlots: { customRender: 'action' } },
 ];
 
@@ -143,15 +143,15 @@ export default {
         })
         .then(function() {
           thisObj.$store.dispatch(T.DELETE_BLACK_LIST, id);
-          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 해제 완료" });
+          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 해제 完了" });
         })
         .catch(function(error) {
           console.log(error);
-          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 해제 실패" });
+          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 해제 失敗" });
         });
     },
     cancel() {
-      this.alertMsg({ type: "error", msg: "취소" });
+      this.alertMsg({ type: "error", msg: "キャンセル" });
     },
     handleTableChange(pagination, filters, sorter) {
       console.log(pagination);

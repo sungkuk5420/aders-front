@@ -12,7 +12,7 @@
       >
         <a-menu-item key="0" @click="changeTabIndex(0)">메인 화면</a-menu-item>
         <a-menu-item key="1" @click="changeTabIndex(1)">입주자 목록</a-menu-item>
-        <a-menu-item key="2" @click="changeTabIndex(2)">대리점 목록</a-menu-item>
+        <a-menu-item key="2" @click="changeTabIndex(2)">代理店一覧</a-menu-item>
         <a-menu-item key="3" @click="changeTabIndex(3)">연체자 목록</a-menu-item>
         <a-menu-item key="4" @click="changeTabIndex(4)">블랙리스트 목록</a-menu-item>
         <a-menu-item key="5" @click="changeTabIndex(5)">지불용지 출력</a-menu-item>
@@ -30,7 +30,7 @@
       <BlackListPage v-if="!isUnLogin" v-show="tabIndex ==4"/>
       <a-modal title="관리자 비밀번호" v-model="isUnLogin">
         <template slot="footer">
-          <a-button key="back" @click="handleCancel">취소</a-button>
+          <a-button key="back" @click="handleCancel">キャンセル</a-button>
           <a-button key="submit" type="primary" :loading="loading" @click="checkAdminPassword">확인</a-button>
         </template>
         <div class="row-div popup">

@@ -4,7 +4,7 @@
     :dataSource="delinquentList"
     :scroll="windowSize"
     expandRowByClick
-    :class="delinquentFilterType === '보고형'?'filter-1':'filter-2'"
+    :class="delinquentFilterType === '滞納報告型'?'filter-1':'filter-2'"
   >
     <!-- <a slot="action" slot-scope="text" href="javascript:;">Delete</a> -->
     <div slot="expandedRowRender" slot-scope="record" class="detail-row">
@@ -13,7 +13,7 @@
         <div class="row">
           <a-button type="primary" @click="function(){
         detail(record.id)
-      }">상세보기</a-button>
+      }">詳細</a-button>
         </div>
         <div class="row">
           <DelinquentCallHistoryTable :delinquentId="record.id"/>
@@ -24,10 +24,10 @@
           confirm(record.id)
         }"
           @cancel="cancel"
-          okText="삭제"
-          cancelText="취소"
+          okText="削除"
+          cancelText="キャンセル"
         >
-          <a-button type="default">삭제</a-button>
+          <a-button type="default">削除</a-button>
         </a-popconfirm>
       </div>
     </div>
@@ -35,17 +35,17 @@
 </template>
 <script>
 const columns = [
-  { title: "구분", dataIndex: "index", key: "index" },
+  { title: "区分", dataIndex: "index", key: "index" },
   { title: "월세 미납분", dataIndex: "nonPayMonthly", key: "nonPayMonthly" },
   { title: "지불 완료날짜", dataIndex: "paymentDate", key: "paymentDate" },
   { title: "승인일", dataIndex: "createdDate", key: "createdDate" },
   {
-    title: "대리점",
+    title: "代理店",
     dataIndex: "company.companyName",
     key: "company.companyName"
   },
   {
-    title: "대리점 계약번호",
+    title: "代理店 契約番号",
     dataIndex: "company.approvalNumber",
     key: "company.approvalNumber"
   },
@@ -80,20 +80,20 @@ const columns = [
     dataIndex: "user.comfirmPerson",
     key: "user.comfirmPerson"
   },
-  { title: "은행명", dataIndex: "company.bankName", key: "company.bankName" },
+  { title: "銀行名", dataIndex: "company.bankName", key: "company.bankName" },
   {
-    title: "지점명",
+    title: "支店名",
     dataIndex: "company.branchOfficeName",
     key: "company.branchOfficeName"
   },
   {
-    title: "계좌번호",
+    title: "口座番号",
     dataIndex: "company.bankAccountNumber",
     key: "company.bankAccountNumber"
   },
-  { title: "비고", dataIndex: "company.notes", key: "company.notes" },
+  { title: "備考", dataIndex: "company.notes", key: "company.notes" },
   {
-    title: "긴급연락처",
+    title: "緊急連絡先",
     dataIndex: "user.emergencyTel1",
     key: "user.emergencyTel1"
   }
@@ -162,15 +162,15 @@ export default {
         .delete()
         .then(function() {
           thisObj.$store.dispatch(T.DELETE_DELINQUENT, id);
-          thisObj.alertMsg({ type: "success", msg: "삭제 완료" });
+          thisObj.alertMsg({ type: "success", msg: "削除 完了" });
         })
         .catch(function(error) {
           console.log(error);
-          thisObj.alertMsg({ type: "error", msg: "삭제 실패" });
+          thisObj.alertMsg({ type: "error", msg: "削除 失敗" });
         });
     },
     cancel() {
-      this.alertMsg({ type: "error", msg: "취소" });
+      this.alertMsg({ type: "error", msg: "キャンセル" });
     }
   }
 };

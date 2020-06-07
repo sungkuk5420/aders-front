@@ -2,24 +2,24 @@
   <div class="company-list-page">
     <div class="search-wrapper">
       <a-select v-model="companySearchType" @change="onSearch">
-        <a-select-option value="대리점명">대리점명</a-select-option>
-        <a-select-option value="계약번호">계약번호</a-select-option>
-        <a-select-option value="대표자명">대표자명</a-select-option>
+        <a-select-option value="代理店名">代理店名</a-select-option>
+        <a-select-option value="契約番号">契約番号</a-select-option>
+        <a-select-option value="代表者名">代表者名</a-select-option>
       </a-select>
       <a-input-search
-        placeholder="키워드 입력"
+        placeholder="キーワード入寮"
         size="large"
         v-model="companySearchKeyword"
         @search="onSearch"
         @change="onSearch"
       >
-        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
+        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">検索</a-button>
       </a-input-search>
-      <a-button type="primary" @click="moveAddCompanyPage">대리점 등록</a-button>
+      <a-button type="primary" @click="moveAddCompanyPage">代理店 登録</a-button>
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
-        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
+        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel ダウンロード</a-button>
       </div>
       <CompanyTable/>
     </div>
@@ -36,7 +36,7 @@ export default {
   },
   data() {
     return {
-      companySearchType: "대리점명",
+      companySearchType: "代理店名",
       companySearchKeyword: "",
       searchLoading: false
     };
@@ -86,34 +86,34 @@ export default {
       // ArrayをWorkbookに変換する
       let excelDatas = [];
       excelDatas.push([
-        "구분", //index
-        "등록 구분", //companyType
-        "회사 명", //companyName
-        "회사 주소", //companyAdress
-        "회사 대표자", //companyOnwer
-        "회사 대표자 성별", //companyOnwerSex
-        "대표자 전화번호", //companyOnwerTel
-        "시스템관리자", //systemManager
-        "시스템관리자 이메일", //systemManagerEmail
+        "区分", //index
+        "登録 区分", //companyType
+        "会社名", //companyName
+        "会社住所", //companyAdress
+        "会社代表者", //companyOnwer
+        "会社代表者 性別", //companyOnwerSex
+        "代表者 電話番号", //companyOnwerTel
+        "システム管理者", //systemManager
+        "システム管理者 メール", //systemManagerEmail
         "FAX", //fax
-        "비고", //notes
-        "등록날짜", //joinDate
-        "보유물건 수", //buildingCount
-        "종업원 수", //employeeCount
-        "상품 종류", //productType
-        "보증 심사료 긴급연락처", //fee1
-        "보증 심사료 연대보증인", //fee2
-        "보증 심사료 기타", //fee3
-        "갱신료", //novationFee
-        "대리점 수수료", //propertyManagermentCompanyFee
-        "은행명", //bankName
-        "수취인명", //recipientName
-        "카나", //recipientNameKana
-        "계좌번호", //bankAccountNumber
-        "송금타입", //remitType
-        "지점명", //branchOfficeName
-        "확인담당자", //comfirmPerson
-        "상관승인자" //approvalPerson
+        "備考", //notes
+        "登録日", //joinDate
+        "保有物件数", //buildingCount
+        "従業員数", //employeeCount
+        "商品種類", //productType
+        "保証審査料 緊急連絡先", //fee1
+        "保証審査料 連帯保証人", //fee2
+        "保証審査料 その他", //fee3
+        "更新料", //novationFee
+        "代理店手数料", //propertyManagermentCompanyFee
+        "銀行名", //bankName
+        "受取人名", //recipientName
+        "カナ", //recipientNameKana
+        "口座番号", //bankAccountNumber
+        "送金タイプ", //remitType
+        "支店名", //branchOfficeName
+        "確認担当者", //comfirmPerson
+        "上司承認者" //approvalPerson
       ]);
       for (let i = 0; i < this.companyList.length; i++) {
         const element = this.companyList[i];
@@ -152,10 +152,9 @@ export default {
       var wb_out = XLSX.write(wb, write_opts);
 
       var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
-      saveAs(blob, "대리점 목록.xlsx");
+      saveAs(blob, "代理店一覧.xlsx");
     },
     onSearch() {
-      console.log("search click");
       const companySearchType = this.companySearchType;
       const companySearchKeyword = this.companySearchKeyword;
       this.$store.dispatch(T.SEARCH_COMPANY, {
@@ -167,7 +166,7 @@ export default {
       this.$store.dispatch(T.CHANGE_TAB_INDEX, 20);
     },
     alertMsg() {
-      this.$message.info("수정기능 개발중");
+      this.$message.info("開発中。。");
     }
   }
 };

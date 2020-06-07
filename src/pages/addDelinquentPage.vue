@@ -3,13 +3,13 @@
     <div class="content">
       <a-form :layout="formLayout" :form="form" v-bind="formItemLayout">
         <div class="form-row">
-          <h2>검색</h2>
+          <h2>検索</h2>
         </div>
         <div class="form-row" :class="delinquentDataForUpdate?'read-only-form-data':''">
           <div v-if="delinquentDataForUpdate" class="overlay"></div>
           <div class="form-cell">
             <a-form-item
-              label="입주자 검색"
+              label="입주자 検索"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -42,13 +42,13 @@
         </div>
         <div class="form-row read-only-form-data">
           <div class="overlay"></div>
-          <h2>연체자 등록</h2>
+          <h2>연체자 登録</h2>
         </div>
         <div class="form-row read-only-form-data">
           <div class="overlay"></div>
           <div class="form-cell">
             <a-form-item
-              label="등록 선택"
+              label="登録 선택"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -93,13 +93,13 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="성별"
+              label="性別"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-radio-group v-model="contractorSex">
-                <a-radio-button value="남">남</a-radio-button>
-                <a-radio-button value="여">여</a-radio-button>
+                <a-radio-button value="男性">男性</a-radio-button>
+                <a-radio-button value="女性">女性</a-radio-button>
               </a-radio-group>
             </a-form-item>
             <a-form-item
@@ -142,7 +142,7 @@
                   <a-input style="width: 100%" v-model="contractorTel"/>
                 </a-form-item>
                 <a-form-item
-                  label="이메일"
+                  label="メール"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -184,7 +184,7 @@
               <a-radio-group v-model="contractorJobType">
                 <a-radio-button value="학생">학생</a-radio-button>
                 <a-radio-button value="직장인">직장인</a-radio-button>
-                <a-radio-button value="기타">기타</a-radio-button>
+                <a-radio-button value="その他">その他</a-radio-button>
               </a-radio-group>
             </a-form-item>
             <a-form-item
@@ -264,10 +264,10 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="기타 이름"
+              label="その他 이름"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='기타'"
+              v-show="contractorJobType=='その他'"
             >
               <div class="form-row">
                 <a-form-item :label-col="{ span: 1 }" :wrapper-col="{ span: 24 }">
@@ -283,18 +283,18 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="기타 주소"
+              label="その他 주소"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='기타'"
+              v-show="contractorJobType=='その他'"
             >
               <a-input v-model="contractorOtherAddress"/>
             </a-form-item>
             <a-form-item
-              label="기타 내용"
+              label="その他 내용"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='기타'"
+              v-show="contractorJobType=='その他'"
             >
               <a-input v-model="contractorOtherContent"/>
             </a-form-item>
@@ -302,7 +302,7 @@
               label="증빙서류"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
-              v-show="contractorJobType=='기타'"
+              v-show="contractorJobType=='その他'"
             >
               <ImageUpload
                 ref="contractorOtherFile"
@@ -313,20 +313,20 @@
           </div>
           <div class="form-cell">
             <a-form-item
-              label="관리회사"
+              label="管理会社"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
               class="search-row"
             >
               <a-radio-group
-                default-value="회사명"
+                default-value="会社名"
                 @change="onChangeSearchCompanyType"
                 v-model="propertyManagermentCompanySearchType"
                 class="ant-col-10"
                 style="max-width:180px;"
               >
-                <a-radio-button value="회사명">회사명</a-radio-button>
-                <a-radio-button value="계약번호">계약번호</a-radio-button>
+                <a-radio-button value="会社名">会社名</a-radio-button>
+                <a-radio-button value="契約番号">契約番号</a-radio-button>
               </a-radio-group>
               <a-auto-complete
                 v-model="propertyManagermentCompanySearchKeyword"
@@ -343,9 +343,9 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-radio-group v-model="guaranteeType" @change="onChangePaymentPercent">
-                <a-radio-button value="긴급연락처">긴급연락처</a-radio-button>
-                <a-radio-button value="연대보증인">연대보증인</a-radio-button>
-                <a-radio-button value="기타">기타</a-radio-button>
+                <a-radio-button value="緊急連絡先">緊急連絡先</a-radio-button>
+                <a-radio-button value="連帯保証人">連帯保証人</a-radio-button>
+                <a-radio-button value="その他">その他</a-radio-button>
               </a-radio-group>
             </a-form-item>
             <a-form-item
@@ -356,7 +356,7 @@
               <span>{{searchedCompanyName}}</span>
             </a-form-item>
             <a-form-item
-              label="대리점 수수료"
+              label="代理店手数料"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -369,7 +369,7 @@
                   </b>
                 </a-form-item>
                 <a-form-item
-                  label="보증 심사료"
+                  label="保証審査料"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -398,14 +398,14 @@
 
             <a-form-item
               class="read-only-form-data"
-              label="추심구분"
+              label="回収区分"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <div class="overlay" style="height:50px;"></div>
               <a-radio-group v-model="searchedCompany.debtCollectionType">
-                <a-radio-button value="보고형">보고형</a-radio-button>
-                <a-radio-button value="수금대행형">수금대행형</a-radio-button>
+                <a-radio-button value="滞納報告型">滞納報告型</a-radio-button>
+                <a-radio-button value="集金代行型">集金代行型</a-radio-button>
               </a-radio-group>
             </a-form-item>
             <a-form-item
@@ -591,7 +591,7 @@
         </div>
         <div class="form-row read-only-form-data">
           <div class="overlay"></div>
-          <h2>긴급연락처 / 연대보증인</h2>
+          <h2>緊急連絡先 / 連帯保証人</h2>
         </div>
         <div class="form-row read-only-form-data">
           <div class="overlay"></div>
@@ -602,15 +602,15 @@
               :wrapper-col="formItemLayout.wrapperCol"
             >
               <a-select v-model="guarantorType">
-                <a-select-option value="연대보증인">연대보증인</a-select-option>
-                <a-select-option value="긴급연락처">긴급연락처</a-select-option>
+                <a-select-option value="連帯保証人">連帯保証人</a-select-option>
+                <a-select-option value="緊急連絡先">緊急連絡先</a-select-option>
               </a-select>
             </a-form-item>
           </div>
           <div class="form-cell"></div>
         </div>
         <VueSlideUpDown
-          :active="guarantorType=='연대보증인'"
+          :active="guarantorType=='連帯保証人'"
           :duration="500"
           class="form-row read-only-form-data"
         >
@@ -741,7 +741,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="연대보증인 계약서"
+              label="連帯保証人 계약서"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -754,7 +754,7 @@
           </div>
         </VueSlideUpDown>
         <VueSlideUpDown
-          :active="guarantorType=='긴급연락처'"
+          :active="guarantorType=='緊急連絡先'"
           :duration="500"
           class="form-row read-only-form-data"
         >
@@ -986,7 +986,7 @@
                     v-if="searchedUser.blackList === true"
                     @click="deleteBlackList"
                     :loading="loading"
-                  >삭제</a-button>
+                  >削除</a-button>
                   <a-button type="default" v-else @click="setBlackList" :loading="loading">추가</a-button>
                 </a-form-item>
                 <a-form-item
@@ -1010,7 +1010,7 @@
           <div class="form-cell"></div>
           <div class="form-cell">
             <a-form-item
-              label="확인 담당자"
+              label="確認担当者"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -1019,7 +1019,7 @@
                   <a-input v-model="comfirmPerson"/>
                 </a-form-item>
                 <a-form-item
-                  label="상관 승인자"
+                  label="上司承認者"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -1039,21 +1039,21 @@
                   v-show="!delinquentDataForUpdate"
                   @click="handleRegister"
                   :loading="loading"
-                >등록</a-button>
+                >登録</a-button>
 
                 <a-button
                   type="primary"
                   v-show="delinquentDataForUpdate"
                   @click="handleUpdate"
                   :loading="loading"
-                >수정</a-button>
+                >編集</a-button>
 
                 <a-button
                   type="default"
                   style="margin-left:10px;"
                   @click="moveDelinquentPage"
                   :loading="loading"
-                >취소</a-button>
+                >キャンセル</a-button>
               </div>
             </div>
           </div>
@@ -1086,28 +1086,28 @@ export default {
       contractorCountry: "", // 계약자국적
       contractorJobType: "학생", // 계약자 분류
       contractorAdress: "", // 계약자 주소
-      contractorTel: "", // 계약자 전화번호
+      contractorTel: "", // 계약자 電話番号
       moveIntoDate: "", // 입주예정일
-      contractorSex: "남", // 계약자 성별
+      contractorSex: "男性", // 계약자 性別
       contractorBirthday: "", // 계약자 생년월일
-      contractorEmail: "", // 계약자 이메일
+      contractorEmail: "", // 계약자 メール
       contractorSms: "", // 계약자 sms
       contractorResidenceQualification: "", // 계약자 재류자격
       contractorSchoolName: "", // 계약자 학교명
       contractorSchoolTel: "", // 계약자 학교 TEL
       contractorSchoolAddress: "", // 계약자 학교주소
       contractorCompanyName: "", // 계약자 회사이름
-      contractorCompanyTel: "", // 계약자 직장 전화번호
+      contractorCompanyTel: "", // 계약자 직장 電話番号
       contractorCompanyAddress: "", // 계약자 직장주소
       contractorLengthOfService: "", // 계약자 근속연수
       contractorSalary: "", // 계약자 급여
-      contractorOtherName: "", // 기타 이름
-      contractorOtherTel: "", // 기타 전화번호
-      contractorOtherAddress: "", // 기타 주소
+      contractorOtherName: "", // その他 이름
+      contractorOtherTel: "", // その他 電話番号
+      contractorOtherAddress: "", // その他 주소
       contractorOtherContent: "", // 기타내용
       contractorOtherFile: "", // 증빙서류
       companyId: "", // 회사Id
-      guaranteeType: "긴급연락처", // 보증형태
+      guaranteeType: "緊急連絡先", // 보증형태
       guaranteeFee: 0, // 심사 수수료
       propertyName: "", // 멘션명
       propertyAdress: "", // 멘션 주소
@@ -1121,54 +1121,54 @@ export default {
       roomMateHeadCount: 1, // 동반 입주자 인수
       roomMateName: "", // 동반 입주자 이름
       roomMateBirthday: "", // 동반 입주자 생년월일
-      roomMateTel: "", // 동반 입주자 전화번호
+      roomMateTel: "", // 동반 입주자 電話番号
       roomMateCountry: "", // 동반 입주자 국적
       roomMateIdCard: "", // 동반 입주자 신분증
-      guarantorType: "연대보증인", // 보증 타입 연대 보증인 or 긴급연락처
+      guarantorType: "連帯保証人", // 보증 타입 연대 보증인 or 緊急連絡先
       guarantorName: "", // 보증인 이름
       guarantorCountry: "", // 보증인 국적
       guarantorAdress: "", // 보증인 주소
       guarantorRelationship: "", // 보증인 관계
       guarantorTel1: "", // 보증인TEL-1
       guarantorTel2: "", // 보증인TEL-2
-      guarantorCompanyName: "", // 보증인 회사명
-      guarantorCompanyTel: "", // 보증인 회사 전화번호
-      guarantorCompanyAddress: "", // 보증인 회사 주소
+      guarantorCompanyName: "", // 보증인 会社名
+      guarantorCompanyTel: "", // 보증인 회사 電話番号
+      guarantorCompanyAddress: "", // 보증인 会社住所
       guarantorIdCardFront: "", // 보증인 신분증 앞
       guarantorIdCardBack: "", // 보증인 신분증 뒤
       guarantorContract: "", // 보증인 계약서
       guarantorBirthday: "", // 보증인 생년월일
       //
-      emergencyName: "", // 긴급연락처 이름
-      emergencyCountry: "", // 긴급연락처 국적
-      emergencyBirthday: "", // 긴급연락처 생년월일
-      emergencyRelationship: "", // 긴급연락처 관계
+      emergencyName: "", // 緊急連絡先 이름
+      emergencyCountry: "", // 緊急連絡先 국적
+      emergencyBirthday: "", // 緊急連絡先 생년월일
+      emergencyRelationship: "", // 緊急連絡先 관계
       emergencyTel1: "", // 긴급연락처TEL-1
       emergencyTel2: "", // 긴급연락처TEL-2
-      emergencyAdress: "", // 긴급연락처 주소
-      comfirmPerson: "", // 확인담당자
-      approvalPerson: "", // 상관승인자
+      emergencyAdress: "", // 緊急連絡先 주소
+      comfirmPerson: "", // 確認担当者
+      approvalPerson: "", // 上司承認者
       nonPayMonthly: "", //월세 미납분
       delinquentFee: "", //수수료
       charges: "", //청구금액
       arrears: "", //체납발생
       paymentDate: "", //체납발생
-      searchedCompanyName: "", // 회사 검색 이름
+      searchedCompanyName: "", // 회사 検索 이름
       searchedCompany: {
-        debtCollectionType: "보고형"
-      }, // 회사 검색 오브젝트
-      searchedUserName: "", // 연체자 검색 이름
+        debtCollectionType: "滞納報告型"
+      }, // 회사 検索 오브젝트
+      searchedUserName: "", // 연체자 検索 이름
       searchedUser: {
-        // 연체자 검색 오브젝트
+        // 연체자 検索 오브젝트
         blackList: false,
         collectionList: false
       },
       guaranteeFeePercentage: 0, // 심사 수수료 퍼센트
-      propertyManagermentCompanyFeePercentage: "", // 대리점 수수료 퍼센트
-      propertyManagermentCompanySearchType: "회사명", // 회사 검색 타입
-      propertyManagermentCompanySearchKeyword: "", // 회사 검색 키워드
-      userSearchKeyword: "", // 회사 검색 키워드
-      userSearchType: "입주자명", // 회사 검색 키워드
+      propertyManagermentCompanyFeePercentage: "", // 代理店手数料 퍼센트
+      propertyManagermentCompanySearchType: "会社名", // 회사 検索 타입
+      propertyManagermentCompanySearchKeyword: "", // 회사 検索 키워드
+      userSearchKeyword: "", // 회사 検索 키워드
+      userSearchType: "입주자명", // 회사 検索 키워드
       formLayout: "horizontal",
       emailDataSource: [],
       roomTypeDataSource: [],
@@ -1288,14 +1288,14 @@ export default {
             cb: () => {
               thisObj.clearDatas();
               thisObj.loading = false;
-              thisObj.alertMsg({ type: "success", msg: "지불 완료" });
+              thisObj.alertMsg({ type: "success", msg: "지불 完了" });
               thisObj.moveDelinquentPage();
             }
           });
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "지불 실패" });
+          thisObj.alertMsg({ type: "error", msg: "지불 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -1377,13 +1377,13 @@ export default {
         this.searchedCompanyName = companyOfuser.companyName;
         this.searchedCompany = companyOfuser;
         switch (this.guaranteeType) {
-          case "긴급연락처":
+          case "緊急連絡先":
             this.guaranteeFeePercentage = this.searchedCompany.fee1;
             break;
-          case "연대보증인":
+          case "連帯保証人":
             this.guaranteeFeePercentage = this.searchedCompany.fee2;
             break;
-          case "기타":
+          case "その他":
             this.guaranteeFeePercentage = this.searchedCompany.fee3;
             break;
 
@@ -1442,7 +1442,7 @@ export default {
       this.contractorAdress = "";
       this.contractorTel = "";
       this.moveIntoDate = "";
-      this.contractorSex = "남";
+      this.contractorSex = "男性";
       this.contractorBirthday = "";
       this.contractorEmail = "";
       this.contractorSms = "";
@@ -1461,8 +1461,8 @@ export default {
       this.contractorOtherContent = "";
       this.contractorOtherFile = "";
       this.companyId = "";
-      this.propertyManagermentCompanySearchType = "회사명";
-      this.guaranteeType = "긴급연락처";
+      this.propertyManagermentCompanySearchType = "会社名";
+      this.guaranteeType = "緊急連絡先";
       this.propertyManagermentCompanyFeePercentage = "";
       this.guaranteeFee = 0;
       this.propertyName = "";
@@ -1480,7 +1480,7 @@ export default {
       this.roomMateTel = "";
       this.roomMateCountry = "";
       this.roomMateIdCard = "";
-      this.guarantorType = "연대보증인";
+      this.guarantorType = "連帯保証人";
       this.guarantorName = "";
       this.guarantorCountry = "";
       this.guarantorAdress = "";
@@ -1508,7 +1508,7 @@ export default {
       this.userId = "";
 
       this.searchedCompany = {
-        debtCollectionType: "보고형"
+        debtCollectionType: "滞納報告型"
       };
       this.guaranteeFeePercentage = 0;
       this.propertyManagermentCompanyFeePercentage = 0;
@@ -1541,7 +1541,7 @@ export default {
       this.contractorAdress = "";
       this.contractorTel = "";
       this.moveIntoDate = "";
-      this.contractorSex = "남";
+      this.contractorSex = "男性";
       this.contractorBirthday = "";
       this.contractorEmail = "";
       this.contractorSms = "";
@@ -1560,8 +1560,8 @@ export default {
       this.contractorOtherContent = "";
       this.contractorOtherFile = "";
       this.companyId = "";
-      this.propertyManagermentCompanySearchType = "회사명";
-      this.guaranteeType = "긴급연락처";
+      this.propertyManagermentCompanySearchType = "会社名";
+      this.guaranteeType = "緊急連絡先";
       this.propertyManagermentCompanyFeePercentage = "";
       this.guaranteeFee = 0;
       this.propertyName = "";
@@ -1579,7 +1579,7 @@ export default {
       this.roomMateTel = "";
       this.roomMateCountry = "";
       this.roomMateIdCard = "";
-      this.guarantorType = "연대보증인";
+      this.guarantorType = "連帯保証人";
       this.guarantorName = "";
       this.guarantorCountry = "";
       this.guarantorAdress = "";
@@ -1607,7 +1607,7 @@ export default {
       this.userId = "";
 
       this.searchedCompany = {
-        debtCollectionType: "보고형"
+        debtCollectionType: "滞納報告型"
       };
       this.guaranteeFeePercentage = 0;
       this.propertyManagermentCompanyFeePercentage = 0;
@@ -1835,9 +1835,9 @@ export default {
     },
     updateCompanyListDataSource(companyList) {
       let dataList = [];
-      if (this.propertyManagermentCompanySearchType == "회사명") {
+      if (this.propertyManagermentCompanySearchType == "会社名") {
         dataList = companyList.map(item => item.companyName);
-      } else if (this.propertyManagermentCompanySearchType == "계약번호") {
+      } else if (this.propertyManagermentCompanySearchType == "契約番号") {
         dataList = companyList.map(item => this.pad(item.approvalNumber, 4));
       }
       return dataList;
@@ -1849,15 +1849,15 @@ export default {
       );
 
       this.searchedCompany = {
-        debtCollectionType: "보고형"
+        debtCollectionType: "滞納報告型"
       };
       if (this.companyTypeDataSource.length == 1) {
         let filteredCompany = {};
-        if (this.propertyManagermentCompanySearchType == "회사명") {
+        if (this.propertyManagermentCompanySearchType == "会社名") {
           filteredCompany = this.companyList.filter(
             item => item.companyName == value
           );
-        } else if (this.propertyManagermentCompanySearchType == "계약번호") {
+        } else if (this.propertyManagermentCompanySearchType == "契約番号") {
           filteredCompany = this.companyList.filter(
             item => item.approvalNumber == value
           );
@@ -1978,13 +1978,13 @@ export default {
       } else {
         this.propertyManagermentCompanyFeePercentage = this.searchedCompany.propertyManagermentCompanyFee;
         switch (this.guaranteeType) {
-          case "긴급연락처":
+          case "緊急連絡先":
             this.guaranteeFeePercentage = this.searchedCompany.fee1;
             break;
-          case "연대보증인":
+          case "連帯保証人":
             this.guaranteeFeePercentage = this.searchedCompany.fee2;
             break;
-          case "기타":
+          case "その他":
             this.guaranteeFeePercentage = this.searchedCompany.fee3;
             break;
 
@@ -2015,14 +2015,14 @@ export default {
             cb: () => {
               thisObj.clearDatas();
               thisObj.loading = false;
-              thisObj.alertMsg({ type: "success", msg: "수정 완료" });
+              thisObj.alertMsg({ type: "success", msg: "編集 完了" });
               thisObj.moveDelinquentPage();
             }
           });
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "수정 실패" });
+          thisObj.alertMsg({ type: "error", msg: "編集 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2040,12 +2040,12 @@ export default {
         .then(function(docRef) {
           thisObj.$store.dispatch(T.GET_BLACK_LIST, {});
           thisObj.searchedUser.blackList = true;
-          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 추가 완료" });
+          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 추가 完了" });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 추가 실패" });
+          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 추가 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2063,12 +2063,12 @@ export default {
         .then(function(docRef) {
           thisObj.$store.dispatch(T.GET_BLACK_LIST, {});
           thisObj.searchedUser.blackList = false;
-          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 삭제 완료" });
+          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 削除 完了" });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 삭제 실패" });
+          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 削除 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2085,12 +2085,12 @@ export default {
         })
         .then(function(docRef) {
           thisObj.searchedUser.collectionList = true;
-          thisObj.alertMsg({ type: "success", msg: "회심 추심 지정 완료" });
+          thisObj.alertMsg({ type: "success", msg: "회심 추심 지정 完了" });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "회심 추심 지정 실패" });
+          thisObj.alertMsg({ type: "error", msg: "회심 추심 지정 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2107,12 +2107,12 @@ export default {
         })
         .then(function(docRef) {
           thisObj.searchedUser.collectionList = false;
-          thisObj.alertMsg({ type: "success", msg: "회심 추심 삭제 완료" });
+          thisObj.alertMsg({ type: "success", msg: "회심 추심 削除 完了" });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "회심 추심 삭제 실패" });
+          thisObj.alertMsg({ type: "error", msg: "회심 추심 削除 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2131,9 +2131,9 @@ export default {
           charges: this.charges, //청구금액
           arrears: this.arrears, //체납발생
           paymentDate: this.paymentDate, //납부날짜
-          comfirmPerson: this.comfirmPerson, //확인담당자
-          approvalPerson: this.approvalPerson, //상관승인자
-          createdDate: Date.now() //등록날짜
+          comfirmPerson: this.comfirmPerson, //確認担当者
+          approvalPerson: this.approvalPerson, //上司承認者
+          createdDate: Date.now() //登録日
         })
         .then(function(docRef) {
           thisObj.$store.dispatch(T.GET_DELINQUENT_LIST, {
@@ -2141,14 +2141,14 @@ export default {
             cb: () => {
               thisObj.clearDatas();
               thisObj.loading = false;
-              thisObj.alertMsg({ type: "success", msg: "연체자 등록 완료" });
+              thisObj.alertMsg({ type: "success", msg: "연체자 登録 完了" });
               thisObj.moveDelinquentPage(); //moveDelinquentPage함수제작
             }
           });
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "연체자 등록 실패" });
+          thisObj.alertMsg({ type: "error", msg: "연체자 登録 失敗" });
           console.error("Error adding document: ", error);
         });
     }

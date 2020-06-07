@@ -93,7 +93,7 @@ export const actions = {
   },
   [T.SEARCH_COMPANY](
     { commit },
-    { companySearchType = "회사명", companySearchKeyword = "" }
+    { companySearchType = "会社名", companySearchKeyword = "" }
   ) {
     console.log(`store action [T.SEARCH_COMPANY] `);
     console.log(companySearchKeyword);

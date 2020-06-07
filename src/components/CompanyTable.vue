@@ -12,21 +12,21 @@
         <div class="row">
           <a-button type="primary" @click="function(){
         detail(record.id)
-      }">상세보기</a-button>
+      }">詳細</a-button>
         </div>
         <div class="row">
           <CompanyCallHistoryTable :campanyId="record.id"/>
         </div>
         <a-popconfirm
-          title="정말로 이 대리점을 삭제하시겠습니까?"
+          title="本当にこの代理店を削除しますか。"
           @confirm="function(){
           confirm(record.id)
         }"
           @cancel="cancel"
-          okText="삭제"
-          cancelText="취소"
+          okText="削除"
+          cancelText="キャンセル"
         >
-          <a-button type="default">삭제</a-button>
+          <a-button type="default">削除</a-button>
         </a-popconfirm>
       </div>
     </div>
@@ -34,35 +34,35 @@
 </template>
 <script>
 const columns = [
-  { title: "구분", dataIndex: "index", key: "index" },
-  { title: "계약번호", dataIndex: "approvalNumber", key: "approvalNumber" },
-  { title: "등록일", dataIndex: "createdDate", key: "createdDate" },
-  { title: "대리점 구분", dataIndex: "companyType", key: "companyType" },
+  { title: "区分", dataIndex: "index", key: "index" },
+  { title: "契約番号", dataIndex: "approvalNumber", key: "approvalNumber" },
+  { title: "登録日", dataIndex: "createdDate", key: "createdDate" },
+  { title: "代理店 区分", dataIndex: "companyType", key: "companyType" },
   {
-    title: "추심구분",
+    title: "回収区分",
     dataIndex: "debtCollectionType",
     key: "debtCollectionType"
   },
-  { title: "회사명", dataIndex: "companyName", key: "companyName" },
-  { title: "회사주소", dataIndex: "companyAdress", key: "companyAdress" },
-  { title: "대표자", dataIndex: "companyOnwer", key: "companyOnwer" },
-  { title: "대표자TEL", dataIndex: "companyOnwerTel", key: "companyOnwerTel" },
-  { title: "시스템관리자", dataIndex: "systemManager", key: "systemManager" },
+  { title: "代理店名", dataIndex: "companyName", key: "companyName" },
+  { title: "会社住所", dataIndex: "companyAdress", key: "companyAdress" },
+  { title: "代表者", dataIndex: "companyOnwer", key: "companyOnwer" },
+  { title: "代表者TEL", dataIndex: "companyOnwerTel", key: "companyOnwerTel" },
+  { title: "システム管理者", dataIndex: "systemManager", key: "systemManager" },
   {
-    title: "관리자Email",
+    title: "管理者Email",
     dataIndex: "systemManagerEmail",
     key: "systemManagerEmail"
   },
   { title: "FAX", dataIndex: "fax", key: "fax" },
-  { title: "비고", dataIndex: "notes", key: "notes" },
-  { title: "등록날짜", dataIndex: "joinDate", key: "joinDate" },
-  { title: "보유 물건 수", dataIndex: "buildingCount", key: "buildingCount" },
-  { title: "종업원 수", dataIndex: "employeeCount", key: "employeeCount" },
-  { title: "상품 종류", dataIndex: "productType", key: "productType" },
-  { title: "보증 심사료", dataIndex: "fee1", key: "fee1" },
-  { title: "갱신료", dataIndex: "novationFee", key: "novationFee" },
+  { title: "備考", dataIndex: "notes", key: "notes" },
+  { title: "登録日", dataIndex: "joinDate", key: "joinDate" },
+  { title: "保有物件数", dataIndex: "buildingCount", key: "buildingCount" },
+  { title: "従業員数", dataIndex: "employeeCount", key: "employeeCount" },
+  { title: "商品種類", dataIndex: "productType", key: "productType" },
+  { title: "保証審査料", dataIndex: "fee1", key: "fee1" },
+  { title: "更新料", dataIndex: "novationFee", key: "novationFee" },
   {
-    title: "대리점 수수료",
+    title: "代理店手数料",
     dataIndex: "propertyManagermentCompanyFee",
     key: "propertyManagermentCompanyFee"
   }
@@ -119,15 +119,15 @@ export default {
         .delete()
         .then(function() {
           thisObj.$store.dispatch(T.DELETE_COMPANY, id);
-          thisObj.alertMsg({ type: "success", msg: "삭제 완료" });
+          thisObj.alertMsg({ type: "success", msg: "削除 完了" });
         })
         .catch(function(error) {
           console.log(error);
-          thisObj.alertMsg({ type: "error", msg: "삭제 실패" });
+          thisObj.alertMsg({ type: "error", msg: "削除 失敗" });
         });
     },
     cancel() {
-      this.alertMsg({ type: "error", msg: "취소" });
+      this.alertMsg({ type: "error", msg: "キャンセル" });
     },
     handleTableChange(pagination, filters, sorter) {
       console.log(pagination);

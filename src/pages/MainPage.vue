@@ -17,7 +17,7 @@ import DelinquentTable from "../components/DelinquentTable.vue";
 const data = [
   {
     title:
-      "- [NEW] 2020.01.01 라시누텐노지초미나미 801호 / LEE JIHYUNG / 갱신료 / 15,000円-23일 경과"
+      "- [NEW] 2020.01.01 라시누텐노지초미나미 801호 / LEE JIHYUNG / 更新料 / 15,000円-23일 경과"
   },
   {
     title:
@@ -29,7 +29,7 @@ const data = [
   },
   {
     title:
-      "- [승인 보류 심사] 2020.01.11 멜로디하임유히가오카 703호 / LEE HARU / 관리회사 에누케이"
+      "- [승인 보류 심사] 2020.01.11 멜로디하임유히가오카 703호 / LEE HARU / 管理会社 에누케이"
   }
 ];
 export default {
@@ -41,7 +41,7 @@ export default {
       delinquentSearchType: "멘션명",
       delinquentSearchKeyword: "",
       searchLoading: false,
-      delinquentFilterType: "보고형",
+      delinquentFilterType: "滞納報告型",
       data
     };
   },
@@ -90,11 +90,11 @@ export default {
       // ArrayをWorkbookに変換する
       let excelDatas = [];
       excelDatas.push([
-        "구분", // index
+        "区分", // index
         "월세 미납분", // nonPayMonthly
         // "승인일", // key2
-        "대리점", // company.companyName
-        // "대리점 계약번호", // key3
+        "代理店", // company.companyName
+        // "代理店 契約番号", // key3
         // "승인번호", // key4
         // "계약자(영문)", // key5
         "계약자", // user.contractorName
@@ -106,11 +106,11 @@ export default {
         "수수료", // delinquentFee
         "체납발생", // arrears
         "담당자", // user.comfirmPerson
-        "은행명", // company.bankName
-        "지점명", // company.branchOfficeName
-        "계좌번호", // company.bankAccountNumber
-        "비고", // company.notes
-        "긴급연락처" // user.emergencyTel
+        "銀行名", // company.bankName
+        "支店名", // company.branchOfficeName
+        "口座番号", // company.bankAccountNumber
+        "備考", // company.notes
+        "緊急連絡先" // user.emergencyTel
       ]);
       for (let i = 0; i < this.delinquentList.length; i++) {
         const element = this.delinquentList[i];
@@ -153,7 +153,7 @@ export default {
       this.$store.dispatch(T.CHANGE_TAB_INDEX, 30);
     },
     alertMsg() {
-      this.$message.info("수정기능 개발중");
+      this.$message.info("開発中。。");
     },
     changeDelinquentFilterType() {
       this.$store.dispatch(

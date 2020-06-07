@@ -8,16 +8,16 @@
         <a-select-option value="월세 미납분">월세 미납분</a-select-option>
       </a-select>
       <a-input-search
-        placeholder="키워드 입력"
+        placeholder="キーワード入寮"
         size="large"
         v-model="delinquentSearchKeyword"
         @search="onSearch"
         @change="onSearch"
       >
-        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">검색</a-button>
+        <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">検索</a-button>
       </a-input-search>
-      <a-button type="primary">상세검색</a-button>
-      <a-button type="primary" @click="moveAddDelinquentPage">연체자 등록</a-button>
+      <a-button type="primary">詳細検索</a-button>
+      <a-button type="primary" @click="moveAddDelinquentPage">연체자 登録</a-button>
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
@@ -26,10 +26,10 @@
           @change="changeDelinquentFilterType"
           style="width:130px;"
         >
-          <a-select-option value="보고형">보고형</a-select-option>
-          <a-select-option value="수금대행형">수금대행형</a-select-option>
+          <a-select-option value="滞納報告型">滞納報告型</a-select-option>
+          <a-select-option value="集金代行型">集金代行型</a-select-option>
         </a-select>
-        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel 다운로드</a-button>
+        <a-button type="primary" style="margin-left:auto;" @click="exportExcel">Excel ダウンロード</a-button>
       </div>
       <DelinquentTable/>
     </div>
@@ -42,7 +42,7 @@ import DelinquentTable from "../components/DelinquentTable.vue";
 const data = [
   {
     title:
-      "- [NEW] 2020.01.01 라시누텐노지초미나미 801호 / LEE JIHYUNG / 갱신료 / 15,000円-23일 경과"
+      "- [NEW] 2020.01.01 라시누텐노지초미나미 801호 / LEE JIHYUNG / 更新料 / 15,000円-23일 경과"
   },
   {
     title:
@@ -54,7 +54,7 @@ const data = [
   },
   {
     title:
-      "- [승인 보류 심사] 2020.01.11 멜로디하임유히가오카 703호 / LEE HARU / 관리회사 에누케이"
+      "- [승인 보류 심사] 2020.01.11 멜로디하임유히가오카 703호 / LEE HARU / 管理会社 에누케이"
   }
 ];
 export default {
@@ -66,7 +66,7 @@ export default {
       delinquentSearchType: "멘션명",
       delinquentSearchKeyword: "",
       searchLoading: false,
-      delinquentFilterType: "보고형",
+      delinquentFilterType: "滞納報告型",
       data
     };
   },
@@ -115,11 +115,11 @@ export default {
       // ArrayをWorkbookに変換する
       let excelDatas = [];
       excelDatas.push([
-        "구분", // index
+        "区分", // index
         "월세 미납분", // nonPayMonthly
         // "승인일", // key2
-        "대리점", // company.companyName
-        // "대리점 계약번호", // key3
+        "代理店", // company.companyName
+        // "代理店 契約番号", // key3
         // "승인번호", // key4
         // "계약자(영문)", // key5
         "계약자", // user.contractorName
@@ -131,11 +131,11 @@ export default {
         "수수료", // delinquentFee
         "체납발생", // arrears
         "담당자", // user.comfirmPerson
-        "은행명", // company.bankName
-        "지점명", // company.branchOfficeName
-        "계좌번호", // company.bankAccountNumber
-        "비고", // company.notes
-        "긴급연락처" // user.emergencyTel
+        "銀行名", // company.bankName
+        "支店名", // company.branchOfficeName
+        "口座番号", // company.bankAccountNumber
+        "備考", // company.notes
+        "緊急連絡先" // user.emergencyTel
       ]);
       for (let i = 0; i < this.delinquentList.length; i++) {
         const element = this.delinquentList[i];
@@ -178,7 +178,7 @@ export default {
       this.$store.dispatch(T.CHANGE_TAB_INDEX, 30);
     },
     alertMsg() {
-      this.$message.info("수정기능 개발중");
+      this.$message.info("開発中。。");
     },
     changeDelinquentFilterType() {
       this.$store.dispatch(

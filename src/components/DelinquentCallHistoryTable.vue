@@ -2,7 +2,7 @@
   <div style="min-width:1080px; margin: 15px 0 15px 10px;">
     <div class="row" style="margin-bottom: 15px;">
       <a-input style="flex:10;" v-model="content"/>
-      <a-button style="flex:1;" type="default" @click="addCallHistory">통화기록작성</a-button>
+      <a-button style="flex:1;" type="default" @click="addCallHistory">メモ作成</a-button>
     </div>
     <a-table
       :columns="columns"
@@ -16,18 +16,18 @@
 <script>
 const columns = [
   {
-    title: "구분",
+    title: "区分",
     width: 60,
     key: "index",
     dataIndex: "index"
   },
   {
-    title: "기록 날짜",
+    title: "記録日",
     width: 180,
     dataIndex: "createdDate",
     key: "createdDate"
   },
-  { title: "상세내용", width: "auto", dataIndex: "content", key: "content" }
+  { title: "メモ内容", width: "auto", dataIndex: "content", key: "content" }
 ];
 
 import { mapGetters } from "vuex";
@@ -109,11 +109,11 @@ export default {
               )
             }
           ];
-          thisObj.alertMsg({ type: "success", msg: "등록 완료" });
+          thisObj.alertMsg({ type: "success", msg: "登録 完了" });
         })
         .catch(function(error) {
           console.log(error);
-          thisObj.alertMsg({ type: "error", msg: "등록 실패" });
+          thisObj.alertMsg({ type: "error", msg: "登録 失敗" });
         });
     }
   }
