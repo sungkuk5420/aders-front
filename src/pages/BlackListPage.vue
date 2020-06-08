@@ -122,7 +122,7 @@ export default {
         "管理費", //managementCost
         "その他の費用", //otherCosts
         "合計金額", //totalPayment
-        "同居者 여부", //roomMate
+        "同居者", //roomMate
         "同居者 人数", //roomMateHeadCount
         "同居者 名前", //roomMateName
         "同居者 生年月日", //roomMateBirthday
@@ -223,7 +223,7 @@ export default {
       var wb_out = XLSX.write(wb, write_opts);
 
       var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
-      saveAs(blob, "블랙리스트 一覧.xlsx");
+      saveAs(blob, "ブラックリスト 一覧.xlsx");
     },
     onSearch() {
       console.log("search click");

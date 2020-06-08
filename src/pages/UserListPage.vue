@@ -124,7 +124,7 @@ export default {
         "管理費", //managementCost
         "その他の費用", //otherCosts
         "合計金額", //totalPayment
-        "同居者 여부", //roomMate
+        "同居者", //roomMate
         "同居者 人数", //roomMateHeadCount
         "同居者 名前", //roomMateName
         "同居者 生年月日", //roomMateBirthday

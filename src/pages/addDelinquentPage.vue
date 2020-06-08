@@ -975,7 +975,7 @@
           </div>
           <div class="form-cell">
             <a-form-item
-              label="블랙리스트"
+              label="ブラックリスト"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -999,7 +999,7 @@
                     v-if="searchedUser.collectionList === true"
                     @click="deleteCollectionList"
                     :loading="loading"
-                  >해제</a-button>
+                  >解除</a-button>
                   <a-button type="default" v-else @click="setCollectionList" :loading="loading">지정</a-button>
                 </a-form-item>
               </div>
@@ -2040,12 +2040,15 @@ export default {
         .then(function(docRef) {
           thisObj.$store.dispatch(T.GET_BLACK_LIST, {});
           thisObj.searchedUser.blackList = true;
-          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 추가 完了" });
+          thisObj.alertMsg({
+            type: "success",
+            msg: "ブラックリスト 추가 完了"
+          });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 추가 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "ブラックリスト 추가 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2063,12 +2066,15 @@ export default {
         .then(function(docRef) {
           thisObj.$store.dispatch(T.GET_BLACK_LIST, {});
           thisObj.searchedUser.blackList = false;
-          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 削除 完了" });
+          thisObj.alertMsg({
+            type: "success",
+            msg: "ブラックリスト 削除 完了"
+          });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 削除 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "ブラックリスト 削除 失敗" });
           console.error("Error adding document: ", error);
         });
     },

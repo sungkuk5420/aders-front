@@ -14,7 +14,7 @@
         detail(record.id)
       }">詳細</a-button>
       <a-popconfirm
-        title="정말로 블랙리스트를 삭제하시겠습니까?"
+        title="本当にこのブラックリストを削除しますか。"
         @confirm="function(){
           confirm(record.id)
         }"
@@ -22,8 +22,8 @@
         okText="削除"
         cancelText="キャンセル"
       >
-        <a-button type="default">블랙리스트 해제</a-button>
-        <!-- <a-button type="default">블랙리스트 해제</a-button> -->
+        <a-button type="default">ブラックリスト 解除</a-button>
+        <!-- <a-button type="default">ブラックリスト 解除</a-button> -->
       </a-popconfirm>
     </div>
   </a-table>
@@ -143,11 +143,14 @@ export default {
         })
         .then(function() {
           thisObj.$store.dispatch(T.DELETE_BLACK_LIST, id);
-          thisObj.alertMsg({ type: "success", msg: "블랙 리스트 해제 完了" });
+          thisObj.alertMsg({
+            type: "success",
+            msg: "ブラックリスト 解除 完了"
+          });
         })
         .catch(function(error) {
           console.log(error);
-          thisObj.alertMsg({ type: "error", msg: "블랙 리스트 해제 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "ブラックリスト 解除 失敗" });
         });
     },
     cancel() {
