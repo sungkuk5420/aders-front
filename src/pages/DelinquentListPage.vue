@@ -3,9 +3,9 @@
     <div class="search-wrapper">
       <a-select v-model="delinquentSearchType" @change="onSearch">
         <a-select-option value="メンション名">メンション名</a-select-option>
-        <a-select-option value="계약자명">계약자명</a-select-option>
-        <a-select-option value="담당자명">담당자명</a-select-option>
-        <a-select-option value="家賃 미납분">家賃 미납분</a-select-option>
+        <a-select-option value="契約者名">契約者名</a-select-option>
+        <a-select-option value="担当者名">担当者名</a-select-option>
+        <a-select-option value="家賃 未納分">家賃 未納分</a-select-option>
       </a-select>
       <a-input-search
         placeholder="キーワード入寮"
@@ -17,7 +17,7 @@
         <a-button slot="enterButton" type="primary" icon="search" :loading="searchLoading">検索</a-button>
       </a-input-search>
       <a-button type="primary">詳細検索</a-button>
-      <a-button type="primary" @click="moveAddDelinquentPage">연체자 登録</a-button>
+      <a-button type="primary" @click="moveAddDelinquentPage">連帯者 登録</a-button>
     </div>
     <div class="content">
       <div class="row" style="margin-bottom:10px;">
@@ -50,7 +50,7 @@ const data = [
   },
   {
     title:
-      "- [장기 연체자] 2020.01.11 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 家賃 / 15,000円-23일 경과"
+      "- [장기 連帯者] 2020.01.11 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 家賃 / 15,000円-23일 경과"
   },
   {
     title:
@@ -116,20 +116,20 @@ export default {
       let excelDatas = [];
       excelDatas.push([
         "区分", // index
-        "家賃 미납분", // nonPayMonthly
+        "家賃 未納分", // nonPayMonthly
         // "承認日", // key2
         "代理店", // company.companyName
         // "代理店 契約番号", // key3
         // "承認番号", // key4
-        // "계약자(英語)", // key5
-        "계약자", // user.contractorName
+        // "契約者(英語)", // key5
+        "契約者", // user.contractorName
         "メンション名", // user.propertyName
         "部屋番号", // user.roomNumber
         "連絡先", // user.contractorTel
-        "청구금액", // charges
+        "請求金額", // charges
         "家賃", // user.rent
-        "수수료", // delinquentFee
-        "체납발생", // arrears
+        "手数料", // delinquentFee
+        "滞納発生", // arrears
         "担当者", // user.comfirmPerson
         "銀行名", // company.bankName
         "支店名", // company.branchOfficeName
@@ -163,7 +163,7 @@ export default {
       var wb_out = XLSX.write(wb, write_opts);
 
       var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
-      saveAs(blob, "연체자 一覧.xlsx");
+      saveAs(blob, "連帯者 一覧.xlsx");
     },
     onSearch() {
       console.log("search click");
@@ -186,7 +186,7 @@ export default {
         this.delinquentFilterType
       );
 
-      this.$message.success(`${this.delinquentFilterType}만 보기`);
+      this.$message.success(`${this.delinquentFilterType}のみ表示`);
     }
   }
 };

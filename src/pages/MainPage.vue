@@ -1,7 +1,7 @@
 <template>
   <div class="delinquent-list-page">
     <div class="notification row">
-      <div class="notification__label">연체 미납자 명단 알람</div>
+      <div class="notification__label">連帯未納者一覧</div>
       <a-list item-layout="horizontal" :data-source="data">
         <a-list-item slot="renderItem" slot-scope="item, index">{{ item.title }}</a-list-item>
       </a-list>
@@ -25,7 +25,7 @@ const data = [
   },
   {
     title:
-      "- [장기 연체자] 2020.01.11 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 家賃 / 15,000円-23일 경과"
+      "- [장기 連帯者] 2020.01.11 멜로디하임유히가오카 203호 / KIM JIHYUN / 3월 家賃 / 15,000円-23일 경과"
   },
   {
     title:
@@ -91,20 +91,20 @@ export default {
       let excelDatas = [];
       excelDatas.push([
         "区分", // index
-        "家賃 미납분", // nonPayMonthly
+        "家賃 未納分", // nonPayMonthly
         // "承認日", // key2
         "代理店", // company.companyName
         // "代理店 契約番号", // key3
         // "承認番号", // key4
-        // "계약자(英語)", // key5
-        "계약자", // user.contractorName
+        // "契約者(英語)", // key5
+        "契約者", // user.contractorName
         "メンション名", // user.propertyName
         "部屋番号", // user.roomNumber
         "連絡先", // user.contractorTel
-        "청구금액", // charges
+        "請求金額", // charges
         "家賃", // user.rent
-        "수수료", // delinquentFee
-        "체납발생", // arrears
+        "手数料", // delinquentFee
+        "滞納発生", // arrears
         "担当者", // user.comfirmPerson
         "銀行名", // company.bankName
         "支店名", // company.branchOfficeName
@@ -138,7 +138,7 @@ export default {
       var wb_out = XLSX.write(wb, write_opts);
 
       var blob = new Blob([s2ab(wb_out)], { type: "application/octet-stream" });
-      saveAs(blob, "연체자 一覧.xlsx");
+      saveAs(blob, "連帯者 一覧.xlsx");
     },
     onSearch() {
       console.log("search click");
@@ -161,7 +161,7 @@ export default {
         this.delinquentFilterType
       );
 
-      this.$message.success(`${this.delinquentFilterType}만 보기`);
+      this.$message.success(`${this.delinquentFilterType}のみ表示`);
     }
   }
 };

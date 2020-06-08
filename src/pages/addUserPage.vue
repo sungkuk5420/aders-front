@@ -377,7 +377,7 @@
                   <a-input v-model="roomNumber"/>
                 </a-form-item>
                 <a-form-item
-                  label="타입"
+                  label="部屋タイプ"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -386,7 +386,6 @@
                     style="width: 200px"
                     @change="handleChangeRoomType"
                     v-model="roomType"
-                    placeholder="Type"
                   />
                 </a-form-item>
               </div>
@@ -899,23 +898,23 @@ export default {
       contractorName: "", // 계약자이름
       contractorNameEnglish: "", // 계약자이름 英語
       contractorCountry: "", // 계약자국적
-      contractorJobType: "学生", // 계약자 分類
-      contractorAdress: "", // 계약자 住所
-      contractorTel: "", // 계약자 電話番号
+      contractorJobType: "学生", // 契約者 分類
+      contractorAdress: "", // 契約者 住所
+      contractorTel: "", // 契約者 電話番号
       moveIntoDate: "", // 入居予定日
-      contractorSex: "男性", // 계약자 性別
-      contractorBirthday: "", // 계약자 生年月日
-      contractorEmail: "", // 계약자 メール
-      contractorSms: "", // 계약자 sms
-      contractorResidenceQualification: "", // 계약자 在留資格
-      contractorSchoolName: "", // 계약자 学校名
-      contractorSchoolTel: "", // 계약자 学校 TEL
-      contractorSchoolAddress: "", // 계약자 学校住所
-      contractorCompanyName: "", // 계약자 会社名
-      contractorCompanyTel: "", // 계약자 会社 電話番号
-      contractorCompanyAddress: "", // 계약자 会社住所
-      contractorLengthOfService: "", // 계약자 勤続年数
-      contractorSalary: "", // 계약자 給料
+      contractorSex: "男性", // 契約者 性別
+      contractorBirthday: "", // 契約者 生年月日
+      contractorEmail: "", // 契約者 メール
+      contractorSms: "", // 契約者 sms
+      contractorResidenceQualification: "", // 契約者 在留資格
+      contractorSchoolName: "", // 契約者 学校名
+      contractorSchoolTel: "", // 契約者 学校 TEL
+      contractorSchoolAddress: "", // 契約者 学校住所
+      contractorCompanyName: "", // 契約者 会社名
+      contractorCompanyTel: "", // 契約者 会社 電話番号
+      contractorCompanyAddress: "", // 契約者 会社住所
+      contractorLengthOfService: "", // 契約者 勤続年数
+      contractorSalary: "", // 契約者 給料
       contractorOtherName: "", // その他 名前
       contractorOtherTel: "", // その他 電話番号
       contractorOtherAddress: "", // その他 住所
@@ -968,23 +967,23 @@ export default {
       // contractorName: "계약자이름", // 계약자이름
       // contractorNameEnglish: "계약자이름 英語", // 계약자이름
       // contractorCountry: "계약자국적", // 계약자국적
-      // contractorJobType: "学生", // 계약자 分類
-      // contractorAdress: "계약자 住所", // 계약자 住所
-      // contractorTel: "계약자 電話番号", // 계약자 電話番号
+      // contractorJobType: "学生", // 契約者 分類
+      // contractorAdress: "契約者 住所", // 契約者 住所
+      // contractorTel: "契約者 電話番号", // 契約者 電話番号
       // moveIntoDate: "入居予定日", // 入居予定日
-      // contractorSex: "男性", // 계약자 性別
-      // contractorBirthday: "계약자 生年月日", // 계약자 生年月日
-      // contractorEmail: "계약자 メール", // 계약자 メール
-      // contractorSms: "계약자 sms", // 계약자 sms
-      // contractorResidenceQualification: "계약자 在留資格", // 계약자 在留資格
-      // contractorSchoolName: "계약자 学校名", // 계약자 学校名
-      // contractorSchoolTel: "계약자 学校 TEL", // 계약자 学校 TEL
-      // contractorSchoolAddress: "계약자 学校住所", // 계약자 学校住所
-      // contractorCompanyName: "계약자 会社名", // 계약자 会社名
-      // contractorCompanyTel: "계약자 会社 電話番号", // 계약자 会社 電話番号
-      // contractorCompanyAddress: "계약자 会社住所", // 계약자 会社住所
-      // contractorLengthOfService: "계약자 勤続年数", // 계약자 勤続年数
-      // contractorSalary : "계약자 給料", // 계약자 給料
+      // contractorSex: "男性", // 契約者 性別
+      // contractorBirthday: "契約者 生年月日", // 契約者 生年月日
+      // contractorEmail: "契約者 メール", // 契約者 メール
+      // contractorSms: "契約者 sms", // 契約者 sms
+      // contractorResidenceQualification: "契約者 在留資格", // 契約者 在留資格
+      // contractorSchoolName: "契約者 学校名", // 契約者 学校名
+      // contractorSchoolTel: "契約者 学校 TEL", // 契約者 学校 TEL
+      // contractorSchoolAddress: "契約者 学校住所", // 契約者 学校住所
+      // contractorCompanyName: "契約者 会社名", // 契約者 会社名
+      // contractorCompanyTel: "契約者 会社 電話番号", // 契約者 会社 電話番号
+      // contractorCompanyAddress: "契約者 会社住所", // 契約者 会社住所
+      // contractorLengthOfService: "契約者 勤続年数", // 契約者 勤続年数
+      // contractorSalary : "契約者 給料", // 契約者 給料
       // contractorOtherName: "その他 名前", // その他 名前
       // contractorOtherTel: "その他 電話番号", // その他 電話番号
       // contractorOtherAddress: "その他 住所", // その他 住所
@@ -1040,13 +1039,13 @@ export default {
       }, // 会社 検索 오브젝트
       guaranteeFeePercentage: 0, // 審査手数料 퍼센트
       propertyManagermentCompanyFeePercentage: "", // 代理店手数料 퍼센트
-      propertyManagermentCompanySearchType: "会社名", // 会社 検索 타입
+      propertyManagermentCompanySearchType: "会社名", // 会社 検索 部屋タイプ
       propertyManagermentCompanySearchKeyword: "", // 会社 検索 키워드
       formLayout: "horizontal",
       emailDataSource: [],
       roomTypeDataSource: [],
       companyTypeDataSource: [],
-      countryDataSource: ["대한민국", "일본"]
+      countryDataSource: ["韓国", "日本"]
     };
   },
   computed: {
@@ -1464,17 +1463,17 @@ export default {
           : [`${value}@gmail.com`, `${value}@yahoo.com`, `${value}@other.com`];
     },
     handleChangeRoomMateCountry(value) {
-      this.countryDataSource = ["대한민국", "일본"].filter(
+      this.countryDataSource = ["韓国", "日本"].filter(
         item => item.indexOf(value) != -1
       );
     },
     handleChangeGuarantorCountry(value) {
-      this.countryDataSource = ["대한민국", "일본"].filter(
+      this.countryDataSource = ["韓国", "日本"].filter(
         item => item.indexOf(value) != -1
       );
     },
     handleChangeEmergencyCountry(value) {
-      this.countryDataSource = ["대한민국", "일본"].filter(
+      this.countryDataSource = ["韓国", "日本"].filter(
         item => item.indexOf(value) != -1
       );
     },
@@ -1541,13 +1540,13 @@ export default {
           this.searchedCompany = filteredCompany[0];
           this.companyId = filteredCompany[0].id;
         } else {
-          this.searchedCompanyName = "検索された회사가 없습니다.";
+          this.searchedCompanyName = "検索された会社がありません。.";
         }
       } else if (this.companyTypeDataSource.length == 0) {
-        this.searchedCompanyName = "検索された회사가 없습니다.";
+        this.searchedCompanyName = "検索された会社がありません。.";
       } else {
         if (value != "") {
-          this.searchedCompanyName = "検索された회사가 2개 이상입니다.";
+          this.searchedCompanyName = "検索された会社が2件以上です。";
         } else {
           this.guaranteeFeePercentage = 0;
           this.propertyManagermentCompanyFeePercentage = 0;

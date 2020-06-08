@@ -10,13 +10,13 @@
         :defaultSelectedKeys="['0']"
         :style="{ lineHeight: '64px' }"
       >
-        <a-menu-item key="0" @click="changeTabIndex(0)">메인 화면</a-menu-item>
+        <a-menu-item key="0" @click="changeTabIndex(0)">ホーム</a-menu-item>
         <a-menu-item key="1" @click="changeTabIndex(1)">入居者 一覧</a-menu-item>
         <a-menu-item key="2" @click="changeTabIndex(2)">代理店一覧</a-menu-item>
-        <a-menu-item key="3" @click="changeTabIndex(3)">연체자 一覧</a-menu-item>
+        <a-menu-item key="3" @click="changeTabIndex(3)">連帯者 一覧</a-menu-item>
         <a-menu-item key="4" @click="changeTabIndex(4)">ブラックリスト 一覧</a-menu-item>
-        <a-menu-item key="5" @click="changeTabIndex(5)">지불용지 출력</a-menu-item>
-        <a-menu-item key="6" @click="changeTabIndex(6)">수익분석</a-menu-item>
+        <a-menu-item key="5" @click="changeTabIndex(5)">支払用紙出力</a-menu-item>
+        <a-menu-item key="6" @click="changeTabIndex(6)">収益分析</a-menu-item>
       </a-menu>
     </a-layout-header>
     <a-layout-content :style="{ padding: '30px 30px 0 30px', marginTop: '64px' }">
@@ -28,16 +28,16 @@
       <DelinquentListPage v-if="!isUnLogin" v-show="tabIndex ==3"/>
       <addDelinquentPage v-if="!isUnLogin" v-show="tabIndex ==30"/>
       <BlackListPage v-if="!isUnLogin" v-show="tabIndex ==4"/>
-      <a-modal title="관리자 비밀번호" v-model="isUnLogin">
+      <a-modal title="管理者パスワード" v-model="isUnLogin">
         <template slot="footer">
           <a-button key="back" @click="handleCancel">キャンセル</a-button>
-          <a-button key="submit" type="primary" :loading="loading" @click="checkAdminPassword">확인</a-button>
+          <a-button key="submit" type="primary" :loading="loading" @click="checkAdminPassword">確認</a-button>
         </template>
         <div class="row-div popup">
           <div class="content-div">
             <div class="components-input-demo-presuffix">
-              <span class="label">비밀 번호</span>
-              <a-input type="password" placeholder="비밀 번호" v-model="password" ref="userNameInput">
+              <span class="label">パスワード</span>
+              <a-input type="password" placeholder="パスワード" v-model="password" ref="userNameInput">
                 <a-icon slot="prefix" type="lock"/>
               </a-input>
             </div>
@@ -91,7 +91,7 @@ export default {
       if (text !== "") {
         this.$message.success(text);
         this.$store.dispatch(T.CHANGE_SUCCESS_MESSAGE, "");
-        if (text == "로그인 성공") {
+        if (text == "ログイン成功") {
           this.getCompanyList();
         }
       }

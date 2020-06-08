@@ -159,19 +159,19 @@ export const getters = {
                 state.delinquentSearchKeyword
               ) != -1;
             break;
-          case "계약자명":
+          case "契約者名":
             filtedCompanys =
               delinquent.user.contractorName.indexOf(
                 state.delinquentSearchKeyword
               ) != -1;
             break;
-          case "담당자명":
+          case "担当者名":
             filtedCompanys =
               delinquent.user.comfirmPerson.indexOf(
                 state.delinquentSearchKeyword
               ) != -1;
             break;
-          case "家賃 미납분":
+          case "家賃 未納分":
             filtedCompanys =
               delinquent.nonPayMonthly.indexOf(state.delinquentSearchKeyword) !=
               -1;

@@ -73,7 +73,7 @@ export const mutations = {
     console.log(state.adminPassword);
     if (state.adminPassword == password) {
       state.isUnLogin = false;
-      this.commit(T.CHANGE_SUCCESS_MESSAGE, "로그인 성공");
+      this.commit(T.CHANGE_SUCCESS_MESSAGE, "ログイン成功");
     } else {
       state.isUnLogin = true;
       this.commit(T.CHANGE_ERROR_MESSAGE, "비밀번호를 확인해주세요.");

@@ -19,7 +19,7 @@
           <DelinquentCallHistoryTable :delinquentId="record.id"/>
         </div>
         <a-popconfirm
-          title="정말로 이 연체 기록을 삭제하시겠습니까?"
+          title="本当にこの連帯記録をを削除しますか。"
           @confirm="function(){
           confirm(record.id)
         }"
@@ -36,8 +36,8 @@
 <script>
 const columns = [
   { title: "区分", dataIndex: "index", key: "index" },
-  { title: "家賃 미납분", dataIndex: "nonPayMonthly", key: "nonPayMonthly" },
-  { title: "지불 완료날짜", dataIndex: "paymentDate", key: "paymentDate" },
+  { title: "家賃 未納分", dataIndex: "nonPayMonthly", key: "nonPayMonthly" },
+  { title: "支払日", dataIndex: "paymentDate", key: "paymentDate" },
   { title: "承認日", dataIndex: "createdDate", key: "createdDate" },
   {
     title: "代理店",
@@ -55,26 +55,30 @@ const columns = [
     key: "user.approvalNumber"
   },
   {
-    title: "계약자(英語)",
+    title: "契約者(英語)",
     dataIndex: "user.contractorNameEnglish",
     key: "user.contractorNameEnglish"
   },
   {
-    title: "계약자",
+    title: "契約者",
     dataIndex: "user.contractorName",
     key: "user.contractorName"
   },
-  { title: "メンション名", dataIndex: "user.propertyName", key: "user.propertyName" },
+  {
+    title: "メンション名",
+    dataIndex: "user.propertyName",
+    key: "user.propertyName"
+  },
   { title: "部屋番号", dataIndex: "user.roomNumber", key: "user.roomNumber" },
   {
     title: "連絡先",
     dataIndex: "user.contractorTel",
     key: "user.contractorTel"
   },
-  { title: "청구금액", dataIndex: "charges", key: "charges" },
+  { title: "請求金額", dataIndex: "charges", key: "charges" },
   { title: "家賃", dataIndex: "user.rent", key: "user.rent" },
-  { title: "수수료", dataIndex: "delinquentFee", key: "delinquentFee" },
-  { title: "체납발생", dataIndex: "arrears", key: "arrears" },
+  { title: "手数料", dataIndex: "delinquentFee", key: "delinquentFee" },
+  { title: "滞納発生", dataIndex: "arrears", key: "arrears" },
   {
     title: "担当者",
     dataIndex: "user.comfirmPerson",

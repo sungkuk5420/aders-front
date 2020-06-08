@@ -42,7 +42,7 @@
         </div>
         <div class="form-row read-only-form-data">
           <div class="overlay"></div>
-          <h2>연체자 登録</h2>
+          <h2>連帯者 登録</h2>
         </div>
         <div class="form-row read-only-form-data">
           <div class="overlay"></div>
@@ -169,10 +169,7 @@
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-select v-model="contractorResidenceQualification">
-                    <a-select-option value="배우자 비자">배우자 비자</a-select-option>
-                    <a-select-option value="기술인문비자">기술인문비자</a-select-option>
-                  </a-select>
+                  <a-input v-model="contractorResidenceQualification"/>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -433,7 +430,7 @@
                   <a-input v-model="roomNumber"/>
                 </a-form-item>
                 <a-form-item
-                  label="타입"
+                  label="部屋タイプ"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -442,7 +439,6 @@
                     style="width: 200px"
                     @change="handleChangeRoomType"
                     v-model="roomType"
-                    placeholder="Type"
                   />
                 </a-form-item>
               </div>
@@ -893,10 +889,10 @@
           <div class="form-cell">
             <div class="form-row read-only-form-data">
               <div class="overlay"></div>
-              <h2>연체내용</h2>
+              <h2>連帯内容</h2>
             </div>
             <a-form-item
-              label="家賃 미납분"
+              label="家賃 未納分"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -909,7 +905,7 @@
                   />
                 </a-form-item>
                 <a-form-item
-                  label="수수료"
+                  label="手数料"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -922,7 +918,7 @@
               </div>
             </a-form-item>
             <a-form-item
-              label="청구금액"
+              label="請求金額"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -935,7 +931,7 @@
                   />
                 </a-form-item>
                 <a-form-item
-                  label="체납발생"
+                  label="滞納発生"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -945,7 +941,7 @@
             </a-form-item>
             <a-form-item
               v-if="delinquentDataForUpdate"
-              label="지불완료날짜"
+              label="支払日"
               :label-col="formItemLayout.labelCol"
               :wrapper-col="formItemLayout.wrapperCol"
             >
@@ -958,11 +954,11 @@
                   />
                 </a-form-item>
                 <a-form-item
-                  label="저장"
+                  label="保存"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
-                  <a-button type="default" @click="updatePaymentDate" :loading="loading">지불완료</a-button>
+                  <a-button type="default" @click="updatePaymentDate" :loading="loading">支払完了</a-button>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -987,10 +983,10 @@
                     @click="deleteBlackList"
                     :loading="loading"
                   >削除</a-button>
-                  <a-button type="default" v-else @click="setBlackList" :loading="loading">추가</a-button>
+                  <a-button type="default" v-else @click="setBlackList" :loading="loading">追加</a-button>
                 </a-form-item>
                 <a-form-item
-                  label="회심추심"
+                  label="推尋対象"
                   :label-col="formItemLayout.labelCol2"
                   :wrapper-col="formItemLayout.wrapperCol"
                 >
@@ -1000,7 +996,7 @@
                     @click="deleteCollectionList"
                     :loading="loading"
                   >解除</a-button>
-                  <a-button type="default" v-else @click="setCollectionList" :loading="loading">지정</a-button>
+                  <a-button type="default" v-else @click="setCollectionList" :loading="loading">指定</a-button>
                 </a-form-item>
               </div>
             </a-form-item>
@@ -1084,23 +1080,23 @@ export default {
       contractorName: "", // 계약자이름
       contractorNameEnglish: "", // 계약자이름
       contractorCountry: "", // 계약자국적
-      contractorJobType: "学生", // 계약자 分類
-      contractorAdress: "", // 계약자 住所
-      contractorTel: "", // 계약자 電話番号
+      contractorJobType: "学生", // 契約者 分類
+      contractorAdress: "", // 契約者 住所
+      contractorTel: "", // 契約者 電話番号
       moveIntoDate: "", // 入居予定日
-      contractorSex: "男性", // 계약자 性別
-      contractorBirthday: "", // 계약자 生年月日
-      contractorEmail: "", // 계약자 メール
-      contractorSms: "", // 계약자 sms
-      contractorResidenceQualification: "", // 계약자 在留資格
-      contractorSchoolName: "", // 계약자 学校名
-      contractorSchoolTel: "", // 계약자 学校 TEL
-      contractorSchoolAddress: "", // 계약자 学校住所
-      contractorCompanyName: "", // 계약자 会社名
-      contractorCompanyTel: "", // 계약자 会社 電話番号
-      contractorCompanyAddress: "", // 계약자 会社住所
-      contractorLengthOfService: "", // 계약자 勤続年数
-      contractorSalary: "", // 계약자 給料
+      contractorSex: "男性", // 契約者 性別
+      contractorBirthday: "", // 契約者 生年月日
+      contractorEmail: "", // 契約者 メール
+      contractorSms: "", // 契約者 sms
+      contractorResidenceQualification: "", // 契約者 在留資格
+      contractorSchoolName: "", // 契約者 学校名
+      contractorSchoolTel: "", // 契約者 学校 TEL
+      contractorSchoolAddress: "", // 契約者 学校住所
+      contractorCompanyName: "", // 契約者 会社名
+      contractorCompanyTel: "", // 契約者 会社 電話番号
+      contractorCompanyAddress: "", // 契約者 会社住所
+      contractorLengthOfService: "", // 契約者 勤続年数
+      contractorSalary: "", // 契約者 給料
       contractorOtherName: "", // その他 名前
       contractorOtherTel: "", // その他 電話番号
       contractorOtherAddress: "", // その他 住所
@@ -1148,24 +1144,24 @@ export default {
       emergencyAdress: "", // 緊急連絡先 住所
       comfirmPerson: "", // 確認担当者
       approvalPerson: "", // 上司承認者
-      nonPayMonthly: "", //家賃 미납분
-      delinquentFee: "", //수수료
-      charges: "", //청구금액
-      arrears: "", //체납발생
-      paymentDate: "", //체납발생
+      nonPayMonthly: "", //家賃 未納分
+      delinquentFee: "", //手数料
+      charges: "", //請求金額
+      arrears: "", //滞納発生
+      paymentDate: "", //滞納発生
       searchedCompanyName: "", // 会社 検索 名前
       searchedCompany: {
         debtCollectionType: "滞納報告型"
       }, // 会社 検索 오브젝트
-      searchedUserName: "", // 연체자 検索 名前
+      searchedUserName: "", // 連帯者 検索 名前
       searchedUser: {
-        // 연체자 検索 오브젝트
+        // 連帯者 検索 오브젝트
         blackList: false,
         collectionList: false
       },
       guaranteeFeePercentage: 0, // 審査手数料 퍼센트
       propertyManagermentCompanyFeePercentage: "", // 代理店手数料 퍼센트
-      propertyManagermentCompanySearchType: "会社名", // 会社 検索 타입
+      propertyManagermentCompanySearchType: "会社名", // 会社 検索 部屋タイプ
       propertyManagermentCompanySearchKeyword: "", // 会社 検索 키워드
       userSearchKeyword: "", // 会社 検索 키워드
       userSearchType: "入居者名", // 会社 検索 키워드
@@ -1174,7 +1170,7 @@ export default {
       roomTypeDataSource: [],
       companyTypeDataSource: [],
       userTypeDataSource: [],
-      countryDataSource: ["대한민국", "일본"]
+      countryDataSource: ["韓国", "日本"]
     };
   },
   computed: {
@@ -1288,14 +1284,14 @@ export default {
             cb: () => {
               thisObj.clearDatas();
               thisObj.loading = false;
-              thisObj.alertMsg({ type: "success", msg: "지불 完了" });
+              thisObj.alertMsg({ type: "success", msg: "支払 完了" });
               thisObj.moveDelinquentPage();
             }
           });
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "지불 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "支払 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -1615,11 +1611,11 @@ export default {
       this.companyId = "";
       this.userSearchKeyword = "";
       this.userSearchType = "入居者名";
-      this.nonPayMonthly = ""; //家賃 미납분
-      this.delinquentFee = ""; //수수료
-      this.charges = ""; //청구금액
-      this.arrears = ""; //체납발생
-      this.paymentDate = ""; //체납발생
+      this.nonPayMonthly = ""; //家賃 未納分
+      this.delinquentFee = ""; //手数料
+      this.charges = ""; //請求金額
+      this.arrears = ""; //滞納発生
+      this.paymentDate = ""; //滞納発生
 
       if (this.$refs.contractorOtherFile) {
         this.$refs.contractorOtherFile.clearImageData();
@@ -1788,17 +1784,17 @@ export default {
           : [`${value}@gmail.com`, `${value}@yahoo.com`, `${value}@other.com`];
     },
     handleChangeRoomMateCountry(value) {
-      this.countryDataSource = ["대한민국", "일본"].filter(
+      this.countryDataSource = ["韓国", "日本"].filter(
         item => item.indexOf(value) != -1
       );
     },
     handleChangeGuarantorCountry(value) {
-      this.countryDataSource = ["대한민국", "일본"].filter(
+      this.countryDataSource = ["韓国", "日本"].filter(
         item => item.indexOf(value) != -1
       );
     },
     handleChangeEmergencyCountry(value) {
-      this.countryDataSource = ["대한민국", "일본"].filter(
+      this.countryDataSource = ["韓国", "日本"].filter(
         item => item.indexOf(value) != -1
       );
     },
@@ -1868,13 +1864,13 @@ export default {
           this.searchedCompany = filteredCompany[0];
           this.companyId = filteredCompany[0].id;
         } else {
-          this.searchedCompanyName = "検索された회사가 없습니다.";
+          this.searchedCompanyName = "検索された会社がありません。.";
         }
       } else if (this.companyTypeDataSource.length == 0) {
-        this.searchedCompanyName = "検索された회사가 없습니다.";
+        this.searchedCompanyName = "検索された会社がありません。.";
       } else {
         if (value != "") {
-          this.searchedCompanyName = "検索された회사가 2개 이상입니다.";
+          this.searchedCompanyName = "検索された会社が2件以上です。";
         } else {
           this.guaranteeFeePercentage = 0;
           this.propertyManagermentCompanyFeePercentage = 0;
@@ -1918,15 +1914,15 @@ export default {
           this.searchedUser = filteredUser[0];
           this.userId = filteredUser[0].id;
         } else {
-          this.searchedUserName = "検索された계약자가 없습니다.";
+          this.searchedUserName = "検索された契約者がありません。";
           this.clearUserDatas();
         }
       } else if (this.userTypeDataSource.length == 0) {
-        this.searchedUserName = "検索された계약자가 없습니다.";
+        this.searchedUserName = "検索された契約者がありません。";
         this.clearUserDatas();
       } else {
         if (value != "") {
-          this.searchedUserName = "検索された계약자가 2개 이상입니다.";
+          this.searchedUserName = "検索された契約者が2件以上です。";
         } else {
           this.guaranteeFeePercentage = 0;
           this.propertyManagermentUserFeePercentage = 0;
@@ -2004,10 +2000,10 @@ export default {
         .update({
           userId: this.delinquentDataForUpdate.userId,
           companyId: this.delinquentDataForUpdate.companyId,
-          nonPayMonthly: this.nonPayMonthly, //家賃 미납분
-          delinquentFee: this.delinquentFee, //수수료
-          charges: this.charges, //청구금액
-          arrears: this.arrears, //체납발생
+          nonPayMonthly: this.nonPayMonthly, //家賃 未納分
+          delinquentFee: this.delinquentFee, //手数料
+          charges: this.charges, //請求金額
+          arrears: this.arrears, //滞納発生
           paymentDate: this.paymentDate //납부날짜
         })
         .then(function(docRef) {
@@ -2042,13 +2038,13 @@ export default {
           thisObj.searchedUser.blackList = true;
           thisObj.alertMsg({
             type: "success",
-            msg: "ブラックリスト 추가 完了"
+            msg: "ブラックリスト 追加 完了"
           });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "ブラックリスト 추가 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "ブラックリスト 追加 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2091,12 +2087,12 @@ export default {
         })
         .then(function(docRef) {
           thisObj.searchedUser.collectionList = true;
-          thisObj.alertMsg({ type: "success", msg: "회심 추심 지정 完了" });
+          thisObj.alertMsg({ type: "success", msg: "推尋対象 指定 完了" });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "회심 추심 지정 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "推尋対象 指定 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2113,12 +2109,12 @@ export default {
         })
         .then(function(docRef) {
           thisObj.searchedUser.collectionList = false;
-          thisObj.alertMsg({ type: "success", msg: "회심 추심 削除 完了" });
+          thisObj.alertMsg({ type: "success", msg: "推尋対象 削除 完了" });
           thisObj.loading = false;
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "회심 추심 削除 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "推尋対象 削除 失敗" });
           console.error("Error adding document: ", error);
         });
     },
@@ -2132,10 +2128,10 @@ export default {
         .add({
           userId: this.userId,
           companyId: this.searchedUser.companyId,
-          nonPayMonthly: this.nonPayMonthly, //家賃 미납분
-          delinquentFee: this.delinquentFee, //수수료
-          charges: this.charges, //청구금액
-          arrears: this.arrears, //체납발생
+          nonPayMonthly: this.nonPayMonthly, //家賃 未納分
+          delinquentFee: this.delinquentFee, //手数料
+          charges: this.charges, //請求金額
+          arrears: this.arrears, //滞納発生
           paymentDate: this.paymentDate, //납부날짜
           comfirmPerson: this.comfirmPerson, //確認担当者
           approvalPerson: this.approvalPerson, //上司承認者
@@ -2147,14 +2143,14 @@ export default {
             cb: () => {
               thisObj.clearDatas();
               thisObj.loading = false;
-              thisObj.alertMsg({ type: "success", msg: "연체자 登録 完了" });
+              thisObj.alertMsg({ type: "success", msg: "連帯者 登録 完了" });
               thisObj.moveDelinquentPage(); //moveDelinquentPage함수제작
             }
           });
         })
         .catch(function(error) {
           thisObj.loading = false;
-          thisObj.alertMsg({ type: "error", msg: "연체자 登録 失敗" });
+          thisObj.alertMsg({ type: "error", msg: "連帯者 登録 失敗" });
           console.error("Error adding document: ", error);
         });
     }

@@ -269,7 +269,7 @@
               v-for="(k, index) in form.getFieldValue('keys')"
               :key="k"
               v-bind="index === 0 ? formItemLayoutWithOutLabel : formItemLayoutWithOutLabel"
-              :label="index === 0 ? '사용자 지정1' : '사용자 지정'+(index+1)"
+              :label="index === 0 ? '사용자 지정1' : '사용자 指定'+(index+1)"
               :required="false"
             >
               <a-input
